@@ -104,7 +104,10 @@
     z-index: -1;
     background:
       radial-gradient(40rem 24rem at 85% 10%, var(--glow-1), transparent 70%),
-      radial-gradient(32rem 22rem at 5% 90%, var(--glow-2), transparent 70%);
+      radial-gradient(32rem 22rem at 5% 80%, var(--glow-2), transparent 70%);
+    // dissolve lo sfondo verso il basso: nessun bordo netto tra hero e sezione successiva
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
   }
 
   @media (min-width: $bp-md) {
