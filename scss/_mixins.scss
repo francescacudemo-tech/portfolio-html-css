@@ -1,0 +1,50 @@
+// ============================================================
+// Mixin riutilizzabili
+// ============================================================
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between($gap) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gap;
+}
+
+// Griglia responsive: $cols colonne con gap
+@mixin grid($cols, $gap) {
+  display: grid;
+  grid-template-columns: repeat($cols, minmax(0, 1fr));
+  gap: $gap;
+}
+
+// Superficie "card" con bordo sottile e ombra morbida
+@mixin card($pad) {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: $radius-m;
+  padding: $pad;
+  box-shadow: 0 1px 2px var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+// Etichetta compatta (pill)
+@mixin pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+@mixin focus-ring {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}

@@ -1,0 +1,59 @@
+// ============================================================
+// Design tokens: unica fonte di verità per colori, spazi, font
+// ============================================================
+
+// Font
+$font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+$font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+// Palette: tema chiaro
+$c-bg: #fbfaf8;
+$c-bg-glass: rgba(251, 250, 248, 0.82);
+$c-surface: #ffffff;
+$c-text: #1d1b24;
+$c-muted: #625f78;
+$c-line: #e7e4ee;
+$c-accent: #5b4bf0;
+$c-accent-ink: #ffffff;
+$c-accent-soft: #eeebff;
+$c-warm: #ff8f6b;
+$c-sage: #8fc9b0;
+$c-glow-1: rgba(91, 75, 240, 0.12);
+$c-glow-2: rgba(255, 143, 107, 0.14);
+$c-shadow: rgba(29, 27, 36, 0.08);
+
+// Palette: tema scuro (prefers-color-scheme)
+$d-bg: #0e0d14;
+$d-bg-glass: rgba(14, 13, 20, 0.82);
+$d-surface: #171521;
+$d-text: #f1eff7;
+$d-muted: #a8a4c0;
+$d-line: #2a2738;
+$d-accent: #a69cff;
+$d-accent-ink: #14112b;
+$d-accent-soft: #231f47;
+$d-glow-1: rgba(166, 156, 255, 0.14);
+$d-glow-2: rgba(255, 143, 107, 0.09);
+$d-shadow: rgba(0, 0, 0, 0.4);
+
+// Breakpoint (allineati a Bootstrap)
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+
+// Scala di spaziatura (base 4px)
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 1rem;
+$space-4: 1.5rem;
+$space-5: 2.5rem;
+$space-6: 4rem;
+$space-7: 6rem;
+
+// Raggi e dimensioni
+$radius-s: 10px;
+$radius-m: 18px;
+$radius-l: 28px;
+$container-max: 1080px;
+$header-h: 64px;

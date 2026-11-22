@@ -1,0 +1,9 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "scripts": {
+    "sass": "sass scss/main.scss css/main.css",
+    "watch": "sass --watch scss/main.scss:css/main.css"
+  },
+  "devDependencies": { "sass": "^1.80.0" }
+}

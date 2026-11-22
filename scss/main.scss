@@ -1,0 +1,12 @@
+// ============================================================
+// main.scss: punto d'ingresso.
+// Compila con:  sass scss/main.scss css/main.css
+// (sviluppo)    sass --watch scss/main.scss:css/main.css
+// Il CSS di Bootstrap viene caricato prima via CDN; questo file
+// lo personalizza con i design token del sito.
+// ============================================================
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'base' as *;
+@use 'layout' as *;
+@use 'components' as *;

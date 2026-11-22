@@ -1,0 +1,413 @@
+// ============================================================
+// Layout: header sticky, hero (Flexbox), griglie (CSS Grid), footer
+// ============================================================
+
+// ---------- Header: sticky su TUTTI i viewport, mobile incluso ----------
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg-glass);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header__inner {
+  @include flex-between($space-3);
+  min-height: $header-h;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &__mark {
+    @include flex-center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 10px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  &__name {
+    display: none;
+
+    @media (min-width: $bp-sm) {
+      display: inline;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+
+  &__link {
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.15s ease, background 0.15s ease;
+
+    &:hover {
+      color: var(--text);
+      background: var(--accent-soft);
+      text-decoration: none;
+    }
+
+    &[aria-current='page'] {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+  }
+}
+
+.social {
+  display: none;
+  align-items: center;
+  gap: $space-1;
+  margin-left: $space-2;
+  padding-left: $space-3;
+  border-left: 1px solid var(--line);
+
+  @media (min-width: $bp-md) {
+    display: flex;
+  }
+}
+
+// ---------- Hero ----------
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: $space-5 0 $space-6;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(40rem 24rem at 85% 10%, var(--glow-1), transparent 70%),
+      radial-gradient(32rem 22rem at 5% 90%, var(--glow-2), transparent 70%);
+  }
+
+  @media (min-width: $bp-md) {
+    padding: $space-6 0 $space-7;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: $space-5;
+
+    @media (min-width: $bp-md) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: $space-6;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-4;
+    flex: 1 1 0;
+  }
+
+  &__hello {
+    font-family: $font-serif;
+    font-style: italic;
+    font-size: 1.75rem;
+    color: var(--warm);
+    line-height: 1;
+  }
+
+  &__lead {
+    max-width: 34rem;
+    font-size: 1.1875rem;
+    color: var(--muted);
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+  }
+
+  &__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+  }
+
+  &__media {
+    position: relative;
+    flex: 0 0 auto;
+    align-self: center;
+
+    @media (min-width: $bp-md) {
+      align-self: auto;
+    }
+  }
+}
+
+// Riga strumenti (stile "current favorite tools")
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  margin-top: $space-2;
+
+  &__label {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+}
+
+// ---------- Griglie (CSS Grid) ----------
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-4;
+
+  @media (min-width: $bp-md) {
+    @include grid(3, $space-4);
+  }
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-4;
+
+  @media (min-width: $bp-md) {
+    @include grid(2, $space-4);
+  }
+}
+
+// Progetti: 1 colonna mobile, 2 tablet, 3 desktop
+.projects {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-4;
+
+  @media (min-width: $bp-sm) {
+    @include grid(2, $space-4);
+  }
+
+  @media (min-width: $bp-lg) {
+    @include grid(3, $space-4);
+  }
+}
+
+// Design tokens showcase: aree nominate con grid-template-areas
+.tokens {
+  display: grid;
+  gap: $space-4;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'colors'
+    'type'
+    'space';
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: 1.1fr 1fr;
+    grid-template-areas:
+      'colors type'
+      'colors space';
+  }
+
+  &__colors {
+    grid-area: colors;
+  }
+
+  &__type {
+    grid-area: type;
+  }
+
+  &__space {
+    grid-area: space;
+  }
+}
+
+// ---------- CTA finale ----------
+.cta-band {
+  @include flex-between($space-4);
+  flex-direction: column;
+  align-items: flex-start;
+  padding: $space-5 $space-4;
+  border-radius: $radius-l;
+  background: var(--accent);
+  color: var(--accent-ink);
+
+  @media (min-width: $bp-md) {
+    flex-direction: row;
+    align-items: center;
+    padding: $space-5;
+  }
+
+  h2 {
+    color: var(--accent-ink);
+    max-width: 22ch;
+  }
+}
+
+// ---------- Footer ----------
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: $space-5 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+
+    @media (min-width: $bp-md) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+
+    a {
+      color: var(--muted);
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+  }
+}
+
+// ---------- Pagina CV ----------
+.cv {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-5;
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: 17rem minmax(0, 1fr);
+    gap: $space-6;
+  }
+
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+
+    @media (min-width: $bp-lg) {
+      position: sticky;
+      top: calc(#{$header-h} + #{$space-4});
+      align-self: start;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: $space-6;
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  &__item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-1;
+    padding-bottom: $space-4;
+    border-bottom: 1px solid var(--line);
+
+    &:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    @media (min-width: $bp-md) {
+      grid-template-columns: 9rem minmax(0, 1fr);
+      gap: $space-4;
+    }
+  }
+
+  &__date {
+    font-family: $font-mono;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    padding-top: 0.25rem;
+  }
+}
+
+// ---------- Pagina Contatti ----------
+.contact {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-5;
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: $space-6;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-4;
+  }
+}
+
+// ---------- Stampa (il CV è pensato anche per essere stampato) ----------
+@media print {
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .no-print {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .cv {
+    display: block;
+  }
+}
