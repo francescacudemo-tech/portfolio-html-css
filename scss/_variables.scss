@@ -2,14 +2,16 @@
 // Design tokens: unica fonte di verità per colori, spazi, font
 // ============================================================
 
+@use 'sass:color';
+
 // Font
 $font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 $font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
 $font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
 // Palette: tema chiaro
-$c-bg: #fbfaf8;
-$c-bg-glass: rgba(251, 250, 248, 0.82);
+$c-canvas: #f3f1ee;          // sfondo pagina: stacca le card bianche (stile bento)
+$c-bg-glass: rgba(243, 241, 238, 0.85);
 $c-surface: #ffffff;
 $c-text: #1d1b24;
 $c-muted: #625f78;
@@ -19,13 +21,17 @@ $c-accent-ink: #ffffff;
 $c-accent-soft: #eeebff;
 $c-warm: #ff8f6b;
 $c-sage: #8fc9b0;
-$c-glow-1: rgba(91, 75, 240, 0.12);
-$c-glow-2: rgba(255, 143, 107, 0.14);
 $c-shadow: rgba(29, 27, 36, 0.08);
+$c-pill: rgba(29, 27, 36, 0.07);   // sfondo della navigazione a pillola
+
+// Tinte ricavate dalla palette con color.mix() di Sass (nessun colore nuovo)
+$c-warm-soft: color.mix($c-warm, #ffffff, 40%);
+$c-sage-soft: color.mix($c-sage, #ffffff, 40%);
+$c-sage-ink: #2c6e57;              // salvia scura per testo piccolo (contrasto AA)
 
 // Palette: tema scuro (prefers-color-scheme)
-$d-bg: #0e0d14;
-$d-bg-glass: rgba(14, 13, 20, 0.82);
+$d-canvas: #0e0d14;
+$d-bg-glass: rgba(14, 13, 20, 0.85);
 $d-surface: #171521;
 $d-text: #f1eff7;
 $d-muted: #a8a4c0;
@@ -33,14 +39,17 @@ $d-line: #2a2738;
 $d-accent: #a69cff;
 $d-accent-ink: #14112b;
 $d-accent-soft: #231f47;
-$d-glow-1: rgba(166, 156, 255, 0.14);
-$d-glow-2: rgba(255, 143, 107, 0.09);
+$d-warm-soft: #8a4c3a;
+$d-sage-soft: #2a5446;
+$d-sage-ink: #8fc9b0;
 $d-shadow: rgba(0, 0, 0, 0.4);
+$d-pill: rgba(241, 239, 247, 0.08);
 
-// Breakpoint (allineati a Bootstrap)
+// Breakpoint (i primi tre allineati a Bootstrap)
 $bp-sm: 576px;
 $bp-md: 768px;
 $bp-lg: 992px;
+$bp-xl: 1100px;   // da qui la griglia bento passa a 4 colonne
 
 // Scala di spaziatura (base 4px)
 $space-1: 0.25rem;
@@ -54,6 +63,8 @@ $space-7: 6rem;
 // Raggi e dimensioni
 $radius-s: 10px;
 $radius-m: 18px;
-$radius-l: 28px;
-$container-max: 1080px;
-$header-h: 64px;
+$radius-l: 28px;          // angolo delle card bento
+$container-max: 75rem;    // 1200px
+$header-h: 5.5rem;
+$bento-gap: 1.125rem;     // 18px tra una card e l'altra
+$bento-row: 17rem;        // altezza riga su desktop: card quasi quadrate

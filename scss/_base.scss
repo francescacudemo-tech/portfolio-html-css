@@ -1,9 +1,13 @@
 // ============================================================
 // Base: tema (custom properties), reset leggero, tipografia
 // ============================================================
+@use 'variables' as *;
+@use 'mixins' as *;
 
+// I token Sass diventano variabili CSS: così il tema scuro
+// cambia solo i valori, senza riscrivere i componenti.
 :root {
-  --bg: #{$c-bg};
+  --canvas: #{$c-canvas};
   --bg-glass: #{$c-bg-glass};
   --surface: #{$c-surface};
   --text: #{$c-text};
@@ -13,14 +17,17 @@
   --accent-ink: #{$c-accent-ink};
   --accent-soft: #{$c-accent-soft};
   --warm: #{$c-warm};
+  --warm-soft: #{$c-warm-soft};
   --sage: #{$c-sage};
-  --glow-1: #{$c-glow-1};
-  --glow-2: #{$c-glow-2};
+  --sage-soft: #{$c-sage-soft};
+  --sage-ink: #{$c-sage-ink};
   --shadow: #{$c-shadow};
+  --pill: #{$c-pill};
   color-scheme: light dark;
 
+  // Modalità scura automatica: segue le impostazioni del dispositivo
   @media (prefers-color-scheme: dark) {
-    --bg: #{$d-bg};
+    --canvas: #{$d-canvas};
     --bg-glass: #{$d-bg-glass};
     --surface: #{$d-surface};
     --text: #{$d-text};
@@ -29,15 +36,17 @@
     --accent: #{$d-accent};
     --accent-ink: #{$d-accent-ink};
     --accent-soft: #{$d-accent-soft};
-    --glow-1: #{$d-glow-1};
-    --glow-2: #{$d-glow-2};
+    --warm-soft: #{$d-warm-soft};
+    --sage-soft: #{$d-sage-soft};
+    --sage-ink: #{$d-sage-ink};
     --shadow: #{$d-shadow};
+    --pill: #{$d-pill};
   }
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
 
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
@@ -50,7 +59,7 @@ body {
   font-size: 1rem;
   line-height: 1.65;
   color: var(--text);
-  background-color: var(--bg);
+  background-color: var(--canvas);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -71,11 +80,6 @@ h4 {
   line-height: 1.15;
   color: var(--text);
   margin: 0;
-}
-
-h1 {
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
-  letter-spacing: -0.035em;
 }
 
 h2 {
@@ -99,6 +103,10 @@ p {
   color: var(--accent);
 }
 
+.serif--inherit {
+  color: inherit;
+}
+
 a {
   color: var(--accent);
   text-decoration-thickness: 1px;
@@ -110,6 +118,7 @@ a {
 
   &:focus-visible {
     @include focus-ring;
+    border-radius: 6px;
   }
 }
 
@@ -140,6 +149,15 @@ ul {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
+
+// Contenitore: sostituisce quello di Bootstrap con la larghezza del sito
 .container {
   width: 100%;
   max-width: $container-max;
@@ -154,16 +172,17 @@ ul {
   }
 }
 
+// Sezioni
 .section {
-  padding: $space-6 0;
+  padding: $space-6 0 0;
 
   @media (min-width: $bp-md) {
-    padding: $space-7 0;
+    padding-top: 5rem;
   }
 }
 
-.section--tight {
-  padding-top: 0;
+.section--first {
+  padding-top: $space-3;
 }
 
 .section__head {
@@ -172,7 +191,7 @@ ul {
   align-items: flex-start;
   gap: $space-3;
   max-width: 40rem;
-  margin-bottom: $space-5;
+  margin-bottom: $space-4;
 }
 
 .section__lead {
@@ -185,6 +204,7 @@ ul {
   @include pill;
   background: var(--accent-soft);
   color: var(--accent);
+  font-weight: 600;
 
   &::before {
     content: '?';
@@ -201,8 +221,4 @@ ul {
 
 .page-title {
   font-size: clamp(2rem, 5vw, 3.25rem);
-}
-
-.serif--inherit {
-  color: inherit;
 }

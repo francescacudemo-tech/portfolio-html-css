@@ -17,8 +17,8 @@
   <meta property="og:title" content="Francesca Cudemo · Junior UX/UI Designer">
   <meta property="og:description" content="Portfolio di Francesca Cudemo, Junior UX/UI Designer. Progetto come le persone interagiscono con i prodotti digitali.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://francescacudemo-tech.github.io/portfolio/">
-  <meta property="og:image" content="https://francescacudemo-tech.github.io/portfolio/assets/img/og-preview.jpg">
+  <meta property="og:url" content="https://francescacudemo-tech.github.io/portfolio-html-css/">
+  <meta property="og:image" content="https://francescacudemo-tech.github.io/portfolio-html-css/assets/img/og-preview.jpg">
   <meta property="og:locale" content="it_IT">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -29,12 +29,12 @@
 
   <!-- Bootstrap 5 (solo CSS) + stili del sito compilati da Sass -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/main.css" rel="stylesheet">
+  <link href="css/main.css?v=5" rel="stylesheet">
 </head>
 <body>
   <a class="skip-link" href="#main">Vai al contenuto</a>
 
-  <!-- Header sticky: resta visibile anche su mobile -->
+  <!-- Header sticky: logo, navigazione a pillola, Contatti -->
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="brand" href="index.html" aria-label="Francesca Cudemo, home">
@@ -43,77 +43,163 @@
       </a>
       <nav class="nav" aria-label="Principale">
         <a class="nav__link" href="index.html" aria-current="page">Home</a>
+        <a class="nav__link" href="#progetti">Progetti</a>
         <a class="nav__link" href="cv.html">CV</a>
-        <a class="nav__link" href="contattami.html">Contatti</a>
-        <div class="social">
-          <a class="icon-link" href="https://www.linkedin.com/in/francesca-cudemo-a488b8225/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-          <a class="icon-link" href="https://github.com/francescacudemo-tech" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
-        </div>
+        <a class="nav__link nav__link--mobile" href="contattami.html">Contatti</a>
       </nav>
+      <a class="header-cta" href="contattami.html">Contatti</a>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero__inner">
-        <div class="hero__text">
-          <span class="hero__hello">ciao!</span>
-          <h1>Sono Francesca, <span class="serif">UX/UI designer</span> in crescita.</h1>
-          <p class="hero__lead">
-            Progetto <strong>come le persone interagiscono con i prodotti digitali</strong>:
-            osservo cosa funziona e mi chiedo cosa potrebbe funzionare meglio.
-          </p>
-          <div class="hero__cta">
-            <a class="btn btn-brand" href="contattami.html">Parliamone</a>
-            <a class="btn btn-ghost" href="cv.html">Leggi il CV</a>
+    <!-- BENTO: presentazione, concept, foto e progetti in un'unica griglia -->
+    <section class="section section--first" id="progetti" aria-labelledby="titolo-home">
+      <div class="container bento">
+
+        <!-- 1. Presentazione -->
+        <div class="tile tile--hero">
+          <div class="hero__top">
+            <span class="hero__hello" aria-hidden="true">ciao!</span>
+            <span class="status">Junior UX/UI Designer</span>
           </div>
-          <div class="stack">
-            <span class="stack__label">Gli strumenti che uso</span>
-            <ul class="stack__list">
-              <li class="tag"><span class="tag__dot"></span>Figma</li>
-              <li class="tag"><span class="tag__dot"></span>Framer</li>
-              <li class="tag"><span class="tag__dot"></span>HTML5</li>
-              <li class="tag"><span class="tag__dot"></span>CSS3</li>
-              <li class="tag"><span class="tag__dot"></span>Sass</li>
-              <li class="tag"><span class="tag__dot"></span>Bootstrap</li>
-            </ul>
+          <h1 id="titolo-home">
+            Sono <span class="hero__name">Francesca</span>, <span class="hero__role">UX/UI designer in crescita.</span>
+            Progetto come le persone interagiscono con i prodotti digitali: osservo cosa funziona e mi chiedo cosa potrebbe funzionare meglio.
+          </h1>
+        </div>
+
+        <!-- 2. Concept -->
+        <div class="tile tile--verbi">
+          <span class="verbi__q" aria-hidden="true">?</span>
+          <p>Osservo.<br>Mi chiedo.<br><span class="serif">Progetto.</span></p>
+        </div>
+
+        <!-- 3. Fotografia -->
+        <figure class="tile tile--foto">
+          <img src="assets/img/profile.jpg" width="1200" height="1600" alt="Ritratto di Francesca Cudemo">
+          <figcaption class="bubble">E se funzionasse meglio?</figcaption>
+        </figure>
+
+        <!-- 4. Strumenti -->
+        <div class="tile tile--tools">
+          <span class="tools__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+          </span>
+          <div>
+            <p class="tools__status">
+              <span class="tools__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+              Gli strumenti che uso
+            </p>
+            <p class="tools__title">Figma &amp; Framer</p>
+            <p class="tools__sub">HTML5 · CSS3 · Sass · Bootstrap</p>
           </div>
         </div>
-        <div class="hero__media">
-          <div class="portrait">
-            <img class="portrait__img" src="assets/img/profile.jpg" width="800" height="800" alt="Ritratto di Francesca Cudemo">
-            <p class="portrait__bubble">E se funzionasse meglio?</p>
+
+        <!-- 5. Progetto: Buddhify (redesign del sito) -->
+        <article class="tile tile--redesign project project--redesign">
+          <span class="project__shape" aria-hidden="true"></span>
+          <img class="project__mock" src="assets/img/progetti/buddhify-redesign.jpg" width="1400" height="933" loading="lazy" alt="Il sito Buddhify ridisegnato, aperto su uno smartphone">
+          <h2 class="m-0 fs-6">
+            <a class="project__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/buddhify-redesign" target="_blank" rel="noopener">
+              Buddhify <span class="project__meta">· Sito web · 2026</span>
+              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </a>
+          </h2>
+        </article>
+
+        <!-- 6. Progetto: MeditActive -->
+        <article class="tile tile--medit project project--medit">
+          <span class="project__shape" aria-hidden="true"></span>
+          <img class="project__mock" src="assets/img/progetti/meditactive.jpg" width="999" height="1500" loading="lazy" alt="Il logo di MeditActive su una persona in meditazione">
+          <h2 class="m-0 fs-6">
+            <a class="project__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/meditactive" target="_blank" rel="noopener">
+              MeditActive <span class="project__meta">· Branding · 2025</span>
+              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </a>
+          </h2>
+        </article>
+
+        <!-- 7. Chi sono -->
+        <div class="tile tile--about" id="chi-sono">
+          <div>
+            <h2>Progettare significa anche <span class="serif">capire perché.</span></h2>
+            <p>Sono una Junior UX/UI Designer. L'intelligenza artificiale ha aggiunto nuove domande al mio lavoro, e mi piace porle prima di aprire qualsiasi file di design.</p>
+          </div>
+          <div class="tile__foot">
+            <a class="btn-pill" href="cv.html">
+              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Leggi il CV
+            </a>
+            <span class="tile__meta">UX · UI · Branding</span>
           </div>
         </div>
+
+        <!-- 8. Tema scuro automatico (solo CSS: prefers-color-scheme) -->
+        <div class="tile tile--tema">
+          <span class="switch" aria-hidden="true">
+            <span class="switch__knob">
+              <svg class="switch__moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+              <svg class="switch__sun" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+            </span>
+          </span>
+          <p>Il tema scuro si attiva da solo, in base alle impostazioni del tuo dispositivo.</p>
+        </div>
+
+        <!-- 9. Progetto: Buddhify Guide -->
+        <article class="tile tile--guide project project--guide">
+          <span class="project__shape" aria-hidden="true"></span>
+          <span class="project__shape project__shape--2" aria-hidden="true"></span>
+          <img class="project__mock" src="assets/img/progetti/buddhify-guide.png" width="2048" height="1152" loading="lazy" alt="L'assistente AI Buddhify Guide su due smartphone">
+          <h2 class="m-0 fs-6">
+            <a class="project__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/buddhify-guide" target="_blank" rel="noopener">
+              Buddhify Guide <span class="project__meta">· Assistente AI · 2026</span>
+              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </a>
+          </h2>
+        </article>
+
+        <!-- 10. Contatti -->
+        <div class="tile tile--cta">
+          <div>
+            <h2>Hai una domanda? <span class="serif">Parliamone.</span></h2>
+            <p>Cerchi una Junior UX/UI Designer o vuoi collaborare a un progetto?</p>
+          </div>
+          <div class="tile__foot">
+            <a class="btn-brand" href="contattami.html">
+              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Scrivimi
+            </a>
+            <div class="socials">
+              <a href="https://www.linkedin.com/in/francesca-cudemo-a488b8225/" target="_blank" rel="noopener">LinkedIn ↗</a>
+              <a href="https://github.com/francescacudemo-tech" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- CHI SONO -->
-    <section class="section section--tight" id="chi-sono">
+    <!-- COME LAVORO -->
+    <section class="section" id="come-lavoro">
       <div class="container">
         <div class="section__head">
           <span class="eyebrow">Chi sono</span>
           <h2>Tre verbi per descrivere <span class="serif">come lavoro</span></h2>
-          <p class="section__lead">
-            Sono una Junior UX/UI Designer. L'intelligenza artificiale ha aggiunto nuove domande
-            al mio lavoro, e mi piace porle prima di aprire qualsiasi file di design.
-          </p>
         </div>
         <div class="grid-3">
-          <article class="feature">
-            <span class="feature__num">01</span>
+          <article class="step">
+            <span class="step__num">01</span>
             <h3>Osservo</h3>
             <p>Parto da come le persone usano davvero un prodotto, non da come immagino lo usino.</p>
           </article>
-          <article class="feature">
-            <span class="feature__num">02</span>
+          <article class="step">
+            <span class="step__num">02</span>
             <h3>Mi chiedo</h3>
             <p>Cosa potrebbe funzionare meglio? È la domanda con cui comincia ogni mio progetto.</p>
           </article>
-          <article class="feature">
-            <span class="feature__num">03</span>
+          <article class="step">
+            <span class="step__num">03</span>
             <h3>Progetto</h3>
             <p>Trasformo le risposte in interfacce chiare, coerenti e curate fino al dettaglio.</p>
           </article>
@@ -163,46 +249,6 @@
       </div>
     </section>
 
-    <!-- PROGETTI -->
-    <section class="section section--tight" id="progetti">
-      <div class="container">
-        <div class="section__head">
-          <span class="eyebrow">Cosa ho progettato</span>
-          <h2>Progetti <span class="serif">selezionati</span></h2>
-          <p class="section__lead">Tre lavori recenti, dalla ricerca all'interfaccia. I dettagli completi sono sul mio portfolio Framer.</p>
-        </div>
-        <div class="projects">
-          <article class="project">
-            <div class="project__cover" aria-hidden="true">Buddhify Guide</div>
-            <div class="project__body">
-              <span class="project__meta">AI assistant · UX/UI · 2026</span>
-              <h3>Buddhify Guide</h3>
-              <p>Progettazione dell'esperienza di un assistente basato su intelligenza artificiale.</p>
-              <a class="project__link" href="https://francesca-cudemo.framer.website/" target="_blank" rel="noopener">Vedi il progetto &rarr;</a>
-            </div>
-          </article>
-          <article class="project">
-            <div class="project__cover project__cover--b" aria-hidden="true">Buddhify</div>
-            <div class="project__body">
-              <span class="project__meta">Redesign sito web · UX/UI · 2026</span>
-              <h3>Buddhify</h3>
-              <p>Ridisegno dell'esperienza e dell'interfaccia del sito web.</p>
-              <a class="project__link" href="https://francesca-cudemo.framer.website/" target="_blank" rel="noopener">Vedi il progetto &rarr;</a>
-            </div>
-          </article>
-          <article class="project">
-            <div class="project__cover project__cover--c" aria-hidden="true">MeditActive</div>
-            <div class="project__body">
-              <span class="project__meta">Identità visiva · Branding · 2025</span>
-              <h3>MeditActive</h3>
-              <p>Costruzione dell'identità visiva del brand.</p>
-              <a class="project__link" href="https://francesca-cudemo.framer.website/" target="_blank" rel="noopener">Vedi il progetto &rarr;</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- QUESTO SITO COME PROGETTO -->
     <section class="section" id="questo-sito">
       <div class="container">
@@ -221,8 +267,10 @@
               <div class="swatch"><div class="swatch__chip"></div><strong>Accento</strong>#5b4bf0</div>
               <div class="swatch"><div class="swatch__chip swatch__chip--soft"></div><strong>Accento soft</strong>#eeebff</div>
               <div class="swatch"><div class="swatch__chip swatch__chip--warm"></div><strong>Corallo</strong>#ff8f6b</div>
+              <div class="swatch"><div class="swatch__chip swatch__chip--warm-soft"></div><strong>Corallo soft</strong>mix 40%</div>
               <div class="swatch"><div class="swatch__chip swatch__chip--sage"></div><strong>Salvia</strong>#8fc9b0</div>
               <div class="swatch"><div class="swatch__chip swatch__chip--text"></div><strong>Inchiostro</strong>#1d1b24</div>
+              <div class="swatch"><div class="swatch__chip swatch__chip--canvas"></div><strong>Tela</strong>#f3f1ee</div>
               <div class="swatch"><div class="swatch__chip swatch__chip--surface"></div><strong>Superficie</strong>#ffffff</div>
             </div>
             <p class="section__lead">Il tema scuro si attiva da solo, in base alle impostazioni del tuo dispositivo.</p>
@@ -243,16 +291,6 @@
             <div class="space-row space-row--5"><b>40px</b><i></i></div>
             <div class="space-row space-row--6"><b>64px</b><i></i></div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section section--tight">
-      <div class="container">
-        <div class="cta-band">
-          <h2>Hai una domanda? <span class="serif serif--inherit">Parliamone.</span></h2>
-          <a class="btn btn-brand btn-light-on-accent" href="contattami.html">Scrivimi</a>
         </div>
       </div>
     </section>

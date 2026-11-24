@@ -1,8 +1,12 @@
 // ============================================================
-// Layout: header sticky, hero (Flexbox), griglie (CSS Grid), footer
+// Layout: header con nav a pillola (Flexbox), griglia bento
+// (CSS Grid con aree nominate), griglie, footer, pagine CV e Contatti
 // ============================================================
+@use 'variables' as *;
+@use 'mixins' as *;
 
 // ---------- Header: sticky su TUTTI i viewport, mobile incluso ----------
+// Tre elementi: logo a sinistra, navigazione a pillola al centro, Contatti a destra
 .site-header {
   position: sticky;
   top: 0;
@@ -10,12 +14,15 @@
   background: var(--bg-glass);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
   backdrop-filter: blur(14px) saturate(160%);
-  border-bottom: 1px solid var(--line);
 }
 
 .site-header__inner {
   @include flex-between($space-3);
-  min-height: $header-h;
+  min-height: 4.5rem;
+
+  @media (min-width: $bp-md) {
+    min-height: $header-h;
+  }
 }
 
 .brand {
@@ -33,215 +40,173 @@
 
   &__mark {
     @include flex-center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 10px;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 11px;
     background: var(--accent);
     color: var(--accent-ink);
     font-size: 0.875rem;
     font-weight: 700;
   }
 
+  // Il nome compare solo dove c'è spazio accanto alla pillola
   &__name {
     display: none;
 
-    @media (min-width: $bp-sm) {
+    @media (min-width: $bp-lg) {
       display: inline;
     }
   }
 }
 
+// Navigazione a pillola
 .nav {
   display: flex;
+  flex-wrap: nowrap;   // la classe .nav di Bootstrap andrebbe a capo
   align-items: center;
-  gap: $space-1;
+  gap: 0;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: var(--pill);
 
   &__link {
-    padding: 0.4rem 0.8rem;
+    padding: 0.45rem 0.5rem;
     border-radius: 999px;
-    color: var(--muted);
-    font-size: 0.9375rem;
+    color: var(--text);
+    font-size: 0.8125rem;
     font-weight: 500;
+    white-space: nowrap;
     text-decoration: none;
-    transition: color 0.15s ease, background 0.15s ease;
+    transition: background 0.15s ease;
+
+    // Dai 400px in su c'è spazio per voci più ariose
+    @media (min-width: 400px) {
+      padding: 0.45rem 0.7rem;
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: $bp-sm) {
+      padding: 0.45rem 1rem;
+      font-size: 0.9375rem;
+    }
 
     &:hover {
-      color: var(--text);
-      background: var(--accent-soft);
+      background: var(--surface);
       text-decoration: none;
     }
 
     &[aria-current='page'] {
-      color: var(--accent);
-      background: var(--accent-soft);
+      background: var(--surface);
+      box-shadow: 0 1px 3px var(--shadow);
+    }
+
+    // Su mobile "Contatti" entra nella pillola
+    &--mobile {
+      @media (min-width: $bp-sm) {
+        display: none;
+      }
     }
   }
 }
 
-.social {
+// Link "Contatti" a destra (da tablet in su)
+.header-cta {
   display: none;
-  align-items: center;
-  gap: $space-1;
-  margin-left: $space-2;
-  padding-left: $space-3;
-  border-left: 1px solid var(--line);
-
-  @media (min-width: $bp-md) {
-    display: flex;
-  }
-}
-
-// ---------- Hero ----------
-.hero {
-  position: relative;
-  overflow: hidden;
-  padding: $space-5 0 $space-6;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background:
-      radial-gradient(40rem 24rem at 85% 10%, var(--glow-1), transparent 70%),
-      radial-gradient(32rem 22rem at 5% 80%, var(--glow-2), transparent 70%);
-    // dissolve lo sfondo verso il basso: nessun bordo netto tra hero e sezione successiva
-    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-  }
-
-  @media (min-width: $bp-md) {
-    padding: $space-6 0 $space-7;
-  }
-
-  &__inner {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    gap: $space-5;
-
-    @media (min-width: $bp-md) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: $space-6;
-    }
-  }
-
-  &__text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: $space-4;
-    flex: 1 1 0;
-  }
-
-  &__hello {
-    font-family: $font-serif;
-    font-style: italic;
-    font-size: 1.75rem;
-    color: var(--warm);
-    line-height: 1;
-  }
-
-  &__lead {
-    max-width: 34rem;
-    font-size: 1.1875rem;
-    color: var(--muted);
-
-    strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-  }
-
-  &__cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $space-3;
-  }
-
-  &__media {
-    position: relative;
-    flex: 0 0 auto;
-    align-self: center;
-
-    @media (min-width: $bp-md) {
-      align-self: auto;
-    }
-  }
-}
-
-// Riga strumenti (stile "current favorite tools")
-.stack {
-  display: flex;
-  flex-direction: column;
-  gap: $space-2;
-  margin-top: $space-2;
-
-  &__label {
-    font-size: 0.8125rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 600;
-  }
-
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $space-2;
-  }
-}
-
-// ---------- Griglie (CSS Grid) ----------
-.grid-3 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $space-4;
-
-  @media (min-width: $bp-md) {
-    @include grid(3, $space-4);
-  }
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $space-4;
-
-  @media (min-width: $bp-md) {
-    @include grid(2, $space-4);
-  }
-}
-
-// Progetti: 1 colonna mobile, 2 tablet, 3 desktop
-.projects {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $space-4;
+  padding: 0.45rem 0;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
 
   @media (min-width: $bp-sm) {
-    @include grid(2, $space-4);
+    display: inline-block;
   }
 
-  @media (min-width: $bp-lg) {
-    @include grid(3, $space-4);
+  &:hover,
+  &[aria-current='page'] {
+    color: var(--accent);
+  }
+}
+
+// ---------- Griglia bento (CSS Grid con aree nominate) ----------
+// Mobile: 1 colonna · Tablet: 2 colonne · Desktop: 4 colonne.
+// L'ordine nell'HTML segue l'ordine di lettura: la griglia cambia solo la posizione.
+.bento {
+  display: grid;
+  gap: $bento-gap;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'hero'
+    'verbi'
+    'foto'
+    'tools'
+    'redesign'
+    'medit'
+    'about'
+    'tema'
+    'guide'
+    'cta';
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(15rem, auto);
+    grid-template-areas:
+      'hero     hero'
+      'verbi    foto'
+      'tools    foto'
+      'redesign medit'
+      'tema     medit'
+      'about    about'
+      'guide    guide'
+      'cta      cta';
+  }
+
+  @media (min-width: $bp-xl) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: $bento-row;
+    grid-template-areas:
+      'hero  hero     verbi foto'
+      'tools redesign medit foto'
+      'about about    medit tema'
+      'guide guide    cta   cta';
+  }
+}
+
+// Ogni card prende la sua area
+.tile--hero { grid-area: hero; }
+.tile--verbi { grid-area: verbi; }
+.tile--foto { grid-area: foto; }
+.tile--tools { grid-area: tools; }
+.tile--redesign { grid-area: redesign; }
+.tile--medit { grid-area: medit; }
+.tile--about { grid-area: about; }
+.tile--tema { grid-area: tema; }
+.tile--guide { grid-area: guide; }
+.tile--cta { grid-area: cta; }
+
+// ---------- Griglie semplici ----------
+.grid-3 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $bento-gap;
+
+  @media (min-width: $bp-md) {
+    @include grid(3, $bento-gap);
   }
 }
 
 // Design tokens showcase: aree nominate con grid-template-areas
 .tokens {
   display: grid;
-  gap: $space-4;
-  grid-template-columns: 1fr;
+  gap: $bento-gap;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
     'colors'
     'type'
     'space';
 
   @media (min-width: $bp-lg) {
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     grid-template-areas:
       'colors type'
       'colors space';
@@ -260,34 +225,17 @@
   }
 }
 
-// ---------- CTA finale ----------
-.cta-band {
-  @include flex-between($space-4);
-  flex-direction: column;
-  align-items: flex-start;
-  padding: $space-5 $space-4;
-  border-radius: $radius-l;
-  background: var(--accent);
-  color: var(--accent-ink);
-
-  @media (min-width: $bp-md) {
-    flex-direction: row;
-    align-items: center;
-    padding: $space-5;
-  }
-
-  h2 {
-    color: var(--accent-ink);
-    max-width: 22ch;
-  }
-}
-
 // ---------- Footer ----------
 .site-footer {
+  margin-top: $space-6;
   border-top: 1px solid var(--line);
   padding: $space-5 0;
   color: var(--muted);
   font-size: 0.9375rem;
+
+  @media (min-width: $bp-md) {
+    margin-top: 5rem;
+  }
 
   &__inner {
     display: flex;
@@ -319,22 +267,21 @@
 // ---------- Pagina CV ----------
 .cv {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: $space-5;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $bento-gap;
 
   @media (min-width: $bp-lg) {
-    grid-template-columns: 17rem minmax(0, 1fr);
-    gap: $space-6;
+    grid-template-columns: 18rem minmax(0, 1fr);
   }
 
   &__aside {
     display: flex;
     flex-direction: column;
-    gap: $space-4;
+    gap: $bento-gap;
 
     @media (min-width: $bp-lg) {
       position: sticky;
-      top: calc(#{$header-h} + #{$space-4});
+      top: calc(#{$header-h} + #{$space-3});
       align-self: start;
     }
   }
@@ -342,7 +289,7 @@
   &__main {
     display: flex;
     flex-direction: column;
-    gap: $space-6;
+    gap: $bento-gap;
   }
 }
 
@@ -353,7 +300,7 @@
 
   &__item {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: $space-1;
     padding-bottom: $space-4;
     border-bottom: 1px solid var(--line);
@@ -380,19 +327,23 @@
 // ---------- Pagina Contatti ----------
 .contact {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: $space-5;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $bento-gap;
 
   @media (min-width: $bp-lg) {
     grid-template-columns: 0.9fr 1.1fr;
-    gap: $space-6;
   }
 
   &__info {
+    @include card($space-5 $space-4);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: $space-4;
+
+    @media (min-width: $bp-md) {
+      padding: $space-5;
+    }
   }
 }
 
@@ -412,5 +363,11 @@
 
   .cv {
     display: block;
+  }
+
+  .cv-card,
+  .cv-block {
+    padding: 0;
+    margin-bottom: 1.5rem;
   }
 }
