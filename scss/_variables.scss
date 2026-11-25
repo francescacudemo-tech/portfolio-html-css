@@ -77,3 +77,16 @@ $home-bg: #ffffff;        // sfondo pagina
 $home-card: #f2f2f2;      // grigio neutro delle card
 $d-home-bg: #0e0d14;      // tema scuro: sfondo pagina
 $d-home-card: #24222c;    // tema scuro: grigio delle card
+
+// Identità visiva delle cinque card (hero, case study, Sentiamoci)
+$font-display: 'Syne', $font-sans;  // titoli delle cinque card
+$id-cherry: #b93642;      // Ciliegia: unico accento
+$id-coral: #d76d78;       // Rosa corallo
+$id-powder: #dfa6aa;      // Rosa cipria
+$id-periwinkle: #bcbedd;  // Pervinca: hover dei case study
+$id-ivory: #f5f1e9;       // Avorio: superfici neutre
+$id-ink: $c-text;         // testo su avorio
+$id-muted: $c-muted;      // testo secondario su avorio
+$d-id-surface: #1f1b1e;   // tema scuro: avorio "spento"
+$d-id-muted: #c8bfc2;     // tema scuro: testo secondario
+$d-id-hover: #2e2d40;     // tema scuro: pervinca scurita

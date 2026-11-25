@@ -25,19 +25,20 @@
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=Syne:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- Bootstrap 5 (solo CSS) + stili del sito compilati da Sass -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/main.css?v=7" rel="stylesheet">
+  <link href="css/main.css?v=8" rel="stylesheet">
 </head>
 <body class="home">
 
   <!-- Titolo della pagina per screen reader e motori di ricerca (non visibile) -->
   <h1 class="visually-hidden">Francesca Cudemo · Junior UX/UI Designer</h1>
 
-  <!-- HOMEPAGE: tre colonne di card vuote (solo struttura).
-       Ogni card ha una classe propria (card-colonna-posizione) in scss/_home.scss. -->
+  <!-- HOMEPAGE: tre colonne di card (struttura in scss/_home.scss).
+       Ogni card ha una classe propria (card-colonna-posizione).
+       Per ora solo i tre case study hanno contenuto; le altre card sono vuote. -->
   <main class="home-grid" id="main">
 
     <!-- Colonna 1: doppia larghezza -->
@@ -46,11 +47,44 @@
       <div class="card-box card-1-2"></div>
     </div>
 
-    <!-- Colonna 2 -->
+    <!-- Colonna 2: i tre case study.
+         Copertina che scivola giù e rivela il titolo (stili in scss/_case-cover.scss) -->
     <div class="home-col">
-      <div class="card-box card-2-1"></div>
-      <div class="card-box card-2-2"></div>
-      <div class="card-box card-2-3"></div>
+      <article class="card-box card-2-1 case-cover case-cover--guide">
+        <h2 class="case-cover__title">
+          <a class="case-cover__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/buddhify-guide" target="_blank" rel="noopener">Buddhify Guide</a>
+          <svg class="case-cover__chevron" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+            <path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </h2>
+        <img class="case-cover__image" src="assets/img/progetti/buddhify-guide-cover.png" width="1005" height="660"
+             alt="L'assistente AI Buddhify Guide su due smartphone">
+      </article>
+
+      <article class="card-box card-2-2 case-cover case-cover--buddhify">
+        <h2 class="case-cover__title">
+          <a class="case-cover__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/buddhify-redesign" target="_blank" rel="noopener">Buddhify</a>
+          <svg class="case-cover__chevron" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+            <path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </h2>
+        <img class="case-cover__image" src="assets/img/progetti/buddhify-redesign.jpg" width="1400" height="933" loading="lazy"
+             alt="Il sito Buddhify ridisegnato, aperto su uno smartphone">
+      </article>
+
+      <article class="card-box card-2-3 case-cover case-cover--meditactive">
+        <h2 class="case-cover__title">
+          <a class="case-cover__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/meditactive" target="_blank" rel="noopener">MeditActive</a>
+          <svg class="case-cover__chevron" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+            <path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </h2>
+        <!-- Copertina con la foto incorniciata: stessa dimensione della card avorio di prima -->
+        <div class="case-cover__image case-cover__frame">
+          <img src="assets/img/progetti/meditactive.jpg" width="999" height="1500" loading="lazy"
+               alt="Il logo di MeditActive su una persona in meditazione">
+        </div>
+      </article>
     </div>
 
     <!-- Colonna 3 -->

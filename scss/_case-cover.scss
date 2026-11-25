@@ -1,0 +1,196 @@
+// ============================================================
+// Case study con copertina che scivola (Buddhify Guide, Buddhify, MeditActive)
+//
+// Due livelli nello stesso contenitore:
+//  1. sotto: fondo viola scuro con titolo e chevron
+//  2. sopra: la copertina (mockup Figma), che a riposo copre tutta la card
+//
+// All'hover (o al focus da tastiera) la copertina scende di 52px e si
+// riduce al 94% partendo dal centro del bordo superiore: scivola dentro
+// il contenitore come una cartolina in una busta e scopre il titolo.
+// Senza hover (touch) o con movimento ridotto, il titolo resta visibile.
+// Nessun JavaScript: solo transform e transition.
+// ============================================================
+@use 'variables' as *;
+
+// Colore del livello sotto, uno per progetto (dalle rispettive identità)
+$cover-bg-guide: #51408f;        // Buddhify Guide: viola scuro
+$cover-bg-buddhify: #a6431d;     // Buddhify: arancio bruciato
+$cover-bg-meditactive: #1e1d1b;  // MeditActive: nero caldo
+
+// Misure del progetto
+$cover-radius: 24px;
+$cover-pad-top: 16px;
+$cover-pad-x: 20px;
+$cover-line: 24px;                                  // line-height del titolo
+$cover-gap: 12px;                                   // tra titolo e copertina
+$cover-shift: $cover-pad-top + $cover-line + $cover-gap; // = 52px
+$cover-scale: 0.94;
+$cover-duration: 450ms;
+$cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+// Stato "aperto": copertina abbassata e ridotta
+@mixin cover-open {
+  .case-cover__image {
+    transform: translateY($cover-shift) scale($cover-scale);
+  }
+
+  .case-cover__chevron {
+    transform: translateX(2px);
+  }
+}
+
+.case-cover {
+  position: relative;
+  overflow: hidden;                 // nasconde la parte di copertina che esce in basso
+  border-radius: $cover-radius;
+  background: var(--cover-bg);
+  isolation: isolate;               // overflow + radius affidabili anche durante il transform
+
+  // Sotto 810px le card si impilano: stessa proporzione del mockup (335 × 220)
+  @media (max-width: $bp-home - 1px) {
+    height: auto;
+    aspect-ratio: 335 / 220;
+  }
+
+  // ---------- Livello sotto: titolo + chevron ----------
+  // Resta nel flusso (non posizionato): così il link "stretched"
+  // si estende all'intera card e non solo alla riga del titolo
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: $cover-pad-top $cover-pad-x 0;
+    font-family: $font-display;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: $cover-line;
+    letter-spacing: 0;
+    white-space: nowrap;            // il titolo resta su una riga (la discesa è di 52px)
+    color: #fff;
+
+    // Colonne strette (810–1023px, card larga circa 180–240px):
+    // testo e margini un po' più piccoli perché titolo e chevron stiano su una riga.
+    // L'altezza della riga resta 24px, quindi la discesa resta 52px.
+    @media (min-width: $bp-home) and (max-width: 1023px) {
+      padding-left: 16px;
+      padding-right: 16px;
+      font-size: 16px;
+    }
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: inherit;
+    }
+
+    // L'area cliccabile (stretched-link) sta sopra la copertina
+    &::after {
+      z-index: 2;
+    }
+
+    // Il focus è disegnato sulla card intera (vedi :focus-within sotto)
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &__chevron {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    transition: transform $cover-duration $cover-ease;
+    transition-delay: 60ms;         // arriva un istante dopo la copertina
+  }
+
+  // ---------- Livello sopra: copertina ----------
+  &__image {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;              // riempie la card senza deformarsi
+    border-radius: $cover-radius;   // uguale al contenitore
+    transform: translateY(0) scale(1); // a riposo: copertina al 100%
+    transform-origin: 50% 0;        // centro del bordo superiore
+    transition: transform $cover-duration $cover-ease;
+    will-change: transform;
+  }
+
+  // ---------- Interazione ----------
+  // Mouse: la copertina scivola solo al passaggio
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @include cover-open;
+    }
+  }
+
+  // Tastiera: stesso movimento + anello di focus sulla card intera
+  &:focus-within {
+    @include cover-open;
+    outline: 2px solid var(--cover-bg);
+    outline-offset: 3px;
+  }
+
+  // Touch e dispositivi senza hover: titolo e chevron sempre visibili
+  @media (hover: none), (pointer: coarse) {
+    @include cover-open;
+  }
+
+  // Movimento ridotto: nessuna animazione, titolo sempre visibile
+  @media (prefers-reduced-motion: reduce) {
+    @include cover-open;
+
+    .case-cover__image,
+    .case-cover__chevron {
+      transition: none;
+    }
+  }
+}
+
+// ---------- Copertina con foto incorniciata (MeditActive) ----------
+// La foto verticale a tutta card risultava troppo ingrandita: qui torna alla
+// dimensione che aveva nella card avorio (margine 10px, proporzione 316 × 195),
+// centrata su un passe-partout avorio che fa da copertina.
+.case-cover__frame {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: $id-ivory;
+
+  img {
+    width: 100%;
+    height: auto;                   // altrimenti vince l'attributo height="1500"
+    aspect-ratio: 316 / 195;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: $home-radius - 8px;
+  }
+}
+
+// ---------- Varianti per progetto ----------
+.case-cover--guide { --cover-bg: #{$cover-bg-guide}; }
+
+// Il PNG di Buddhify Guide ha gli angoli arrotondati già nel file (trasparenti):
+// li riempiamo con il viola del mockup, così a riposo il fondo scuro non si vede.
+.case-cover--guide .case-cover__image {
+  background-color: #9b85f5;
+}
+.case-cover--buddhify { --cover-bg: #{$cover-bg-buddhify}; }
+.case-cover--meditactive { --cover-bg: #{$cover-bg-meditactive}; }
+
+// Tema scuro: l'anello di focus deve staccarsi dal fondo scuro
+@media (prefers-color-scheme: dark) {
+  .case-cover:focus-within {
+    outline-color: $id-periwinkle;
+  }
+}
