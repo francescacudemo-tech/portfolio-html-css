@@ -2027,7 +2027,6 @@ textarea.form-control {
   right: 6.18%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: calc(11.74 * var(--u));
   margin: 0;
   overflow: hidden;
@@ -2045,16 +2044,6 @@ textarea.form-control {
   transform: translateY(8px);
   transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms ease;
 }
-.bloom__star {
-  flex: none;
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-  opacity: 0;
-  transform: scale(0.3) rotate(-30deg);
-  transform-origin: center;
-  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms ease;
-}
 @media (hover: hover) and (pointer: fine) {
   .bloom:hover .bloom__panel {
     transform: translateY(calc(-2.81 * var(--u)));
@@ -2063,11 +2052,6 @@ textarea.form-control {
     transform: translateY(0);
     opacity: 1;
     transition-delay: 40ms;
-  }
-  .bloom:hover .bloom__star {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-    transition-delay: 150ms;
   }
 }
 .bloom:focus-within .bloom__panel {
@@ -2078,11 +2062,6 @@ textarea.form-control {
   opacity: 1;
   transition-delay: 40ms;
 }
-.bloom:focus-within .bloom__star {
-  transform: scale(1) rotate(0deg);
-  opacity: 1;
-  transition-delay: 150ms;
-}
 @media (hover: none), (pointer: coarse) {
   .bloom .bloom__panel {
     transform: translateY(calc(-2.81 * var(--u)));
@@ -2091,11 +2070,6 @@ textarea.form-control {
     transform: translateY(0);
     opacity: 1;
     transition-delay: 40ms;
-  }
-  .bloom .bloom__star {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-    transition-delay: 150ms;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2107,14 +2081,8 @@ textarea.form-control {
     opacity: 1;
     transition-delay: 40ms;
   }
-  .bloom .bloom__star {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-    transition-delay: 150ms;
-  }
   .bloom .bloom__panel,
-  .bloom .bloom__title,
-  .bloom .bloom__star {
+  .bloom .bloom__title {
     transition: none;
   }
 }

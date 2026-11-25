@@ -3,12 +3,11 @@
 // (riferimento: buddhify-bloom-finale.html)
 //
 // A riposo: fondo arancio, la homepage di Buddhify che esce dal basso.
-// All'hover / focus da tastiera, tre tempi distinti:
+// All'hover / focus da tastiera, due tempi distinti:
 //  1. la copertina si solleva di ~10px (550ms, nessuna scala)
 //  2. il titolo emerge dal basso sfumando (450ms, +40ms)
-//  3. l'asterisco "sboccia" dal centro: scala .3 → 1, -30° → 0° (550ms, +150ms)
 // Al mouse leave tutto torna indietro senza ritardi.
-// Touch e movimento ridotto: titolo e asterisco sempre visibili,
+// Touch e movimento ridotto: titolo sempre visibile,
 // così un solo tap apre il case study.
 //
 // Misure verticali in --u (1cqw, con un minimo per le colonne strette):
@@ -32,12 +31,6 @@ $bloom-radius: 24px;       // come le altre card dei case study
     transform: translateY(0);
     opacity: 1;
     transition-delay: 40ms;
-  }
-
-  .bloom__star {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-    transition-delay: 150ms;
   }
 }
 
@@ -101,7 +94,7 @@ $bloom-radius: 24px;       // come le altre card dei case study
     }
   }
 
-  // ---------- Titolo + asterisco ----------
+  // ---------- Titolo (allineato a sinistra) ----------
   &__mask {
     position: absolute;
     z-index: 2;
@@ -110,7 +103,6 @@ $bloom-radius: 24px;       // come le altre card dei case study
     right: 6.18%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     height: calc(11.74 * var(--u));
     margin: 0;
     overflow: hidden;
@@ -129,19 +121,6 @@ $bloom-radius: 24px;       // come le altre card dei case study
     transform: translateY(8px);
     transition:
       transform 450ms $bloom-ease,
-      opacity 260ms ease;
-  }
-
-  &__star {
-    flex: none;
-    width: 16px;
-    height: 16px;
-    fill: currentColor;
-    opacity: 0;
-    transform: scale(0.3) rotate(-30deg);
-    transform-origin: center;
-    transition:
-      transform 550ms $bloom-ease,
       opacity 260ms ease;
   }
 
@@ -166,8 +145,7 @@ $bloom-radius: 24px;       // come le altre card dei case study
     @include bloom-open;
 
     .bloom__panel,
-    .bloom__title,
-    .bloom__star {
+    .bloom__title {
       transition: none;
     }
   }
