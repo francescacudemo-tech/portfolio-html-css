@@ -68,3 +68,12 @@ $container-max: 75rem;    // 1200px
 $header-h: 5.5rem;
 $bento-gap: 1.125rem;     // 18px tra una card e l'altra
 $bento-row: 17rem;        // altezza riga su desktop: card quasi quadrate
+
+// Homepage a tre colonne (misure del layout di riferimento)
+$bp-home: 810px;          // sotto questa larghezza le colonne si impilano
+$home-gap: 24px;          // margine esterno e spazio tra colonne e card
+$home-radius: 18px;       // angolo delle card
+$home-bg: #ffffff;        // sfondo pagina
+$home-card: #f2f2f2;      // grigio neutro delle card
+$d-home-bg: #0e0d14;      // tema scuro: sfondo pagina
+$d-home-card: #24222c;    // tema scuro: grigio delle card

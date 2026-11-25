@@ -1,0 +1,117 @@
+// ============================================================
+// Homepage: struttura a tre colonne (solo layout, card vuote)
+// Misure rilevate dal sito di riferimento a 1440 × 900 px.
+//
+// Da 810px in su: tre colonne 2 : 1 : 1 alte quanto la finestra,
+// la pagina non scorre e le card flessibili si adattano all'altezza.
+// Sotto 810px: le colonne si impilano, le card hanno altezze fisse
+// e la pagina scorre.
+//
+// Ogni card ha una sua classe (colonna-posizione): per cambiarne
+// le dimensioni basta modificare la sua regola qui sotto.
+// ============================================================
+@use 'variables' as *;
+
+// Colori del layout (grigio neutro come nel riferimento)
+.home {
+  --home-bg: #{$home-bg};
+  --home-card: #{$home-card};
+  background-color: var(--home-bg);
+
+  @media (prefers-color-scheme: dark) {
+    --home-bg: #{$d-home-bg};
+    --home-card: #{$d-home-card};
+  }
+}
+
+// ---------- Contenitore: margine esterno e spazio tra le colonne ----------
+.home-grid {
+  display: flex;
+  flex-direction: column;     // mobile: colonne una sotto l'altra
+  gap: $home-gap;
+  padding: $home-gap;
+
+  @media (min-width: $bp-home) {
+    flex-direction: row;      // da 810px: colonne affiancate
+    height: 100vh;            // la griglia occupa esattamente la finestra
+    overflow: hidden;
+  }
+}
+
+// ---------- Colonne ----------
+.home-col {
+  display: flex;
+  flex-direction: column;
+  gap: $home-gap;
+  min-width: 0;
+
+  @media (min-width: $bp-home) {
+    flex: 1 1 0;              // colonne 2 e 3: una parte ciascuna
+  }
+
+  &--wide {
+    @media (min-width: $bp-home) {
+      flex: 2 1 0;            // colonna 1: due parti (doppia larghezza)
+    }
+  }
+}
+
+// ---------- Card: base comune ----------
+.card-box {
+  flex: 0 0 auto;
+  min-height: 0;
+  border-radius: $home-radius;
+  background-color: var(--home-card);
+}
+
+// ---------- Card singole ----------
+// "flex: 1 1 0" = la card si allunga per riempire lo spazio libero della colonna.
+// Un valore in px = altezza fissa.
+
+// Colonna 1
+.card-1-1 {
+  height: 160px;
+
+  @media (min-width: $bp-home) {
+    height: auto;
+    flex: 1 1 0;
+  }
+}
+
+.card-1-2 {
+  height: 99px;
+
+  @media (min-width: $bp-home) {
+    height: 106px;
+  }
+}
+
+// Colonna 2: tre card uguali che si dividono tutta l'altezza
+.card-2-1,
+.card-2-2,
+.card-2-3 {
+  height: 132px;
+
+  @media (min-width: $bp-home) {
+    height: auto;
+    flex: 1 1 0;
+  }
+}
+
+// Colonna 3
+.card-3-1 {
+  height: 504px;
+
+  @media (min-width: $bp-home) {
+    height: auto;
+    flex: 1 1 0;
+  }
+}
+
+.card-3-2 {
+  height: 30px;
+}
+
+.card-3-3 {
+  height: 212px;
+}

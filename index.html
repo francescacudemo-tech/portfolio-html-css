@@ -29,285 +29,37 @@
 
   <!-- Bootstrap 5 (solo CSS) + stili del sito compilati da Sass -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/main.css?v=5" rel="stylesheet">
+  <link href="css/main.css?v=7" rel="stylesheet">
 </head>
-<body>
-  <a class="skip-link" href="#main">Vai al contenuto</a>
+<body class="home">
 
-  <!-- Header sticky: logo, navigazione a pillola, Contatti -->
-  <header class="site-header">
-    <div class="container site-header__inner">
-      <a class="brand" href="index.html" aria-label="Francesca Cudemo, home">
-        <span class="brand__mark" aria-hidden="true">fc</span>
-        <span class="brand__name">Francesca Cudemo</span>
-      </a>
-      <nav class="nav" aria-label="Principale">
-        <a class="nav__link" href="index.html" aria-current="page">Home</a>
-        <a class="nav__link" href="#progetti">Progetti</a>
-        <a class="nav__link" href="cv.html">CV</a>
-        <a class="nav__link nav__link--mobile" href="contattami.html">Contatti</a>
-      </nav>
-      <a class="header-cta" href="contattami.html">Contatti</a>
+  <!-- Titolo della pagina per screen reader e motori di ricerca (non visibile) -->
+  <h1 class="visually-hidden">Francesca Cudemo · Junior UX/UI Designer</h1>
+
+  <!-- HOMEPAGE: tre colonne di card vuote (solo struttura).
+       Ogni card ha una classe propria (card-colonna-posizione) in scss/_home.scss. -->
+  <main class="home-grid" id="main">
+
+    <!-- Colonna 1: doppia larghezza -->
+    <div class="home-col home-col--wide">
+      <div class="card-box card-1-1"></div>
+      <div class="card-box card-1-2"></div>
     </div>
-  </header>
 
-  <main id="main">
+    <!-- Colonna 2 -->
+    <div class="home-col">
+      <div class="card-box card-2-1"></div>
+      <div class="card-box card-2-2"></div>
+      <div class="card-box card-2-3"></div>
+    </div>
 
-    <!-- BENTO: presentazione, concept, foto e progetti in un'unica griglia -->
-    <section class="section section--first" id="progetti" aria-labelledby="titolo-home">
-      <div class="container bento">
-
-        <!-- 1. Presentazione -->
-        <div class="tile tile--hero">
-          <div class="hero__top">
-            <span class="hero__hello" aria-hidden="true">ciao!</span>
-            <span class="status">Junior UX/UI Designer</span>
-          </div>
-          <h1 id="titolo-home">
-            Sono <span class="hero__name">Francesca</span>, <span class="hero__role">UX/UI designer in crescita.</span>
-            Progetto come le persone interagiscono con i prodotti digitali: osservo cosa funziona e mi chiedo cosa potrebbe funzionare meglio.
-          </h1>
-        </div>
-
-        <!-- 2. Concept -->
-        <div class="tile tile--verbi">
-          <span class="verbi__q" aria-hidden="true">?</span>
-          <p>Osservo.<br>Mi chiedo.<br><span class="serif">Progetto.</span></p>
-        </div>
-
-        <!-- 3. Fotografia -->
-        <figure class="tile tile--foto">
-          <img src="assets/img/profile.jpg" width="1200" height="1600" alt="Ritratto di Francesca Cudemo">
-          <figcaption class="bubble">E se funzionasse meglio?</figcaption>
-        </figure>
-
-        <!-- 4. Strumenti -->
-        <div class="tile tile--tools">
-          <span class="tools__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
-          </span>
-          <div>
-            <p class="tools__status">
-              <span class="tools__bars" aria-hidden="true"><span></span><span></span><span></span></span>
-              Gli strumenti che uso
-            </p>
-            <p class="tools__title">Figma &amp; Framer</p>
-            <p class="tools__sub">HTML5 · CSS3 · Sass · Bootstrap</p>
-          </div>
-        </div>
-
-        <!-- 5. Progetto: Buddhify (redesign del sito) -->
-        <article class="tile tile--redesign project project--redesign">
-          <span class="project__shape" aria-hidden="true"></span>
-          <img class="project__mock" src="assets/img/progetti/buddhify-redesign.jpg" width="1400" height="933" loading="lazy" alt="Il sito Buddhify ridisegnato, aperto su uno smartphone">
-          <h2 class="m-0 fs-6">
-            <a class="project__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/buddhify-redesign" target="_blank" rel="noopener">
-              Buddhify <span class="project__meta">· Sito web · 2026</span>
-              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </a>
-          </h2>
-        </article>
-
-        <!-- 6. Progetto: MeditActive -->
-        <article class="tile tile--medit project project--medit">
-          <span class="project__shape" aria-hidden="true"></span>
-          <img class="project__mock" src="assets/img/progetti/meditactive.jpg" width="999" height="1500" loading="lazy" alt="Il logo di MeditActive su una persona in meditazione">
-          <h2 class="m-0 fs-6">
-            <a class="project__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/meditactive" target="_blank" rel="noopener">
-              MeditActive <span class="project__meta">· Branding · 2025</span>
-              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </a>
-          </h2>
-        </article>
-
-        <!-- 7. Chi sono -->
-        <div class="tile tile--about" id="chi-sono">
-          <div>
-            <h2>Progettare significa anche <span class="serif">capire perché.</span></h2>
-            <p>Sono una Junior UX/UI Designer. L'intelligenza artificiale ha aggiunto nuove domande al mio lavoro, e mi piace porle prima di aprire qualsiasi file di design.</p>
-          </div>
-          <div class="tile__foot">
-            <a class="btn-pill" href="cv.html">
-              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              Leggi il CV
-            </a>
-            <span class="tile__meta">UX · UI · Branding</span>
-          </div>
-        </div>
-
-        <!-- 8. Tema scuro automatico (solo CSS: prefers-color-scheme) -->
-        <div class="tile tile--tema">
-          <span class="switch" aria-hidden="true">
-            <span class="switch__knob">
-              <svg class="switch__moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-              <svg class="switch__sun" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
-            </span>
-          </span>
-          <p>Il tema scuro si attiva da solo, in base alle impostazioni del tuo dispositivo.</p>
-        </div>
-
-        <!-- 9. Progetto: Buddhify Guide -->
-        <article class="tile tile--guide project project--guide">
-          <span class="project__shape" aria-hidden="true"></span>
-          <span class="project__shape project__shape--2" aria-hidden="true"></span>
-          <img class="project__mock" src="assets/img/progetti/buddhify-guide.png" width="2048" height="1152" loading="lazy" alt="L'assistente AI Buddhify Guide su due smartphone">
-          <h2 class="m-0 fs-6">
-            <a class="project__link stretched-link" href="https://francesca-cudemo.framer.website/case-studies/buddhify-guide" target="_blank" rel="noopener">
-              Buddhify Guide <span class="project__meta">· Assistente AI · 2026</span>
-              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </a>
-          </h2>
-        </article>
-
-        <!-- 10. Contatti -->
-        <div class="tile tile--cta">
-          <div>
-            <h2>Hai una domanda? <span class="serif">Parliamone.</span></h2>
-            <p>Cerchi una Junior UX/UI Designer o vuoi collaborare a un progetto?</p>
-          </div>
-          <div class="tile__foot">
-            <a class="btn-brand" href="contattami.html">
-              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M5 4h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              Scrivimi
-            </a>
-            <div class="socials">
-              <a href="https://www.linkedin.com/in/francesca-cudemo-a488b8225/" target="_blank" rel="noopener">LinkedIn ↗</a>
-              <a href="https://github.com/francescacudemo-tech" target="_blank" rel="noopener">GitHub ↗</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- COME LAVORO -->
-    <section class="section" id="come-lavoro">
-      <div class="container">
-        <div class="section__head">
-          <span class="eyebrow">Chi sono</span>
-          <h2>Tre verbi per descrivere <span class="serif">come lavoro</span></h2>
-        </div>
-        <div class="grid-3">
-          <article class="step">
-            <span class="step__num">01</span>
-            <h3>Osservo</h3>
-            <p>Parto da come le persone usano davvero un prodotto, non da come immagino lo usino.</p>
-          </article>
-          <article class="step">
-            <span class="step__num">02</span>
-            <h3>Mi chiedo</h3>
-            <p>Cosa potrebbe funzionare meglio? È la domanda con cui comincia ogni mio progetto.</p>
-          </article>
-          <article class="step">
-            <span class="step__num">03</span>
-            <h3>Progetto</h3>
-            <p>Trasformo le risposte in interfacce chiare, coerenti e curate fino al dettaglio.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILL -->
-    <section class="section" id="skill">
-      <div class="container">
-        <div class="section__head">
-          <span class="eyebrow">Cosa so fare</span>
-          <h2>Competenze e <span class="serif">strumenti</span></h2>
-        </div>
-        <div class="grid-3">
-          <div class="skill-group">
-            <h3>Design</h3>
-            <ul class="skill-group__tags">
-              <li class="tag tag--accent">UX design</li>
-              <li class="tag tag--accent">UI design</li>
-              <li class="tag tag--accent">Wireframe e prototipi</li>
-              <li class="tag tag--accent">Identità visiva</li>
-              <li class="tag tag--accent">Branding</li>
-              <li class="tag tag--accent">AI assistant UX</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <h3>Strumenti di design</h3>
-            <ul class="skill-group__tags">
-              <li class="tag">Figma</li>
-              <li class="tag">Framer</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <h3>Front-end</h3>
-            <ul class="skill-group__tags">
-              <li class="tag">HTML5</li>
-              <li class="tag">CSS3</li>
-              <li class="tag">Sass</li>
-              <li class="tag">Bootstrap</li>
-              <li class="tag">Flexbox</li>
-              <li class="tag">CSS Grid</li>
-              <li class="tag">Responsive design</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- QUESTO SITO COME PROGETTO -->
-    <section class="section" id="questo-sito">
-      <div class="container">
-        <div class="section__head">
-          <span class="eyebrow">Com'è fatto questo sito</span>
-          <h2>Anche questo sito è <span class="serif">un progetto</span></h2>
-          <p class="section__lead">
-            HTML e CSS scritti a mano, Sass per i token, Bootstrap come base, Flexbox e Grid per il layout.
-            Questi sono i suoi mattoncini, tutti definiti in un unico file di variabili.
-          </p>
-        </div>
-        <div class="tokens">
-          <div class="panel tokens__colors">
-            <h3 class="panel__title">Colori</h3>
-            <div class="swatches">
-              <div class="swatch"><div class="swatch__chip"></div><strong>Accento</strong>#5b4bf0</div>
-              <div class="swatch"><div class="swatch__chip swatch__chip--soft"></div><strong>Accento soft</strong>#eeebff</div>
-              <div class="swatch"><div class="swatch__chip swatch__chip--warm"></div><strong>Corallo</strong>#ff8f6b</div>
-              <div class="swatch"><div class="swatch__chip swatch__chip--warm-soft"></div><strong>Corallo soft</strong>mix 40%</div>
-              <div class="swatch"><div class="swatch__chip swatch__chip--sage"></div><strong>Salvia</strong>#8fc9b0</div>
-              <div class="swatch"><div class="swatch__chip swatch__chip--text"></div><strong>Inchiostro</strong>#1d1b24</div>
-              <div class="swatch"><div class="swatch__chip swatch__chip--canvas"></div><strong>Tela</strong>#f3f1ee</div>
-              <div class="swatch"><div class="swatch__chip swatch__chip--surface"></div><strong>Superficie</strong>#ffffff</div>
-            </div>
-            <p class="section__lead">Il tema scuro si attiva da solo, in base alle impostazioni del tuo dispositivo.</p>
-          </div>
-          <div class="panel tokens__type">
-            <h3 class="panel__title">Tipografia</h3>
-            <div class="type-sample type-sample--xl">Inter Bold <span>40 / 650</span></div>
-            <div class="type-sample type-sample--l">Titoli di sezione <span>24 / 650</span></div>
-            <div class="type-sample type-sample--m">Testo corrente, leggibile e sobrio. <span>16 / 400</span></div>
-            <div class="type-sample type-sample--serif">Instrument Serif <span>accento</span></div>
-          </div>
-          <div class="panel tokens__space">
-            <h3 class="panel__title">Spaziatura (base 4px)</h3>
-            <div class="space-row space-row--1"><b>4px</b><i></i></div>
-            <div class="space-row space-row--2"><b>8px</b><i></i></div>
-            <div class="space-row space-row--3"><b>16px</b><i></i></div>
-            <div class="space-row space-row--4"><b>24px</b><i></i></div>
-            <div class="space-row space-row--5"><b>40px</b><i></i></div>
-            <div class="space-row space-row--6"><b>64px</b><i></i></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Colonna 3 -->
+    <div class="home-col">
+      <div class="card-box card-3-1"></div>
+      <div class="card-box card-3-2"></div>
+      <div class="card-box card-3-3"></div>
+    </div>
 
   </main>
-
-  <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <p>© 2026 Francesca Cudemo. Scritto a mano in HTML, Sass e Bootstrap.</p>
-      <div class="site-footer__links">
-        <a href="index.html">Home</a>
-        <a href="cv.html">CV</a>
-        <a href="contattami.html">Contatti</a>
-        <a href="https://www.linkedin.com/in/francesca-cudemo-a488b8225/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/francescacudemo-tech" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
