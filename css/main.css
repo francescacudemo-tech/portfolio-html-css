@@ -1613,8 +1613,14 @@ textarea.form-control {
 }
 
 .case-cover--buddhify {
-  --cover-bg: #383f35;
-  --cover-ink: #fff;
+  --cover-bg: #ff9956;
+  --cover-ink: #282929;
+  --cover-focus: #282929;
+}
+
+.case-cover--buddhify .case-cover__image {
+  object-position: top;
+  background-color: #f7f3ee;
 }
 
 .case-cover--meditactive {
