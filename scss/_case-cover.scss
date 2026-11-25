@@ -14,9 +14,13 @@
 @use 'variables' as *;
 
 // Colore del livello sotto, uno per progetto (dalle rispettive identità)
-$cover-bg-guide: #51408f;        // Buddhify Guide: viola scuro
-$cover-bg-buddhify: #a6431d;     // Buddhify: arancio bruciato
-$cover-bg-meditactive: #1e1d1b;  // MeditActive: nero caldo
+// e colore di titolo e chevron
+$cover-bg-guide: #51408f;          // Buddhify Guide: viola scuro
+$cover-ink-guide: #fff;
+$cover-bg-buddhify: #383f35;       // Buddhify: verde grafite (si stacca dall'arancio della copertina)
+$cover-ink-buddhify: #fff;
+$cover-bg-meditactive: #cbb5da;    // MeditActive: lilla
+$cover-ink-meditactive: #5a2e6b;
 
 // Misure del progetto
 $cover-radius: 24px;
@@ -68,7 +72,7 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
     line-height: $cover-line;
     letter-spacing: 0;
     white-space: nowrap;            // il titolo resta su una riga (la discesa è di 52px)
-    color: #fff;
+    color: var(--cover-ink);
 
     // Colonne strette (810–1023px, card larga circa 180–240px):
     // testo e margini un po' più piccoli perché titolo e chevron stiano su una riga.
@@ -103,7 +107,7 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
     flex: none;
     width: 20px;
     height: 20px;
-    color: #fff;
+    color: var(--cover-ink);
     transition: transform $cover-duration $cover-ease;
     transition-delay: 60ms;         // arriva un istante dopo la copertina
   }
@@ -137,7 +141,7 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
   // Tastiera: stesso movimento + anello di focus sulla card intera
   &:focus-within {
     @include cover-open;
-    outline: 2px solid var(--cover-bg);
+    outline: 2px solid var(--cover-focus, var(--cover-bg));
     outline-offset: 3px;
   }
 
@@ -157,36 +161,29 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
-// ---------- Copertina con foto incorniciata (MeditActive) ----------
-// La foto verticale a tutta card risultava troppo ingrandita: qui torna alla
-// dimensione che aveva nella card avorio (margine 10px, proporzione 316 × 195),
-// centrata su un passe-partout avorio che fa da copertina.
-.case-cover__frame {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background: $id-ivory;
-
-  img {
-    width: 100%;
-    height: auto;                   // altrimenti vince l'attributo height="1500"
-    aspect-ratio: 316 / 195;
-    max-height: 100%;
-    object-fit: cover;
-    border-radius: $home-radius - 8px;
-  }
-}
-
 // ---------- Varianti per progetto ----------
-.case-cover--guide { --cover-bg: #{$cover-bg-guide}; }
+.case-cover--guide {
+  --cover-bg: #{$cover-bg-guide};
+  --cover-ink: #{$cover-ink-guide};
+}
 
 // Il PNG di Buddhify Guide ha gli angoli arrotondati già nel file (trasparenti):
 // li riempiamo con il viola del mockup, così a riposo il fondo scuro non si vede.
 .case-cover--guide .case-cover__image {
   background-color: #9b85f5;
 }
-.case-cover--buddhify { --cover-bg: #{$cover-bg-buddhify}; }
-.case-cover--meditactive { --cover-bg: #{$cover-bg-meditactive}; }
+
+.case-cover--buddhify {
+  --cover-bg: #{$cover-bg-buddhify};
+  --cover-ink: #{$cover-ink-buddhify};
+}
+
+// Sfondo chiaro: l'anello di focus usa il colore del titolo (contrasto ≥ 3:1)
+.case-cover--meditactive {
+  --cover-bg: #{$cover-bg-meditactive};
+  --cover-ink: #{$cover-ink-meditactive};
+  --cover-focus: #{$cover-ink-meditactive};
+}
 
 // Tema scuro: l'anello di focus deve staccarsi dal fondo scuro
 @media (prefers-color-scheme: dark) {

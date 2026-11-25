@@ -1518,7 +1518,7 @@ textarea.form-control {
   line-height: 24px;
   letter-spacing: 0;
   white-space: nowrap;
-  color: #fff;
+  color: var(--cover-ink);
 }
 @media (min-width: 810px) and (max-width: 1023px) {
   .case-cover__title {
@@ -1544,7 +1544,7 @@ textarea.form-control {
   flex: none;
   width: 20px;
   height: 20px;
-  color: #fff;
+  color: var(--cover-ink);
   transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: 60ms;
 }
@@ -1579,7 +1579,7 @@ textarea.form-control {
   transform: translateX(2px);
 }
 .case-cover:focus-within {
-  outline: 2px solid var(--cover-bg);
+  outline: 2px solid var(--cover-focus, var(--cover-bg));
   outline-offset: 3px;
 }
 @media (hover: none), (pointer: coarse) {
@@ -1603,23 +1603,9 @@ textarea.form-control {
   }
 }
 
-.case-cover__frame {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background: #f5f1e9;
-}
-.case-cover__frame img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 316/195;
-  max-height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
 .case-cover--guide {
   --cover-bg: #51408f;
+  --cover-ink: #fff;
 }
 
 .case-cover--guide .case-cover__image {
@@ -1627,11 +1613,14 @@ textarea.form-control {
 }
 
 .case-cover--buddhify {
-  --cover-bg: #a6431d;
+  --cover-bg: #383f35;
+  --cover-ink: #fff;
 }
 
 .case-cover--meditactive {
-  --cover-bg: #1e1d1b;
+  --cover-bg: #cbb5da;
+  --cover-ink: #5a2e6b;
+  --cover-focus: #5a2e6b;
 }
 
 @media (prefers-color-scheme: dark) {
