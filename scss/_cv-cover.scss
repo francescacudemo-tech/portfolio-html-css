@@ -1,0 +1,229 @@
+// ============================================================
+// Card "Curriculum" (colonna 3, in basso): tre fogli impilati
+//
+// A riposo: titolo "Curriculum" e tre fogli che escono dal basso,
+// sfalsati in diagonale (posteriore cherry, intermedio cipria,
+// documento avorio in primo piano).
+// All'hover / focus da tastiera:
+//  - "Curriculum" sale e sfuma, "Aprilo qui" entra dal basso (450ms)
+//  - foglio intermedio e documento scorrono in diagonale verso
+//    sinistra e verso l'alto (550ms, il documento parte 35ms dopo)
+//  - il foglio posteriore resta fermo
+// Geometria fedele al prototipo (cv-warm-editorial-finale.html):
+// posizioni in % della card, misure interne in cqw (larghezza card).
+// Classi "cv-cover" per non toccare .cv-card della pagina CV.
+// ============================================================
+@use 'variables' as *;
+
+$cv-bg: #f5f1e9;          // avorio
+$cv-ink: #7b263b;         // titolo e foglio posteriore
+$cv-middle: #dfa6aa;      // foglio intermedio
+$cv-paper: #fff8f0;       // documento in primo piano
+$cv-ease: cubic-bezier(0.22, 1, 0.36, 1);
+$cv-text-duration: 450ms;
+$cv-text-fade: 260ms;
+$cv-sheet-duration: 550ms;
+$cv-front-delay: 35ms;
+
+// Stato "aperto"
+@mixin cv-open {
+  .cv-cover__first {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+
+  .cv-cover__next {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .cv-cover__sheet--middle {
+    transform: translate(-4.66cqw, -2.33cqw);
+  }
+
+  .cv-cover__sheet--front {
+    transform: translate(-9.32cqw, -4.66cqw);
+    transition-delay: $cv-front-delay;
+  }
+}
+
+.cv-cover {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  container-type: inline-size;     // le misure interne seguono la larghezza della card
+  background-color: $cv-bg;        // sostituisce il grigio della card vuota
+  color: $cv-ink;
+  text-align: center;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &,
+  * {
+    box-sizing: border-box;
+  }
+
+  &:hover {
+    color: $cv-ink;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $cv-ink;     // contrasto ≥ 3:1 sul fondo bianco
+    outline-offset: 4px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: $cv-middle;    // su fondo scuro serve un colore chiaro
+    }
+  }
+
+  // ---------- Titolo ----------
+  &__heading {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    height: 22.17%;
+    font-family: $font-display;
+    font-size: clamp(15px, 5.1cqw, 22px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  &__swap {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    line-height: 1.32;
+
+    > span {
+      grid-area: 1 / 1;
+      white-space: nowrap;
+      transition:
+        transform $cv-text-duration $cv-ease,
+        opacity $cv-text-fade $cv-ease;
+    }
+  }
+
+  &__next {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+
+  // ---------- Fogli ----------
+  &__sheet {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 145%;
+    border-radius: 3.5cqw 3.5cqw 0 0;
+    text-align: left;
+    pointer-events: none;
+    transition: transform $cv-sheet-duration $cv-ease;
+
+    &--back {
+      left: 7.57%;
+      top: 22.17%;
+      background-color: $cv-ink;
+    }
+
+    &--middle {
+      left: 21.54%;
+      top: 29.72%;
+      background-color: $cv-middle;
+    }
+
+    &--front {
+      left: 35.52%;
+      top: 37.26%;
+      padding: 12.45cqw 8.73cqw 6cqw;
+      background-color: $cv-paper;
+    }
+  }
+
+  // ---------- Anteprima del documento ----------
+  &__name {
+    display: block;
+    font-family: $font-sans;
+    font-size: 3.5cqw;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+  }
+
+  &__role {
+    display: block;
+    margin-top: 0.4cqw;
+    font-family: $font-sans;
+    font-size: 2.25cqw;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  &__docgrid {
+    display: grid;
+    grid-template-columns: 21cqw 43cqw;
+    gap: 3.2cqw;
+    margin-top: 3.4cqw;
+
+    > span {
+      display: block;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 1.05cqw;
+    font-family: $font-sans;
+    font-size: 2.4cqw;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+
+    &--lower {
+      margin-top: 2.3cqw;
+    }
+  }
+
+  &__line {
+    display: block;
+    height: 0.5cqw;
+    margin-top: 0.85cqw;
+    border-radius: 0.2cqw;
+    background-color: $cv-ink;
+    opacity: 0.21;
+
+    &--bold {
+      height: 0.65cqw;
+      opacity: 0.55;
+    }
+
+    &--70 { width: 70%; }
+    &--84 { width: 84%; }
+    &--95 { width: 95%; }
+  }
+
+  // ---------- Apertura ----------
+  // Mouse: al passaggio. Su touch il tap apre direttamente il CV.
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @include cv-open;
+    }
+  }
+
+  // Tastiera
+  &:focus-visible {
+    @include cv-open;
+  }
+
+  // Movimento ridotto: cambio di stato immediato
+  @media (prefers-reduced-motion: reduce) {
+    .cv-cover__sheet,
+    .cv-cover__swap > span {
+      transition: none;
+    }
+  }
+}
