@@ -1,0 +1,174 @@
+// ============================================================
+// Case study Buddhify: animazione "Bloom Reveal"
+// (riferimento: buddhify-bloom-finale.html)
+//
+// A riposo: fondo arancio, la homepage di Buddhify che esce dal basso.
+// All'hover / focus da tastiera, tre tempi distinti:
+//  1. la copertina si solleva di ~10px (550ms, nessuna scala)
+//  2. il titolo emerge dal basso sfumando (450ms, +40ms)
+//  3. l'asterisco "sboccia" dal centro: scala .3 → 1, -30° → 0° (550ms, +150ms)
+// Al mouse leave tutto torna indietro senza ritardi.
+// Touch e movimento ridotto: titolo e asterisco sempre visibili,
+// così un solo tap apre il case study.
+//
+// Misure verticali in --u (1cqw, con un minimo per le colonne strette):
+// la composizione in alto resta quella del prototipo a ogni larghezza.
+// ============================================================
+@use 'variables' as *;
+
+$bloom-bg: #ff9956;        // arancio Buddhify
+$bloom-ink: #7b263b;       // Dark cherry
+$bloom-paper: #f7f3ee;     // fondo della homepage nel mockup
+$bloom-match: #e7edaa;     // matcha, per il focus su tema scuro
+$bloom-ease: cubic-bezier(0.22, 1, 0.36, 1);
+$bloom-radius: 24px;       // come le altre card dei case study
+
+@mixin bloom-open {
+  .bloom__panel {
+    transform: translateY(calc(-2.81 * var(--u)));
+  }
+
+  .bloom__title {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 40ms;
+  }
+
+  .bloom__star {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    transition-delay: 150ms;
+  }
+}
+
+.bloom {
+  position: relative;
+  border-radius: $bloom-radius;
+  background-color: $bloom-bg;
+
+  // Sotto 810px le card si impilano: stessa proporzione delle altre (335 × 220)
+  @media (max-width: $bp-home - 1px) {
+    height: auto;
+    aspect-ratio: 335 / 220;
+  }
+
+  // Il link copre tutta la card: un solo tap apre il case study
+  &__link {
+    --u: max(1cqw, 2.6px);
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    isolation: isolate;
+    container-type: inline-size;
+    border-radius: inherit;
+    color: $bloom-ink;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      color: $bloom-ink;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $bloom-ink;   // contrasto ≥ 3:1 sul fondo bianco
+      outline-offset: 4px;
+
+      @media (prefers-color-scheme: dark) {
+        outline-color: $bloom-match;
+      }
+    }
+  }
+
+  // ---------- Copertina ----------
+  &__panel {
+    position: absolute;
+    top: calc(17.43 * var(--u));
+    left: 6.18%;
+    width: 87.64%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 2.3cqw 2.3cqw 0 0;
+    background-color: $bloom-paper;
+    transition: transform 550ms $bloom-ease;
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      pointer-events: none;
+    }
+  }
+
+  // ---------- Titolo + asterisco ----------
+  &__mask {
+    position: absolute;
+    z-index: 2;
+    top: calc(0.93 * var(--u));
+    left: 6.18%;
+    right: 6.18%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(11.74 * var(--u));
+    margin: 0;
+    overflow: hidden;
+    color: $bloom-ink;               // anche in tema scuro (i titoli h2 del sito sono chiari)
+    font-family: $font-display;
+    font-size: clamp(14px, 5.3cqw, 22px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    pointer-events: none;
+  }
+
+  &__title {
+    display: block;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      transform 450ms $bloom-ease,
+      opacity 260ms ease;
+  }
+
+  &__star {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    opacity: 0;
+    transform: scale(0.3) rotate(-30deg);
+    transform-origin: center;
+    transition:
+      transform 550ms $bloom-ease,
+      opacity 260ms ease;
+  }
+
+  // ---------- Apertura ----------
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @include bloom-open;
+    }
+  }
+
+  &:focus-within {
+    @include bloom-open;
+  }
+
+  // Touch: titolo sempre visibile, nessun doppio tap
+  @media (hover: none), (pointer: coarse) {
+    @include bloom-open;
+  }
+
+  // Movimento ridotto: stato finale, senza animazione
+  @media (prefers-reduced-motion: reduce) {
+    @include bloom-open;
+
+    .bloom__panel,
+    .bloom__title,
+    .bloom__star {
+      transition: none;
+    }
+  }
+}

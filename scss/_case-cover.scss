@@ -17,8 +17,6 @@
 // e colore di titolo e chevron
 $cover-bg-guide: #51408f;          // Buddhify Guide: viola scuro
 $cover-ink-guide: #fff;
-$cover-bg-buddhify: #ff9956;       // Buddhify: arancio
-$cover-ink-buddhify: #282929;
 $cover-bg-meditactive: #cbb5da;    // MeditActive: lilla
 $cover-ink-meditactive: #5a2e6b;
 
@@ -180,21 +178,6 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
 // li riempiamo con il viola del mockup, così a riposo il fondo scuro non si vede.
 .case-cover--guide .case-cover__image {
   background-color: #9b85f5;
-}
-
-// Sfondo chiaro: l'anello di focus usa il colore del titolo (contrasto ≥ 3:1)
-.case-cover--buddhify {
-  --cover-bg: #{$cover-bg-buddhify};
-  --cover-ink: #{$cover-ink-buddhify};
-  --cover-focus: #{$cover-ink-buddhify};
-}
-
-// La copertina di Buddhify è quasi quadrata: la mostriamo intera, senza
-// ritagli. Le fasce ai lati (e gli angoli trasparenti del PNG) prendono
-// l'avorio della pagina del mockup, così la copertina resta un unico foglio.
-.case-cover--buddhify .case-cover__image {
-  object-fit: contain;
-  background-color: #f7f3ee;
 }
 
 // Sfondo chiaro: l'anello di focus usa il colore del titolo (contrasto ≥ 3:1)
