@@ -1497,8 +1497,9 @@ textarea.form-control {
   position: relative;
   overflow: hidden;
   border-radius: 24px;
-  background: var(--cover-bg);
   isolation: isolate;
+  background-color: transparent;
+  transition: background-color 0s 450ms;
 }
 @media (max-width: 809px) {
   .case-cover {
@@ -1565,12 +1566,20 @@ textarea.form-control {
   will-change: transform;
 }
 @media (hover: hover) and (pointer: fine) {
+  .case-cover:hover {
+    background-color: var(--cover-bg);
+    transition-delay: 0s;
+  }
   .case-cover:hover .case-cover__image {
     transform: translateY(52px) scale(0.94);
   }
   .case-cover:hover .case-cover__chevron {
     transform: translateX(2px);
   }
+}
+.case-cover:focus-within {
+  background-color: var(--cover-bg);
+  transition-delay: 0s;
 }
 .case-cover:focus-within .case-cover__image {
   transform: translateY(52px) scale(0.94);
@@ -1583,6 +1592,10 @@ textarea.form-control {
   outline-offset: 3px;
 }
 @media (hover: none), (pointer: coarse) {
+  .case-cover {
+    background-color: var(--cover-bg);
+    transition-delay: 0s;
+  }
   .case-cover .case-cover__image {
     transform: translateY(52px) scale(0.94);
   }
@@ -1591,6 +1604,10 @@ textarea.form-control {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .case-cover {
+    background-color: var(--cover-bg);
+    transition-delay: 0s;
+  }
   .case-cover .case-cover__image {
     transform: translateY(52px) scale(0.94);
   }
@@ -1619,7 +1636,7 @@ textarea.form-control {
 }
 
 .case-cover--buddhify .case-cover__image {
-  object-position: top;
+  object-fit: contain;
   background-color: #f7f3ee;
 }
 

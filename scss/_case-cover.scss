@@ -33,8 +33,11 @@ $cover-scale: 0.94;
 $cover-duration: 450ms;
 $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-// Stato "aperto": copertina abbassata e ridotta
+// Stato "aperto": copertina abbassata e ridotta, fondo colorato visibile
 @mixin cover-open {
+  background-color: var(--cover-bg);
+  transition-delay: 0s;             // il fondo compare subito
+
   .case-cover__image {
     transform: translateY($cover-shift) scale($cover-scale);
   }
@@ -48,8 +51,14 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   overflow: hidden;                 // nasconde la parte di copertina che esce in basso
   border-radius: $cover-radius;
-  background: var(--cover-bg);
   isolation: isolate;               // overflow + radius affidabili anche durante il transform
+
+  // A riposo il fondo colorato non c'è: così lungo la curva degli angoli
+  // non affiora nemmeno un filo di colore sotto la copertina.
+  // Quando la card si chiude, il fondo sparisce solo dopo che la
+  // copertina è tornata su (stessa durata dell'animazione).
+  background-color: transparent;
+  transition: background-color 0s $cover-duration;
 
   // Sotto 810px le card si impilano: stessa proporzione del mockup (335 × 220)
   @media (max-width: $bp-home - 1px) {
@@ -180,11 +189,11 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --cover-focus: #{$cover-ink-buddhify};
 }
 
-// La copertina di Buddhify è quasi quadrata: la allineiamo in alto,
-// così logo e navigazione del sito restano visibili; gli angoli
-// trasparenti del PNG si riempiono con l'avorio della pagina mockup.
+// La copertina di Buddhify è quasi quadrata: la mostriamo intera, senza
+// ritagli. Le fasce ai lati (e gli angoli trasparenti del PNG) prendono
+// l'avorio della pagina del mockup, così la copertina resta un unico foglio.
 .case-cover--buddhify .case-cover__image {
-  object-position: top;
+  object-fit: contain;
   background-color: #f7f3ee;
 }
 
