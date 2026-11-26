@@ -24,9 +24,6 @@
 // ============================================================
 @use 'variables' as *;
 
-$star-bg: #b9a7f5;          // Electric Lilac
-$star-lime: #e7edaa;        // Matcha: stellina e testo del pulsante
-$star-ink: #123f48;         // Petrol Ink: testo, pupille, sorriso, pulsante
 $star-ease: cubic-bezier(0.22, 1, 0.36, 1);
 $star-duration: 650ms;
 
@@ -54,21 +51,21 @@ $star-duration: 650ms;
   overflow: hidden;
   isolation: isolate;
   container-type: size;            // cqw e cqh riferiti alla card
-  background-color: $star-bg;      // sostituisce il grigio della card vuota
-  color: $star-ink;
+  background-color: var(--electric-lilac);      // sostituisce il grigio della card vuota
+  color: var(--petrol-ink);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 
   &:hover {
-    color: $star-ink;
+    color: var(--petrol-ink);
   }
 
   &:focus-visible {
-    outline: 2px solid $star-ink;
+    outline: 2px solid var(--petrol-ink);
     outline-offset: 5px;
 
     @media (prefers-color-scheme: dark) {
-      outline-color: $star-bg;       // su fondo scuro serve un colore chiaro
+      outline-color: var(--electric-lilac);       // su fondo scuro serve un colore chiaro
     }
   }
 
@@ -102,6 +99,7 @@ $star-duration: 650ms;
 
     svg {
       display: block;
+      fill: var(--matcha);           // corpo della stellina
       width: 100%;
       height: 100%;
       overflow: visible;             // il tracciato esce dai lati e dal fondo
@@ -118,6 +116,19 @@ $star-duration: 650ms;
     }
   }
 
+  &__eye {
+    fill: var(--porcelain);
+  }
+
+  &__pupil {
+    fill: var(--petrol-ink);
+  }
+
+  &__smile {
+    fill: none;
+    stroke: var(--petrol-ink);
+  }
+
   // ---------- Pulsante ----------
   &__cta {
     position: absolute;
@@ -130,8 +141,8 @@ $star-duration: 650ms;
     min-height: calc(49 * var(--u));
     padding: calc(7 * var(--u));
     border-radius: 999px;
-    background: $star-ink;
-    color: $star-lime;
+    background: var(--petrol-ink);
+    color: var(--matcha);
     font-family: $font-display;
     font-size: calc(19 * var(--u));
     font-weight: 600;

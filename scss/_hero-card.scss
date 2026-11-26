@@ -8,15 +8,13 @@
 // ============================================================
 @use 'variables' as *;
 
-$hero-bg: #f5f1e9;         // Warm Ivory
-$hero-ink: #7b263b;        // Dark Cherry
 
 .hero-card {
   position: relative;
   overflow: hidden;
   container-type: inline-size;     // i testi seguono la larghezza della card
-  background-color: $hero-bg;      // sostituisce il grigio della card vuota
-  color: $hero-ink;
+  background-color: var(--porcelain);  // sostituisce il grigio della card vuota
+  color: var(--petrol-ink);
 
   // Ruolo
   &__meta {
@@ -52,7 +50,7 @@ $hero-ink: #7b263b;        // Dark Cherry
 
   &__text {
     margin: 0;
-    font-family: $font-sans;
+    font-family: $font-display;
     font-size: max(12px, 3.5cqw);
     font-weight: 400;
     line-height: 1.32;

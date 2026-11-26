@@ -7,6 +7,12 @@
 // I token Sass diventano variabili CSS: così il tema scuro
 // cambia solo i valori, senza riscrivere i componenti.
 :root {
+  // Palette ufficiale
+  --petrol-ink: #{$petrol-ink};
+  --electric-lilac: #{$electric-lilac};
+  --porcelain: #{$porcelain};
+  --matcha: #{$matcha};
+
   --canvas: #{$c-canvas};
   --bg-glass: #{$c-bg-glass};
   --surface: #{$c-surface};

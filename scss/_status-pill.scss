@@ -1,0 +1,32 @@
+// ============================================================
+// Indicatore di disponibilità (colonna 3, tra About e Curriculum)
+//
+// Barra sottile da 30px (altezza di .card-3-2 in _home.scss):
+// fondo Petrol Ink, pallino e testo Matcha, centrati. Statica.
+// ============================================================
+@use 'variables' as *;
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;                       // è un <p>: niente margine di Bootstrap
+  padding: 0 12px;
+  background-color: var(--petrol-ink);  // sostituisce il grigio della card vuota
+  color: var(--matcha);
+  font-family: $font-sans;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+
+  &__dot {
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+}

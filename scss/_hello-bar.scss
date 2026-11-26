@@ -15,8 +15,6 @@
 @use 'variables' as *;
 
 // Token della barra
-$hello-bg: #e7edaa;              // Matcha
-$hello-ink: #7b263b;             // Dark cherry (contrasto 7,8:1 sul matcha)
 $hello-duration: 500ms;
 $hello-ease: cubic-bezier(0.22, 1, 0.36, 1);
 $hello-fade: 280ms;              // le parole e le icone sfumano più in fretta di quanto scivolano
@@ -67,8 +65,8 @@ $hello-hit: 48px;                // area cliccabile (≥ 44 × 44)
   position: relative;
   overflow: hidden;
   container-type: inline-size;     // abilita le unità cqw per la posizione delle icone
-  background-color: $hello-bg;     // sostituisce il grigio della card vuota
-  color: $hello-ink;
+  background-color: var(--matcha);   // sostituisce il grigio della card vuota
+  color: var(--petrol-ink);
 
   // La barra riceve il focus solo dal tap (tabindex="-1"): niente anello
   &:focus {
@@ -145,7 +143,7 @@ $hello-hit: 48px;                // area cliccabile (≥ 44 × 44)
     }
 
     &:focus-visible {
-      outline: 2px solid $hello-ink;
+      outline: 2px solid var(--petrol-ink);
       outline-offset: 0;
     }
 
