@@ -15,8 +15,6 @@
 
 // Colore del livello sotto, uno per progetto (dalle rispettive identità)
 // e colore di titolo e chevron
-$cover-bg-guide: #51408f;          // Buddhify Guide: viola scuro
-$cover-ink-guide: #fff;
 $cover-bg-meditactive: #cbb5da;    // MeditActive: lilla
 $cover-ink-meditactive: #5a2e6b;
 
@@ -169,17 +167,6 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 // ---------- Varianti per progetto ----------
-.case-cover--guide {
-  --cover-bg: #{$cover-bg-guide};
-  --cover-ink: #{$cover-ink-guide};
-}
-
-// Il PNG di Buddhify Guide ha gli angoli arrotondati già nel file (trasparenti):
-// li riempiamo con il viola del mockup, così a riposo il fondo scuro non si vede.
-.case-cover--guide .case-cover__image {
-  background-color: #9b85f5;
-}
-
 // Sfondo chiaro: l'anello di focus usa il colore del titolo (contrasto ≥ 3:1)
 .case-cover--meditactive {
   --cover-bg: #{$cover-bg-meditactive};

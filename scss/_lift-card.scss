@@ -1,0 +1,203 @@
+// ============================================================
+// Case study Buddhify Guide e Buddhify: animazione "Micro Lift"
+// (riferimento: buddhify-micro-lift-due-card.html)
+//
+// A riposo: fondo pieno, mockup centrato che esce dal basso,
+// titolo nascosto (solo su desktop con mouse).
+// All'hover / focus da tastiera:
+//  - il mockup sale di 8px (600ms), senza zoom né spostamenti laterali
+//  - il titolo entra dal basso sfumando (450ms, +80ms)
+// Il fondo non cambia colore. Ritorno fluido, senza ritardi.
+// Touch e movimento ridotto: titolo sempre visibile.
+//
+// Il mockup parte sotto il titolo con 14px di respiro anche a fine
+// sollevamento: titolo (16px dall'alto) + riga + 14px + 8px.
+// Larghezze calibrate a parte per i due asset (pesi visivi diversi).
+// ============================================================
+@use 'variables' as *;
+
+$lift-ink: #7b263b;            // Dark cherry
+$lift-ink-dark: #e7edaa;       // matcha, per il focus su tema scuro
+$lift-ease: cubic-bezier(0.22, 1, 0.36, 1);
+$lift-shift: 8px;
+$lift-radius: 24px;            // come le altre card dei case study
+$lift-pad-top: 16px;
+$lift-pad-x: 20px;
+$lift-line: 1.2;
+$lift-gap: 14px;               // titolo → mockup durante l'hover
+
+@mixin lift-open {
+  .lift__art {
+    transform: translateY(-$lift-shift);
+  }
+
+  .lift__title {
+    transform: none;
+    opacity: 1;
+    transition-delay: 80ms;
+  }
+}
+
+.lift {
+  position: relative;
+  border-radius: $lift-radius;
+
+  // Sotto 810px le card si impilano: stessa proporzione delle altre (335 × 220)
+  @media (max-width: $bp-home - 1px) {
+    height: auto;
+    aspect-ratio: 335 / 220;
+  }
+
+  // Il link copre tutta la card: un solo tap apre il case study
+  &__link {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    isolation: isolate;
+    container-type: inline-size;
+    border-radius: inherit;
+    color: $lift-ink;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      color: $lift-ink;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $lift-ink;     // contrasto ≥ 3:1 sul fondo bianco
+      outline-offset: 4px;
+
+      @media (prefers-color-scheme: dark) {
+        outline-color: $lift-ink-dark;
+      }
+    }
+  }
+
+  // ---------- Titolo ----------
+  &__mask {
+    position: absolute;
+    z-index: 2;
+    top: $lift-pad-top;
+    left: $lift-pad-x;
+    right: $lift-pad-x;
+    margin: 0;
+    overflow: hidden;
+    color: $lift-ink;
+    font-family: $font-display;
+    font-size: clamp(16px, 5.1cqw, 22px);
+    font-weight: 600;
+    line-height: $lift-line;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  &__title {
+    display: block;
+    opacity: 0;
+    transform: translateY(110%);
+    transition:
+      transform 450ms $lift-ease,
+      opacity 450ms $lift-ease;
+  }
+
+  // ---------- Mockup ----------
+  // Un solo livello che sale: le due schermate di Guide si muovono insieme
+  &__art {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: transform 600ms $lift-ease;
+  }
+
+  // Punto di partenza comune sotto il titolo
+  &__guide,
+  &__desktop {
+    position: absolute;
+    top: calc(#{$lift-pad-top} + clamp(16px, 5.1cqw, 22px) * #{$lift-line} + #{$lift-gap + $lift-shift});
+  }
+
+  // Buddhify Guide: le due schermate già raggruppate (gap e sfalsamento nel PNG).
+  // Larghezza piena delle schermate, centrate, ritaglio solo in basso.
+  &__guide {
+    left: 50%;
+    width: 60%;
+    height: auto;
+    max-width: none;
+    margin: 0;
+    transform: translateX(-50%);
+
+    @media (max-width: $bp-home - 1px) {
+      width: 57%;
+    }
+
+    // Colonne strette e alte (810–1023px): più larga, per non lasciare vuoto in basso
+    @media (min-width: $bp-home) and (max-width: 1023px) {
+      width: 76%;
+    }
+  }
+
+  // Buddhify: schermata desktop intera in larghezza, 5% di margine per lato
+  &__desktop {
+    left: 5%;
+    width: 90%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 2.4cqw 2.4cqw 0 0;
+    background-color: #f7f3ee;       // fondo della pagina nel mockup
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: none;
+      height: auto;
+    }
+  }
+
+  // ---------- Colori ----------
+  &--guide {
+    background-color: #aac8bd;       // Eucalipto
+  }
+
+  &--web {
+    background-color: #adc4e3;       // Cornflower
+  }
+
+  // ---------- Apertura ----------
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @include lift-open;
+    }
+  }
+
+  &:focus-within {
+    @include lift-open;
+  }
+
+  // Touch: titolo sempre visibile, il mockup resta fermo
+  @media (hover: none), (pointer: coarse) {
+    .lift__title {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  // Movimento ridotto: titolo visibile, nessun movimento
+  @media (prefers-reduced-motion: reduce) {
+    .lift__title {
+      transform: none;
+      opacity: 1;
+    }
+
+    .lift__art,
+    .lift__title {
+      transition: none;
+    }
+
+    .lift__art {
+      transform: none !important;
+    }
+  }
+}
