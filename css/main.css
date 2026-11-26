@@ -1959,17 +1959,17 @@ textarea.form-control {
   }
 }
 
-.lift {
+.offset {
   position: relative;
   border-radius: 20px;
 }
 @media (max-width: 809px) {
-  .lift {
+  .offset {
     height: auto;
     aspect-ratio: 335/200;
   }
 }
-.lift__link {
+.offset__link {
   position: absolute;
   inset: 0;
   display: block;
@@ -1981,124 +1981,94 @@ textarea.form-control {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
-.lift__link:hover {
+.offset__link:hover {
   color: #7b263b;
 }
-.lift__link:focus-visible {
+.offset__link:focus-visible {
   outline: 2px solid #7b263b;
   outline-offset: 4px;
 }
 @media (prefers-color-scheme: dark) {
-  .lift__link:focus-visible {
+  .offset__link:focus-visible {
     outline-color: #e7edaa;
   }
 }
-.lift__mask {
+.offset__art {
   position: absolute;
-  z-index: 2;
-  top: 14px;
-  left: 18px;
-  right: 18px;
-  margin: 0;
-  overflow: hidden;
-  color: #7b263b;
-  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-size: clamp(16px, 5.1cqw, 22px);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  pointer-events: none;
-}
-.lift__title {
+  top: 6.741573cqw;
+  left: 6.741573cqw;
   display: block;
-  opacity: 0;
-  transform: translateY(110%);
-  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 450ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.lift__art {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.lift__guide, .lift__desktop {
-  position: absolute;
-  top: max(17%, 14px + clamp(16px, 5.1cqw, 22px) * 1.2 + 18px);
-}
-.lift__guide {
-  left: 50%;
-  width: 74%;
-  height: auto;
-  max-width: none;
-  margin: 0;
-  transform: translateX(-50%);
-}
-@media (max-width: 809px) {
-  .lift__guide {
-    width: 64%;
-  }
-}
-@media (min-width: 810px) and (max-width: 1023px) {
-  .lift__guide {
-    width: 88%;
-  }
-}
-.lift__desktop {
-  left: 7%;
-  width: 86%;
-  height: 100%;
+  width: 101.123596cqw;
   overflow: hidden;
-  border-radius: 2.4cqw 2.4cqw 0 0;
-  background-color: #f7f3ee;
+  border-radius: 2.808989cqw 0 0 0;
+  pointer-events: none;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.lift__desktop img {
+.offset__art img {
   display: block;
   width: 100%;
   max-width: none;
   height: auto;
 }
-.lift--guide {
+.offset--web .offset__art {
+  min-height: 100%;
+  background-color: #f7f3ee;
+}
+.offset__title {
+  position: absolute;
+  top: 4.494382cqw;
+  left: 4.494382cqw;
+  margin: 0;
+  color: #7b263b;
+  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: max(14px, 5.05618cqw);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 280ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.offset--guide {
   background-color: #aac8bd;
 }
-.lift--web {
+.offset--web {
   background-color: #adc4e3;
 }
 @media (hover: hover) and (pointer: fine) {
-  .lift:hover .lift__art {
-    transform: translateY(-8px);
+  .offset:hover .offset__art {
+    transform: translate(-2.247191cqw, 8.426966cqw);
   }
-  .lift:hover .lift__title {
-    transform: none;
+  .offset:hover .offset__title {
     opacity: 1;
-    transition-delay: 80ms;
+    transform: none;
+    transition-delay: 120ms;
   }
 }
-.lift:focus-within .lift__art {
-  transform: translateY(-8px);
+.offset:has(.offset__link:focus-visible) .offset__art {
+  transform: translate(-2.247191cqw, 8.426966cqw);
 }
-.lift:focus-within .lift__title {
-  transform: none;
+.offset:has(.offset__link:focus-visible) .offset__title {
   opacity: 1;
-  transition-delay: 80ms;
+  transform: none;
+  transition-delay: 120ms;
 }
 @media (hover: none), (pointer: coarse) {
-  .lift .lift__title {
-    transform: none;
+  .offset .offset__art {
+    transform: translate(-2.247191cqw, 8.426966cqw);
+  }
+  .offset .offset__title {
     opacity: 1;
+    transform: none;
+    transition-delay: 120ms;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .lift .lift__title {
-    transform: none;
-    opacity: 1;
-  }
-  .lift .lift__art,
-  .lift .lift__title {
+  .offset .offset__art,
+  .offset .offset__title {
     transition: none;
-  }
-  .lift .lift__art {
-    transform: none !important;
   }
 }
 

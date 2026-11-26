@@ -1,0 +1,154 @@
+// ============================================================
+// Case study Buddhify Guide e Buddhify: "Offset Reveal"
+// (riferimento: offset-reveal-24-54-prototipo.html)
+//
+// Immersive crop: il visual parte a 24px dall'alto e da sinistra
+// ed esce dalla card a destra e in basso (ritaglio intenzionale).
+// All'hover / focus da tastiera (500ms, stesso easing del prototipo):
+//  - il visual scende di 30px e va a sinistra di 8px, senza scala
+//    (posizione finale: 54px dall'alto, 16px da sinistra)
+//  - il titolo compare in alto a sinistra (16px), +120ms
+// Al mouse out tutto torna fluido nella posizione iniziale.
+//
+// Misure in cqw riferite alla card di riferimento da 356px:
+// 24px = 6.741573cqw, 30px = 8.426966cqw, 8px = 2.247191cqw,
+// 16px = 4.494382cqw, 18px = 5.05618cqw.
+// Touch: stato aperto fisso (titolo visibile, nessuna sovrapposizione).
+// Movimento ridotto: stessi stati, senza transizioni.
+// ============================================================
+@use 'variables' as *;
+
+$offset-ink: #7b263b;            // Dark cherry
+$offset-ink-dark: #e7edaa;       // matcha, per il focus su tema scuro
+$offset-ease: cubic-bezier(0.22, 1, 0.36, 1);
+$offset-radius: 20px;            // come le altre card dei case study
+
+@mixin offset-open {
+  .offset__art {
+    transform: translate(-2.247191cqw, 8.426966cqw);
+  }
+
+  .offset__title {
+    opacity: 1;
+    transform: none;
+    transition-delay: 120ms;
+  }
+}
+
+.offset {
+  position: relative;
+  border-radius: $offset-radius;
+
+  // Sotto 810px le card si impilano: proporzione compatta (335 × 200)
+  @media (max-width: $bp-home - 1px) {
+    height: auto;
+    aspect-ratio: 335 / 200;
+  }
+
+  // Il link copre tutta la card: un solo tap apre il case study
+  &__link {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    isolation: isolate;
+    container-type: inline-size;
+    border-radius: inherit;
+    color: $offset-ink;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      color: $offset-ink;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $offset-ink;   // contrasto ≥ 3:1 sul fondo bianco
+      outline-offset: 4px;
+
+      @media (prefers-color-scheme: dark) {
+        outline-color: $offset-ink-dark;
+      }
+    }
+  }
+
+  // ---------- Visual ----------
+  &__art {
+    position: absolute;
+    top: 6.741573cqw;
+    left: 6.741573cqw;
+    display: block;
+    width: 101.123596cqw;            // più largo della card: ritaglio a destra
+    overflow: hidden;
+    border-radius: 2.808989cqw 0 0 0;
+    pointer-events: none;
+    transition: transform 500ms $offset-ease;
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: none;
+      height: auto;                  // proporzioni originali, nessuna deformazione
+    }
+  }
+
+  // Buddhify: fondo della homepage sotto gli angoli trasparenti del PNG
+  &--web &__art {
+    min-height: 100%;
+    background-color: #f7f3ee;
+  }
+
+  // ---------- Titolo ----------
+  &__title {
+    position: absolute;
+    top: 4.494382cqw;
+    left: 4.494382cqw;
+    margin: 0;
+    color: $offset-ink;
+    font-family: $font-display;
+    font-size: max(14px, 5.05618cqw);  // 18px sulla card di riferimento, leggibile anche se stretta
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(4px);
+    pointer-events: none;
+    transition:
+      opacity 280ms ease,
+      transform 450ms $offset-ease;
+  }
+
+  // ---------- Colori ----------
+  &--guide {
+    background-color: #aac8bd;       // Eucalipto
+  }
+
+  &--web {
+    background-color: #adc4e3;       // Cornflower
+  }
+
+  // ---------- Apertura ----------
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @include offset-open;
+    }
+  }
+
+  &:has(.offset__link:focus-visible) {
+    @include offset-open;
+  }
+
+  // Touch: niente hover, stato aperto fisso
+  @media (hover: none), (pointer: coarse) {
+    @include offset-open;
+  }
+
+  // Movimento ridotto: stessi stati, senza animazione
+  @media (prefers-reduced-motion: reduce) {
+    .offset__art,
+    .offset__title {
+      transition: none;
+    }
+  }
+}
