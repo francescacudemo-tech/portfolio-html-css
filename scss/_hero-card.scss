@@ -1,0 +1,61 @@
+// ============================================================
+// Hero (colonna 1, in alto): presentazione editoriale, statica
+// (riferimento: hero-janelle-senza-italia.html)
+//
+// Ruolo in alto (10%), nome al 32% dell'altezza, descrizione sotto.
+// Margini e corpi in proporzione alla card: % per le posizioni,
+// cqw (larghezza della card) per i testi. Ampio spazio vuoto in basso.
+// ============================================================
+@use 'variables' as *;
+
+$hero-bg: #f5f1e9;         // Warm Ivory
+$hero-ink: #7b263b;        // Dark Cherry
+
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;     // i testi seguono la larghezza della card
+  background-color: $hero-bg;      // sostituisce il grigio della card vuota
+  color: $hero-ink;
+
+  // Ruolo
+  &__meta {
+    position: absolute;
+    top: 10%;
+    left: 9.4%;
+    right: 9.4%;
+    margin: 0;
+    font-family: $font-display;
+    font-size: max(12px, 3.5cqw);
+    font-weight: 500;
+    line-height: 1.48;
+    letter-spacing: -0.015em;
+  }
+
+  // Nome + descrizione
+  &__intro {
+    position: absolute;
+    top: 32%;
+    left: 9.4%;
+    right: 9.4%;
+  }
+
+  &__name {
+    margin: 0 0 1.8cqw;
+    color: inherit;
+    font-family: $font-display;
+    font-size: max(21px, 6.9cqw);
+    font-weight: 700;
+    line-height: 1.13;
+    letter-spacing: -0.035em;
+  }
+
+  &__text {
+    margin: 0;
+    font-family: $font-sans;
+    font-size: max(12px, 3.5cqw);
+    font-weight: 400;
+    line-height: 1.32;
+    letter-spacing: -0.01em;
+  }
+}

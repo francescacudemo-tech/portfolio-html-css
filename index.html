@@ -29,12 +29,9 @@
 
   <!-- Bootstrap 5 (solo CSS) + stili del sito compilati da Sass -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/main.css?v=22" rel="stylesheet">
+  <link href="css/main.css?v=23" rel="stylesheet">
 </head>
 <body class="home">
-
-  <!-- Titolo della pagina per screen reader e motori di ricerca (non visibile) -->
-  <h1 class="visually-hidden">Francesca Cudemo · Junior UX/UI Designer</h1>
 
   <!-- HOMEPAGE: tre colonne di card (struttura in scss/_home.scss).
        Ogni card ha una classe propria (card-colonna-posizione).
@@ -43,7 +40,15 @@
 
     <!-- Colonna 1: doppia larghezza -->
     <div class="home-col home-col--wide">
-      <div class="card-box card-1-1"></div>
+      <!-- HERO: presentazione statica (stili in scss/_hero-card.scss).
+           Contiene l'h1 della pagina. -->
+      <section class="card-box card-1-1 hero-card" aria-labelledby="hero-name">
+        <p class="hero-card__meta">Junior UX/UI Designer</p>
+        <div class="hero-card__intro">
+          <h1 class="hero-card__name" id="hero-name">Francesca Cudemo</h1>
+          <p class="hero-card__text">ama raccontare storie attraverso il software.</p>
+        </div>
+      </section>
       <!-- BARRA CONTATTI: "Ehi, ciao!" si apre e rivela email, LinkedIn e telefono
            (animazione "unfold" in scss/_hello-bar.scss, solo CSS).
            tabindex="-1": su touch il primo tap mette a fuoco la barra e la apre. -->
