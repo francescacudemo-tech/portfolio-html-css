@@ -2086,6 +2086,8 @@ textarea.form-control {
 .status-pill {
   display: flex;
   align-items: center;
+  height: auto;
+  min-height: 30px;
   margin: 0;
   padding: 0;
   border-radius: 0;
@@ -2096,7 +2098,6 @@ textarea.form-control {
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.01em;
-  white-space: nowrap;
 }
 @media (prefers-color-scheme: dark) {
   .status-pill {
@@ -2106,7 +2107,7 @@ textarea.form-control {
 .status-pill::before, .status-pill::after {
   content: "";
   flex: 1 1 0;
-  min-width: 0;
+  min-width: 8px;
   height: 1px;
   background-color: currentColor;
   opacity: 0.4;
@@ -2124,6 +2125,11 @@ textarea.form-control {
   margin-right: 8px;
   border-radius: 50%;
   background-color: currentColor;
+}
+.status-pill__text {
+  min-width: 0;
+  text-align: center;
+  text-wrap: balance;
 }
 
 .hero-card {

@@ -2,11 +2,11 @@
 // Indicatore di disponibilità (colonna 3, tra About e Curriculum)
 //
 // Composizione editoriale, nessun contenitore:
-//   linea — pallino — "Attualmente disponibile" — linea
+//   linea — pallino — testo — linea
 // Le due linee (1px, opacità 40%) si dividono in parti uguali lo
 // spazio libero, così sono lunghe uguali e arrivano ai bordi.
 // Pallino e testo al 100%: 8px tra pallino e testo, 12px tra il
-// gruppo e le linee. Altezza 30px (da .card-3-2 in _home.scss).
+// gruppo e le linee. Altezza minima 30px, adattabile al testo.
 // Tema chiaro: Petrol Ink. Tema scuro: Matcha (prefers-color-scheme,
 // come il resto della homepage). Statica: non è un pulsante.
 // ============================================================
@@ -15,6 +15,8 @@
 .status-pill {
   display: flex;
   align-items: center;
+  height: auto;
+  min-height: 30px;
   margin: 0;                       // è un <p>: niente margine di Bootstrap
   padding: 0;
   border-radius: 0;
@@ -25,7 +27,6 @@
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.01em;
-  white-space: nowrap;
 
   @media (prefers-color-scheme: dark) {
     color: var(--matcha);
@@ -36,7 +37,7 @@
   &::after {
     content: '';
     flex: 1 1 0;
-    min-width: 0;
+    min-width: 8px;
     height: 1px;
     background-color: currentColor;
     opacity: 0.4;
@@ -57,5 +58,11 @@
     margin-right: 8px;
     border-radius: 50%;
     background-color: currentColor;
+  }
+
+  &__text {
+    min-width: 0;
+    text-align: center;
+    text-wrap: balance;
   }
 }
