@@ -2035,7 +2035,7 @@ textarea.form-control {
   background-color: #ddd8ce;
 }
 .offset--web {
-  background-color: #adc4e3;
+  background-color: #ddd8ce;
 }
 @media (hover: hover) and (pointer: fine) {
   .offset:hover .offset__art {
