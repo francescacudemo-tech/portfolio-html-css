@@ -1,20 +1,25 @@
 // ============================================================
 // Indicatore di disponibilità (colonna 3, tra About e Curriculum)
 //
-// Barra sottile da 30px (altezza di .card-3-2 in _home.scss):
-// fondo Petrol Ink, pallino e testo Matcha, centrati. Statica.
+// Composizione editoriale, nessun contenitore:
+//   linea — pallino — "Attualmente disponibile" — linea
+// Le due linee (1px, opacità 40%) si dividono in parti uguali lo
+// spazio libero, così sono lunghe uguali e arrivano ai bordi.
+// Pallino e testo al 100%: 8px tra pallino e testo, 12px tra il
+// gruppo e le linee. Altezza 30px (da .card-3-2 in _home.scss).
+// Tema chiaro: Petrol Ink. Tema scuro: Matcha (prefers-color-scheme,
+// come il resto della homepage). Statica: non è un pulsante.
 // ============================================================
 @use 'variables' as *;
 
 .status-pill {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
   margin: 0;                       // è un <p>: niente margine di Bootstrap
-  padding: 0 12px;
-  background-color: var(--petrol-ink);  // sostituisce il grigio della card vuota
-  color: var(--matcha);
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;   // niente grigio della card vuota
+  color: var(--petrol-ink);
   font-family: $font-sans;
   font-size: 13px;
   font-weight: 500;
@@ -22,10 +27,34 @@
   letter-spacing: 0.01em;
   white-space: nowrap;
 
+  @media (prefers-color-scheme: dark) {
+    color: var(--matcha);
+  }
+
+  // Linee ai lati
+  &::before,
+  &::after {
+    content: '';
+    flex: 1 1 0;
+    min-width: 0;
+    height: 1px;
+    background-color: currentColor;
+    opacity: 0.4;
+  }
+
+  &::before {
+    margin-right: 12px;
+  }
+
+  &::after {
+    margin-left: 12px;
+  }
+
   &__dot {
     flex: none;
     width: 7px;
     height: 7px;
+    margin-right: 8px;
     border-radius: 50%;
     background-color: currentColor;
   }

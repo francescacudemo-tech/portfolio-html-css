@@ -1,37 +1,42 @@
 // ============================================================
-// Case study Buddhify Guide e Buddhify: "Offset Reveal"
-// (riferimento: offset-reveal-24-54-prototipo.html)
+// Card dei case study (Buddhify Guide, Buddhify, Meditactive):
+// effetto "Offset", identico per le tre card e per i due temi.
 //
-// Immersive crop: il visual parte a 24px dall'alto e da sinistra
-// ed esce dalla card a destra e in basso (ritaglio intenzionale).
-// All'hover / focus da tastiera (500ms, stesso easing del prototipo):
-//  - il visual scende di 30px e va a sinistra di 8px, senza scala
-//    (posizione finale: 54px dall'alto, 16px da sinistra)
-//  - il titolo compare in alto a sinistra (16px), +120ms
+// Default: la cover occupa tutta la card (full-bleed, object-fit:
+// cover, nessuna cornice né padding); nessun titolo visibile.
+// All'hover / focus da tastiera (650ms):
+//  - la cover si sposta in diagonale in alto a destra
+//    (translate(4%, -19%) scale(0.98)), resta ritagliata nella card
+//    e arrotonda l'angolo in basso a sinistra
+//  - sotto si scopre il fondo Petrol Ink; il titolo è Matcha
+//  - il nome del progetto sale dal basso e compare (+90ms)
 // Al mouse out tutto torna fluido nella posizione iniziale.
-//
-// Misure in cqw riferite alla card di riferimento da 356px:
-// 24px = 6.741573cqw, 30px = 8.426966cqw, 8px = 2.247191cqw,
-// 16px = 4.494382cqw, 18px = 5.05618cqw.
-// Touch: stato aperto fisso (titolo visibile, nessuna sovrapposizione).
+// Touch: stato aperto fisso, così il titolo resta leggibile.
 // Movimento ridotto: stessi stati, senza transizioni.
 // ============================================================
 @use 'variables' as *;
 
-$offset-ink: #7b263b;            // Dark cherry
-$offset-ink-dark: #e7edaa;       // matcha, per il focus su tema scuro
 $offset-ease: cubic-bezier(0.22, 1, 0.36, 1);
-$offset-radius: 20px;            // come le altre card dei case study
+$offset-duration: 650ms;
+$offset-title-delay: 90ms;
+$offset-radius: 20px;            // angolo esterno delle card (invariato)
+$offset-corner: 14px;            // angolo in basso a sinistra della cover all'hover
 
 @mixin offset-open {
+  .offset__link {
+    background-color: var(--petrol-ink);
+    transition-delay: 0s;            // il fondo compare subito
+  }
+
   .offset__art {
-    transform: translate(-2.247191cqw, 8.426966cqw);
+    border-bottom-left-radius: $offset-corner;
+    transform: translate(4%, -19%) scale(0.98);
   }
 
   .offset__title {
     opacity: 1;
     transform: none;
-    transition-delay: 120ms;
+    transition-delay: $offset-title-delay;
   }
 }
 
@@ -50,82 +55,82 @@ $offset-radius: 20px;            // come le altre card dei case study
     position: absolute;
     inset: 0;
     display: block;
-    overflow: hidden;
+    overflow: hidden;                // la cover resta ritagliata nella card
     isolation: isolate;
-    container-type: inline-size;
+    container-type: size;            // cqw e cqh riferiti alla card
     border-radius: inherit;
-    color: $offset-ink;
+    // A riposo niente fondo: lungo la curva degli angoli non affiora
+    // un filo di Petrol Ink sotto la cover. In chiusura sparisce solo
+    // dopo che la cover è tornata al suo posto.
+    background-color: transparent;
+    transition: background-color 0s $offset-duration;
+    color: var(--matcha);
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      color: $offset-ink;
+      color: var(--matcha);
     }
 
     &:focus-visible {
-      outline: 2px solid $offset-ink;   // contrasto ≥ 3:1 sul fondo bianco
+      outline: 2px solid var(--petrol-ink);
       outline-offset: 4px;
 
       @media (prefers-color-scheme: dark) {
-        outline-color: $offset-ink-dark;
+        outline-color: var(--matcha);  // su fondo scuro serve un colore chiaro
       }
     }
   }
 
-  // ---------- Visual ----------
+  // ---------- Cover ----------
   &__art {
     position: absolute;
-    top: 6.741573cqw;
-    left: 6.741573cqw;
+    inset: 0;
     display: block;
-    width: 101.123596cqw;            // più largo della card: ritaglio a destra
     overflow: hidden;
-    border-radius: 2.808989cqw 0 0 0;
+    border-radius: 0;
     pointer-events: none;
-    transition: transform 500ms $offset-ease;
+    transition:
+      transform $offset-duration $offset-ease,
+      border-radius $offset-duration $offset-ease;
 
     img {
       display: block;
       width: 100%;
+      height: 100%;
       max-width: none;
-      height: auto;                  // proporzioni originali, nessuna deformazione
+      object-fit: cover;             // riempie la card senza deformare
+      object-position: top center;   // interfacce: si vede la parte alta
     }
-  }
 
-  // Buddhify: fondo della homepage sotto gli angoli trasparenti del PNG
-  &--web &__art {
-    min-height: 100%;
-    background-color: #f7f3ee;
+    &--center img {
+      object-position: center;       // mockup: soggetto al centro
+    }
   }
 
   // ---------- Titolo ----------
   &__title {
     position: absolute;
-    top: 4.494382cqw;
-    left: 4.494382cqw;
+    left: 5%;
+    right: 5%;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    height: 19%;                     // la fascia Matcha scoperta dalla cover
     margin: 0;
-    color: $offset-ink;
+    color: var(--matcha);
     font-family: $font-display;
-    font-size: max(14px, 5.05618cqw);  // 18px sulla card di riferimento, leggibile anche se stretta
+    font-size: max(14px, min(5.2cqw, 10cqh));
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.1;
     letter-spacing: -0.02em;
     white-space: nowrap;
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(35%);
     pointer-events: none;
     transition:
-      opacity 280ms ease,
-      transform 450ms $offset-ease;
-  }
-
-  // ---------- Colori ----------
-  &--guide {
-    background-color: #cbddd2;       // fondo case study
-  }
-
-  &--web {
-    background-color: #cbddd2;       // fondo case study
+      opacity 400ms ease,
+      transform $offset-duration $offset-ease;
   }
 
   // ---------- Apertura ----------
@@ -146,6 +151,7 @@ $offset-radius: 20px;            // come le altre card dei case study
 
   // Movimento ridotto: stessi stati, senza animazione
   @media (prefers-reduced-motion: reduce) {
+    .offset__link,
     .offset__art,
     .offset__title {
       transition: none;
