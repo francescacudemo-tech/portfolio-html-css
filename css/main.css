@@ -2024,11 +2024,11 @@ textarea.form-control {
 }
 .lift__guide, .lift__desktop {
   position: absolute;
-  top: calc(14px + clamp(16px, 5.1cqw, 22px) * 1.2 + 20px);
+  top: max(17%, 14px + clamp(16px, 5.1cqw, 22px) * 1.2 + 18px);
 }
 .lift__guide {
   left: 50%;
-  width: 76%;
+  width: 74%;
   height: auto;
   max-width: none;
   margin: 0;
@@ -2045,8 +2045,8 @@ textarea.form-control {
   }
 }
 .lift__desktop {
-  left: 3.5%;
-  width: 93%;
+  left: 7%;
+  width: 86%;
   height: 100%;
   overflow: hidden;
   border-radius: 2.4cqw 2.4cqw 0 0;

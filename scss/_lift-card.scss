@@ -24,7 +24,7 @@ $lift-radius: 20px;            // come le altre card dei case study
 $lift-pad-top: 14px;
 $lift-pad-x: 18px;
 $lift-line: 1.2;
-$lift-gap: 12px;               // titolo → mockup durante l'hover
+$lift-gap: 10px;               // minimo tra titolo e mockup durante l'hover
 
 @mixin lift-open {
   .lift__art {
@@ -112,18 +112,19 @@ $lift-gap: 12px;               // titolo → mockup durante l'hover
     transition: transform 600ms $lift-ease;
   }
 
-  // Punto di partenza comune sotto il titolo
+  // Bordo superiore del mockup al 17% dell'altezza della card,
+  // ma mai così in alto da toccare il titolo durante il sollevamento
   &__guide,
   &__desktop {
     position: absolute;
-    top: calc(#{$lift-pad-top} + clamp(16px, 5.1cqw, 22px) * #{$lift-line} + #{$lift-gap + $lift-shift});
+    top: max(17%, calc(#{$lift-pad-top} + clamp(16px, 5.1cqw, 22px) * #{$lift-line} + #{$lift-gap + $lift-shift}));
   }
 
   // Buddhify Guide: le due schermate già raggruppate (gap e sfalsamento nel PNG).
   // Larghezza piena delle schermate, centrate, ritaglio solo in basso.
   &__guide {
     left: 50%;
-    width: 76%;                      // le interfacce sono protagoniste
+    width: 74%;                      // le interfacce sono protagoniste
     height: auto;
     max-width: none;
     margin: 0;
@@ -139,10 +140,10 @@ $lift-gap: 12px;               // titolo → mockup durante l'hover
     }
   }
 
-  // Buddhify: schermata desktop intera in larghezza, 3,5% di margine per lato
+  // Buddhify: schermata desktop intera in larghezza, 7% di margine per lato
   &__desktop {
-    left: 3.5%;
-    width: 93%;
+    left: 7%;
+    width: 86%;
     height: 100%;
     overflow: hidden;
     border-radius: 2.4cqw 2.4cqw 0 0;
