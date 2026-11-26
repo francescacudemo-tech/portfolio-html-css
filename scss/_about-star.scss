@@ -1,29 +1,32 @@
 // ============================================================
 // Card About (colonna 3, in alto): "Stellina"
-// (riferimento: about-stellina-prototipo.html)
+// (riferimento: about-stellina-versione-finale.html)
 //
 // Default: "Ah, c'è dell'altro!" su due righe in alto a destra,
 // stellina con occhi e sorriso appoggiata sul fondo.
 // All'hover / focus da tastiera (650ms):
 //  - il titolo svanisce verso l'alto
 //  - la stellina scende fino a uscire del tutto dal bordo inferiore
-//  - al centro entra il pulsante "Clicca qui" (+100ms)
+//  - al centro entra il pulsante "Sbircia nel mio mondo" (+100ms)
 // Al mouse out l'animazione si inverte.
 //
 // Misure riferite alla card del prototipo (357 × 481 px):
 // --u vale 1px su quella card e scala con la dimensione più
 // stretta della card reale (larghezza o altezza), così testo e
 // pulsante restano in proporzione anche quando la card è larga.
-// La stellina è larga quanto la card; se la card è molto larga
-// la sua altezza si ferma al 52% e la base prosegue fino ai bordi.
+// Stellina: larga il 107% della card (-3.5% per lato) e alzata di
+// circa 10px dentro l'SVG; il tracciato esce dai lati e dal fondo,
+// il ritaglio arrotondato lo fanno border-radius e overflow della card.
+// Card molto larghe (576–809px): la stellina si ferma al 52% dell'altezza,
+// centrata e appoggiata al fondo.
 // Touch: stato di default, un tocco apre la pagina About.
 // Movimento ridotto: stessi stati, senza transizioni.
 // ============================================================
 @use 'variables' as *;
 
-$star-bg: #b8a4f1;          // Lilla
+$star-bg: #b9a7f5;          // Electric Lilac
 $star-lime: #e7edaa;        // Matcha: stellina e testo del pulsante
-$star-ink: #133e47;         // Petrolio: testo, pupille, sorriso, pulsante
+$star-ink: #123f48;         // Petrol Ink: testo, pupille, sorriso, pulsante
 $star-ease: cubic-bezier(0.22, 1, 0.36, 1);
 $star-duration: 650ms;
 
@@ -34,7 +37,7 @@ $star-duration: 650ms;
   }
 
   .about-star__art {
-    transform: translateY(105%);
+    transform: translateY(135%);
   }
 
   .about-star__cta {
@@ -73,7 +76,7 @@ $star-duration: 650ms;
   &__heading {
     position: absolute;
     top: calc(35 * var(--u));
-    right: calc(25 * var(--u));
+    right: calc(35 * var(--u));      // +10px rispetto alla versione precedente
     left: calc(18 * var(--u));
     font-family: $font-display;
     font-size: calc(38 * var(--u));
@@ -90,10 +93,10 @@ $star-duration: 650ms;
   &__art {
     position: absolute;
     bottom: -0.2%;
-    left: 0;
+    left: -3.5%;
     display: block;
-    width: 100%;
-    height: min(100cqw * 235 / 440, 52cqh);
+    width: 107%;                     // +7%
+    aspect-ratio: 440 / 235;
     pointer-events: none;
     transition: transform $star-duration $star-ease;
 
@@ -101,7 +104,17 @@ $star-duration: 650ms;
       display: block;
       width: 100%;
       height: 100%;
-      overflow: visible;             // la base prosegue oltre i lati se serve
+      overflow: visible;             // il tracciato esce dai lati e dal fondo
+    }
+  }
+
+  // Card molto più larghe che alte: stellina contenuta e centrata
+  @container (min-aspect-ratio: 9 / 10) {
+    &__art {
+      left: 0;
+      width: 100%;
+      height: 52cqh;
+      aspect-ratio: auto;
     }
   }
 
@@ -110,14 +123,19 @@ $star-duration: 650ms;
     position: absolute;
     top: 50%;
     left: 50%;
-    padding: calc(16.8 * var(--u)) calc(35.7 * var(--u));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    min-height: calc(49 * var(--u));
+    padding: calc(7 * var(--u));
     border-radius: 999px;
     background: $star-ink;
     color: $star-lime;
     font-family: $font-display;
-    font-size: calc(26 * var(--u));
-    font-weight: 700;
-    line-height: 1;
+    font-size: calc(19 * var(--u));
+    font-weight: 600;
+    line-height: 1.1;
     letter-spacing: -0.025em;
     white-space: nowrap;
     opacity: 0;
