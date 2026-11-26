@@ -5,11 +5,11 @@
 // Default: la cover occupa tutta la card (full-bleed, object-fit:
 // cover, nessuna cornice né padding); nessun titolo visibile.
 // All'hover / focus da tastiera (650ms):
-//  - la cover si sposta in diagonale in alto a destra
-//    (translate(4%, -19%) scale(0.98)), resta ritagliata nella card
-//    e arrotonda l'angolo in basso a sinistra
-//  - sotto si scopre il fondo Petrol Ink; il titolo è Matcha
-//  - il nome del progetto sale dal basso e compare (+90ms)
+//  - la cover scivola in diagonale in basso a destra
+//    (translate(4%, 19%) scale(0.98)), resta ritagliata nella card
+//    e arrotonda l'angolo in alto a sinistra
+//  - sopra si scopre il fondo Petrol Ink; il titolo è Matcha
+//  - il nome del progetto compare in alto a sinistra (+90ms)
 // Al mouse out tutto torna fluido nella posizione iniziale.
 // Touch: stato aperto fisso, così il titolo resta leggibile.
 // Movimento ridotto: stessi stati, senza transizioni.
@@ -20,7 +20,7 @@ $offset-ease: cubic-bezier(0.22, 1, 0.36, 1);
 $offset-duration: 650ms;
 $offset-title-delay: 90ms;
 $offset-radius: 20px;            // angolo esterno delle card (invariato)
-$offset-corner: 14px;            // angolo in basso a sinistra della cover all'hover
+$offset-corner: 14px;            // angolo in alto a sinistra della cover all'hover
 
 @mixin offset-open {
   .offset__link {
@@ -29,8 +29,8 @@ $offset-corner: 14px;            // angolo in basso a sinistra della cover all'h
   }
 
   .offset__art {
-    border-bottom-left-radius: $offset-corner;
-    transform: translate(4%, -19%) scale(0.98);
+    border-top-left-radius: $offset-corner;
+    transform: translate(4%, 19%) scale(0.98);
   }
 
   .offset__title {
@@ -113,10 +113,10 @@ $offset-corner: 14px;            // angolo in basso a sinistra della cover all'h
     position: absolute;
     left: 5%;
     right: 5%;
-    bottom: 0;
+    top: 0;
     display: flex;
     align-items: center;
-    height: 19%;                     // la fascia Matcha scoperta dalla cover
+    height: 19%;                     // la fascia scoperta dalla cover
     margin: 0;
     color: var(--matcha);
     font-family: $font-display;
@@ -126,7 +126,7 @@ $offset-corner: 14px;            // angolo in basso a sinistra della cover all'h
     letter-spacing: -0.02em;
     white-space: nowrap;
     opacity: 0;
-    transform: translateY(35%);
+    transform: translateY(-35%);     // scende dall'alto
     pointer-events: none;
     transition:
       opacity 400ms ease,
