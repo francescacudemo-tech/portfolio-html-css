@@ -1,0 +1,176 @@
+// ============================================================
+// Card About (colonna 3, in alto): "Counterflow"
+// (riferimento: about-counterflow-reference.html)
+//
+// Tre righe "ABOUT ME" in Syne 800: piena / outline / piena,
+// oversize e tagliate ai bordi laterali.
+// All'hover / focus da tastiera (750ms):
+//  - prima e terza riga scorrono a sinistra, la seconda a destra
+//  - tutta la composizione sale leggermente
+//  - in basso a sinistra entra "Ah, c'è dell'altro!" (+120ms)
+// Touch e movimento ridotto: microcopy già visibile.
+//
+// Misure in unità del container: il carattere segue la larghezza
+// della card (cqw) ma non supera una quota dell'altezza (cqh).
+// Gli sfalsamenti sono in em, in proporzione alla larghezza di
+// "ABOUT ME" in Syne 800 (circa 8,6em): il ritaglio resta quello
+// della reference a qualunque dimensione.
+// ============================================================
+@use 'variables' as *;
+
+$flow-bg: #7b263b;          // Dark cherry
+$flow-ink: #e7edaa;         // Matcha
+$flow-ease: cubic-bezier(0.22, 1, 0.36, 1);
+$flow-duration: 750ms;
+
+@mixin flow-open {
+  .about-flow__art {
+    transform: translateY(-6cqw);
+  }
+
+  .about-flow__row:nth-child(1) .about-flow__track {
+    transform: translateX(-1.96em);
+  }
+
+  .about-flow__row:nth-child(2) .about-flow__track {
+    transform: translateX(-0.89em);
+  }
+
+  .about-flow__row:nth-child(3) .about-flow__track {
+    transform: translateX(-2.46em);
+  }
+
+  .about-flow__copy {
+    opacity: 1;
+    transform: none;
+    transition-delay: 120ms;
+  }
+}
+
+@mixin flow-static {
+  .about-flow__art {
+    transform: translateY(-6cqw);
+  }
+
+  .about-flow__copy {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.about-flow {
+  --flow-size: min(24cqw, 18cqh);
+  display: block;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  container-type: size;            // cqw e cqh riferiti alla card
+  background-color: $flow-bg;      // sostituisce il grigio della card vuota
+  color: $flow-ink;
+  text-align: left;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    color: $flow-ink;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $flow-bg;
+    outline-offset: 5px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: $flow-ink;      // su fondo scuro serve un colore chiaro
+    }
+  }
+
+  // ---------- Tipografia cinetica ----------
+  &__art {
+    position: absolute;
+    inset: 5% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform $flow-duration $flow-ease;
+  }
+
+  &__row {
+    display: block;
+    overflow: hidden;
+    padding: 1.2cqw 0;
+  }
+
+  &__track {
+    display: flex;
+    gap: 0.23em;
+    width: max-content;
+    font-family: $font-display;
+    font-size: var(--flow-size);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.055em;
+    white-space: nowrap;
+    transition: transform $flow-duration $flow-ease;
+  }
+
+  // Posizioni a riposo: righe leggermente sfalsate
+  &__row:nth-child(1) &__track {
+    transform: translateX(-0.28em);
+  }
+
+  // Seconda riga: solo contorno
+  &__row:nth-child(2) &__track {
+    color: transparent;
+    -webkit-text-stroke: 1.2px $flow-ink;
+    transform: translateX(-2.74em);
+  }
+
+  &__row:nth-child(3) &__track {
+    transform: translateX(-0.78em);
+  }
+
+  // ---------- Microcopy ----------
+  &__copy {
+    position: absolute;
+    bottom: 6%;
+    left: 7%;
+    right: 7%;
+    font-family: $font-display;
+    font-size: clamp(15px, 6.8cqw, 26px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 400ms ease,
+      transform 550ms $flow-ease;
+  }
+
+  // ---------- Apertura ----------
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @include flow-open;
+    }
+  }
+
+  &:focus-visible {
+    @include flow-open;
+  }
+
+  // Touch: microcopy già visibile, righe ferme
+  @media (hover: none), (pointer: coarse) {
+    @include flow-static;
+  }
+
+  // Movimento ridotto: stato statico, nessuna animazione
+  @media (prefers-reduced-motion: reduce) {
+    @include flow-static;
+
+    .about-flow__art,
+    .about-flow__track,
+    .about-flow__copy {
+      transition: none;
+    }
+  }
+}
