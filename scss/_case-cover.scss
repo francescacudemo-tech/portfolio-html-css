@@ -19,7 +19,7 @@ $cover-bg-meditactive: #cbb5da;    // MeditActive: lilla
 $cover-ink-meditactive: #5a2e6b;
 
 // Misure del progetto
-$cover-radius: 24px;
+$cover-radius: 20px;
 $cover-pad-top: 16px;
 $cover-pad-x: 20px;
 $cover-line: 24px;                                  // line-height del titolo
@@ -56,10 +56,10 @@ $cover-ease: cubic-bezier(0.22, 1, 0.36, 1);
   background-color: transparent;
   transition: background-color 0s $cover-duration;
 
-  // Sotto 810px le card si impilano: stessa proporzione del mockup (335 × 220)
+  // Sotto 810px le card si impilano: proporzione compatta (335 × 200)
   @media (max-width: $bp-home - 1px) {
     height: auto;
-    aspect-ratio: 335 / 220;
+    aspect-ratio: 335 / 200;
   }
 
   // ---------- Livello sotto: titolo + chevron ----------

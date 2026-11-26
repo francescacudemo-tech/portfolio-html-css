@@ -49,6 +49,11 @@
     flex: 1 1 0;              // colonne 2 e 3: una parte ciascuna
   }
 
+  // Colonna dei case study: progetti più ravvicinati
+  &--projects {
+    gap: 16px;
+  }
+
   &--wide {
     @media (min-width: $bp-home) {
       flex: 2 1 0;            // colonna 1: due parti (doppia larghezza)

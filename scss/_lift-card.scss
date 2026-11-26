@@ -20,11 +20,11 @@ $lift-ink: #7b263b;            // Dark cherry
 $lift-ink-dark: #e7edaa;       // matcha, per il focus su tema scuro
 $lift-ease: cubic-bezier(0.22, 1, 0.36, 1);
 $lift-shift: 8px;
-$lift-radius: 24px;            // come le altre card dei case study
-$lift-pad-top: 16px;
-$lift-pad-x: 20px;
+$lift-radius: 20px;            // come le altre card dei case study
+$lift-pad-top: 14px;
+$lift-pad-x: 18px;
 $lift-line: 1.2;
-$lift-gap: 14px;               // titolo → mockup durante l'hover
+$lift-gap: 12px;               // titolo → mockup durante l'hover
 
 @mixin lift-open {
   .lift__art {
@@ -42,10 +42,10 @@ $lift-gap: 14px;               // titolo → mockup durante l'hover
   position: relative;
   border-radius: $lift-radius;
 
-  // Sotto 810px le card si impilano: stessa proporzione delle altre (335 × 220)
+  // Sotto 810px le card si impilano: proporzione compatta (335 × 200)
   @media (max-width: $bp-home - 1px) {
     height: auto;
-    aspect-ratio: 335 / 220;
+    aspect-ratio: 335 / 200;
   }
 
   // Il link copre tutta la card: un solo tap apre il case study
@@ -123,26 +123,26 @@ $lift-gap: 14px;               // titolo → mockup durante l'hover
   // Larghezza piena delle schermate, centrate, ritaglio solo in basso.
   &__guide {
     left: 50%;
-    width: 60%;
+    width: 76%;                      // le interfacce sono protagoniste
     height: auto;
     max-width: none;
     margin: 0;
     transform: translateX(-50%);
 
     @media (max-width: $bp-home - 1px) {
-      width: 57%;
+      width: 64%;
     }
 
     // Colonne strette e alte (810–1023px): più larga, per non lasciare vuoto in basso
     @media (min-width: $bp-home) and (max-width: 1023px) {
-      width: 76%;
+      width: 88%;
     }
   }
 
-  // Buddhify: schermata desktop intera in larghezza, 5% di margine per lato
+  // Buddhify: schermata desktop intera in larghezza, 3,5% di margine per lato
   &__desktop {
-    left: 5%;
-    width: 90%;
+    left: 3.5%;
+    width: 93%;
     height: 100%;
     overflow: hidden;
     border-radius: 2.4cqw 2.4cqw 0 0;
