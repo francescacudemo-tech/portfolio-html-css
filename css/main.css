@@ -1624,7 +1624,7 @@ textarea.form-control {
 }
 
 .case-cover--meditactive {
-  --cover-bg: #cbb5da;
+  --cover-bg: #cbddd2;
   --cover-ink: #5a2e6b;
   --cover-focus: #5a2e6b;
 }
@@ -2032,10 +2032,10 @@ textarea.form-control {
   transition: opacity 280ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .offset--guide {
-  background-color: #ddd8ce;
+  background-color: #cbddd2;
 }
 .offset--web {
-  background-color: #ddd8ce;
+  background-color: #cbddd2;
 }
 @media (hover: hover) and (pointer: fine) {
   .offset:hover .offset__art {
@@ -2248,4 +2248,243 @@ textarea.form-control {
   font-weight: 400;
   line-height: 1.32;
   letter-spacing: -0.01em;
+}
+
+body.case-study {
+  color-scheme: light;
+  background: #ffffff;
+  color: #666668;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body.case-study ::selection {
+  background: #e7edaa;
+  color: #7b263b;
+}
+body.case-study a:focus-visible {
+  outline: 2px solid #7b263b;
+  outline-offset: 4px;
+}
+
+.cs-pill {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.cs-pill a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 22px 10px;
+  border-radius: 0 0 16px 16px;
+  background: #7b263b;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.cs-pill a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cs-hero {
+  width: min(760px, 100% - 2 * clamp(20px, 6vw, 64px));
+  margin-inline: auto;
+  padding-top: clamp(80px, 8.4vw, 120px);
+}
+
+.cs-eyebrow {
+  margin: 0 0 8px;
+  color: #7b263b;
+  font-size: clamp(16px, 1.1rem + 0.4vw, 24px);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.cs-title {
+  margin: 0 0 12px;
+  color: #7b263b;
+  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(40px, 1.6rem + 3.4vw, 72px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.cs-lead {
+  margin: 0;
+  color: #666668;
+  font-size: clamp(18px, 1rem + 0.45vw, 24px);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.cs-cover {
+  margin: clamp(40px, 4.5vw, 56px) 0 0;
+}
+.cs-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+.cs-meta {
+  width: min(760px, 100% - 2 * clamp(20px, 6vw, 64px));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px 60px;
+  margin-block: 40px 0;
+}
+.cs-meta dt {
+  margin-bottom: 20px;
+  color: #7b263b;
+  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.cs-meta dd {
+  margin: 0;
+  color: #666668;
+  font-size: 16px;
+  line-height: 1.5;
+}
+@media (max-width: 767px) {
+  .cs-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+  }
+  .cs-meta dt {
+    margin-bottom: 8px;
+  }
+}
+
+.cs-main {
+  padding-bottom: 8px;
+}
+
+.cs-section {
+  width: min(760px, 100% - 2 * clamp(20px, 6vw, 64px));
+  margin-inline: auto;
+  margin-top: clamp(72px, 7vw, 104px);
+}
+.cs-section .cs-eyebrow {
+  font-size: 16px;
+}
+.cs-section p {
+  margin: 0 0 1em;
+  color: #666668;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.cs-section > :last-child {
+  margin-bottom: 0;
+}
+.cs-section--continue {
+  margin-top: 32px;
+}
+
+.cs-h2 {
+  margin: 0 0 16px;
+  color: #7b263b;
+  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(32px, 1.4rem + 1.8vw, 48px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+}
+
+.cs-media {
+  margin: 32px 0 0;
+}
+.cs-media > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+.cs-panel {
+  display: flex;
+  justify-content: center;
+  padding: clamp(32px, 5vw, 64px) 16px;
+  border-radius: 18px;
+  background: #ccc3ec;
+}
+.cs-panel video {
+  display: block;
+  width: min(300px, 100%);
+  height: auto;
+  border-radius: 28px;
+  background: #ffffff;
+}
+
+.cs-note {
+  margin: 20px 0 0;
+  padding: 20px;
+  border-radius: 18px;
+  background: #ccc3ec;
+  color: #7b263b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+.cs-note span {
+  display: block;
+}
+
+.cs-button {
+  display: block;
+  margin-top: 32px;
+  padding: 40px;
+  border-radius: 18px;
+  background: #e7edaa;
+  color: #7b263b;
+  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+.cs-button:hover {
+  color: #7b263b;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.cs-button--home {
+  background: #7b263b;
+  color: #ffffff;
+}
+.cs-button--home:hover {
+  color: #ffffff;
+}
+@media (max-width: 767px) {
+  .cs-button {
+    padding: 28px 20px;
+    font-size: 19px;
+  }
+}
+
+.cs-footer {
+  width: min(760px, 100% - 2 * clamp(20px, 6vw, 64px));
+  margin-inline: auto;
+  padding-block: clamp(72px, 7vw, 104px) 48px;
+  text-align: center;
+}
+.cs-footer .cs-button {
+  margin: 0 0 clamp(64px, 7vw, 96px);
+}
+.cs-footer p {
+  margin: 0;
+  color: #888888;
+  font-size: 16px;
 }

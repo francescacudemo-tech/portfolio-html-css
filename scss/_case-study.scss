@@ -1,0 +1,305 @@
+// ============================================================
+// Pagine dei case study: layout editoriale continuo
+// (struttura di riferimento: janelleamores.design/brownthought)
+//
+// Una sola colonna centrata da 760px (su 1440px: 340px per lato) per tutto:
+// testi, cover, informazioni e visual condividono lo stesso
+// margine sinistro. Niente card: una pagina che scorre.
+//
+//   body.case-study
+//     nav.cs-pill             pillola fissa in alto al centro: Home
+//     header.cs-hero          occhiello, titolo, sottotitolo, cover
+//     main.cs-main
+//       dl.cs-meta            riga di informazioni di progetto
+//       section.cs-section    (occhiello) + h2 + paragrafi
+//       figure.cs-media       visual a piena colonna, angoli 18px
+//       .cs-panel             superficie Lavender (video verticale)
+//       .cs-note              didascalia in riquadro, centrata
+//       a.cs-button           pulsante a piena colonna
+//     footer.cs-footer        firma centrata
+//
+// La pagina resta chiara anche con il tema scuro del sistema.
+// ============================================================
+@use 'variables' as *;
+
+// ---------- Token del case study ----------
+$cs-cherry: #7b263b;         // titoli ed elementi identitari
+$cs-lavender: #ccc3ec;       // superfici di supporto
+$cs-matcha: #e7edaa;         // accento, con moderazione
+$cs-ink: #1d1b1c;            // testo forte
+$cs-muted: #666668;          // testo corrente (come la reference)
+$cs-soft: #888888;           // firma
+
+$cs-col: 760px;              // colonna unica (più aria ai lati)
+$cs-side: clamp(20px, 6vw, 64px);  // margine minimo ai lati
+$cs-radius: 18px;
+
+@mixin cs-col {
+  width: min(#{$cs-col}, 100% - 2 * #{$cs-side});
+  margin-inline: auto;
+}
+
+// ---------- Pagina ----------
+body.case-study {
+  color-scheme: light;
+  background: #ffffff;
+  color: $cs-muted;
+  font-family: $font-sans;
+  -webkit-font-smoothing: antialiased;
+
+  ::selection {
+    background: $cs-matcha;
+    color: $cs-cherry;
+  }
+
+  a:focus-visible {
+    outline: 2px solid $cs-cherry;
+    outline-offset: 4px;
+  }
+}
+
+// ---------- Pillola di navigazione ----------
+.cs-pill {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 22px 10px;
+    border-radius: 0 0 16px 16px;
+    background: $cs-cherry;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+// ---------- Copertina ----------
+.cs-hero {
+  @include cs-col;
+  padding-top: clamp(80px, 8.4vw, 120px);
+}
+
+.cs-eyebrow {
+  margin: 0 0 8px;
+  color: $cs-cherry;
+  font-size: clamp(16px, 1.1rem + 0.4vw, 24px);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.cs-title {
+  margin: 0 0 12px;
+  color: $cs-cherry;
+  font-family: $font-display;
+  font-size: clamp(40px, 1.6rem + 3.4vw, 72px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.cs-lead {
+  margin: 0;
+  color: $cs-muted;
+  font-size: clamp(18px, 1rem + 0.45vw, 24px);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.cs-cover {
+  margin: clamp(40px, 4.5vw, 56px) 0 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: $cs-radius;
+  }
+}
+
+// ---------- Informazioni di progetto ----------
+.cs-meta {
+  @include cs-col;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px 60px;
+  margin-block: 40px 0;
+
+  dt {
+    margin-bottom: 20px;
+    color: $cs-cherry;
+    font-family: $font-display;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  dd {
+    margin: 0;
+    color: $cs-muted;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: $bp-md - 1px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+
+    dt {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+// ---------- Sezioni ----------
+.cs-main {
+  padding-bottom: 8px;
+}
+
+.cs-section {
+  @include cs-col;
+  margin-top: clamp(72px, 7vw, 104px);
+
+  .cs-eyebrow {
+    font-size: 16px;
+  }
+
+  p {
+    margin: 0 0 1em;
+    color: $cs-muted;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  // Testo che prosegue dopo un visual, nella stessa sezione
+  &--continue {
+    margin-top: 32px;
+  }
+}
+
+.cs-h2 {
+  margin: 0 0 16px;
+  color: $cs-cherry;
+  font-family: $font-display;
+  font-size: clamp(32px, 1.4rem + 1.8vw, 48px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+}
+
+// ---------- Visual ----------
+.cs-media {
+  margin: 32px 0 0;
+
+  > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: $cs-radius;
+  }
+}
+
+// Superficie Lavender per il video verticale
+.cs-panel {
+  display: flex;
+  justify-content: center;
+  padding: clamp(32px, 5vw, 64px) 16px;
+  border-radius: $cs-radius;
+  background: $cs-lavender;
+
+  video {
+    display: block;
+    width: min(300px, 100%);
+    height: auto;
+    border-radius: 28px;
+    background: #ffffff;
+  }
+}
+
+// Didascalia in riquadro (come le note della reference)
+.cs-note {
+  margin: 20px 0 0;
+  padding: 20px;
+  border-radius: $cs-radius;
+  background: $cs-lavender;
+  color: $cs-cherry;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+
+  span {
+    display: block;
+  }
+}
+
+// ---------- Pulsanti a piena colonna ----------
+.cs-button {
+  display: block;
+  margin-top: 32px;
+  padding: 40px;
+  border-radius: $cs-radius;
+  background: $cs-matcha;
+  color: $cs-cherry;
+  font-family: $font-display;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    color: $cs-cherry;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  // Ritorno alla home: Dark Cherry
+  &--home {
+    background: $cs-cherry;
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+
+  @media (max-width: $bp-md - 1px) {
+    padding: 28px 20px;
+    font-size: 19px;
+  }
+}
+
+// ---------- Footer ----------
+.cs-footer {
+  @include cs-col;
+  padding-block: clamp(72px, 7vw, 104px) 48px;
+  text-align: center;
+
+  .cs-button {
+    margin: 0 0 clamp(64px, 7vw, 96px);
+  }
+
+  p {
+    margin: 0;
+    color: $cs-soft;
+    font-size: 16px;
+  }
+}
