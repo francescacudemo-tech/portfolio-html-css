@@ -3,9 +3,16 @@
 .reflection-accordion {
   --accordion-ink: #282929;
   --accordion-motion: 320ms cubic-bezier(.22, 1, .36, 1);
-  --accordion-padding: clamp(16px, 2.4vw, 20px);
+  --accordion-padding: clamp(14px, 2vw, 16px);
+  --accordion-surface: var(--porcelain);
+  --accordion-label: var(--accordion-ink);
   font-family: $font-display;
   color: var(--cherry);
+
+  @media (prefers-color-scheme: dark) {
+    --accordion-surface: #{$d-home-card};
+    --accordion-label: var(--porcelain);
+  }
 
   :is(h2, h3, summary, p) {
     margin: 0;
@@ -15,14 +22,14 @@
   }
 
   h2 {
-    margin-bottom: clamp(20px, 3vw, 28px);
+    margin-bottom: clamp(28px, 4vw, 38px);
     font-size: clamp(32px, 5vw, 40px);
     font-weight: 500;
     line-height: 1.15;
   }
 
   h3 {
-    margin-bottom: 4px;
+    margin-bottom: clamp(11px, 2vw, 19px);
     font-size: clamp(24px, 3.6vw, 28px);
     font-weight: 400;
     line-height: 1.2;
@@ -30,10 +37,10 @@
 
   &__group {
     display: grid;
-    gap: 8px;
+    gap: 7px;
 
     & + & {
-      margin-top: clamp(24px, 4vw, 32px);
+      margin-top: clamp(60px, 9vw, 92px);
     }
 
     &--rose { --accordion-open: var(--dusty-rose); }
@@ -42,11 +49,13 @@
 
   &__item {
     border-radius: 13px;
-    background-color: var(--porcelain);
+    background-color: var(--accordion-surface);
+    color: var(--accordion-label);
     transition: background-color var(--accordion-motion);
 
     &[open] {
       background-color: var(--accordion-open);
+      color: var(--cherry);
     }
 
     @supports selector(::details-content) and (interpolate-size: allow-keywords) {
@@ -67,15 +76,17 @@
   }
 
   summary {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: var(--accordion-padding);
-    border-radius: inherit;
+    min-block-size: 49px;
+    padding: 12px var(--accordion-padding);
+    border-radius: 13px;
     list-style: none;
     cursor: pointer;
-    font-size: clamp(17px, 2.7vw, 18px);
+    font-size: clamp(16px, 2.2vw, 18px);
     font-weight: 500;
     line-height: 1.3;
     transition: padding-bottom var(--accordion-motion);
@@ -83,8 +94,16 @@
     &::-webkit-details-marker { display: none; }
 
     &:focus-visible {
-      outline: 2px solid currentColor;
-      outline-offset: -3px;
+      outline: none;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 3px;
+        border: 1px solid currentColor;
+        border-radius: 10px;
+        pointer-events: none;
+      }
     }
   }
 
