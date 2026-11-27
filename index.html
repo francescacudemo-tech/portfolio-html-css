@@ -29,7 +29,7 @@
 
   <!-- Bootstrap 5 (solo CSS) + stili del sito compilati da Sass -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/main.css?v=45" rel="stylesheet">
+  <link href="css/main.css?v=46" rel="stylesheet">
 </head>
 <body class="home">
 
@@ -52,7 +52,10 @@
       </section>
       <!-- Il primo tap sulla barra porta il focus e mostra i contatti. -->
       <nav class="card-box card-1-2 hello-bar" aria-label="Contatti" tabindex="-1">
-        <p class="hello-bar__text">Ehi, ciao!</p>
+        <p class="hello-bar__text">
+          <span class="hello-bar__word hello-bar__word--left">Ehi,</span>
+          <span class="hello-bar__word hello-bar__word--right">ciao!</span>
+        </p>
         <div class="hello-bar__reveal">
           <p class="hello-bar__reply">Psst… il ciao era una scusa.</p>
           <ul class="hello-bar__links">
