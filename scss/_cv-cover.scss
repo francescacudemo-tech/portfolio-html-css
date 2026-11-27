@@ -104,10 +104,6 @@ $cv-front-delay: 35ms;
   }
 
   &__next {
-    padding-inline: 0.6em;
-    border-radius: 999px;
-    background-color: var(--cherry);
-    color: var(--matcha);
     transform: translateY(110%);
     opacity: 0;
   }

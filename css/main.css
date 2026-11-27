@@ -1699,10 +1699,6 @@ textarea.form-control {
   transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .cv-cover__next {
-  padding-inline: 0.6em;
-  border-radius: 999px;
-  background-color: var(--cherry);
-  color: var(--matcha);
   transform: translateY(110%);
   opacity: 0;
 }
