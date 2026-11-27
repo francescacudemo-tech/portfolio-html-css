@@ -25,8 +25,8 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
             <h2 id="mini-bento-projects">Progetti</h2>
             <ul>
               <li><a href="${guide}" data-project="buddhify-guide"><span>Buddhify Guide</span></a></li>
-              <li><a href="https://francesca-cudemo.framer.website/case-studies/buddhify-redesign" data-project="buddhify"><span>Buddhify</span></a></li>
-              <li><a href="https://francesca-cudemo.framer.website/case-studies/meditactive" data-project="meditactive"><span>Meditactive</span></a></li>
+              <li><a href="${new URL('case-studies/buddhify-redesign.html', portfolio)}" data-project="buddhify"><span>Buddhify</span></a></li>
+              <li><a href="${new URL('case-studies/meditactive.html', portfolio)}" data-project="meditactive"><span>Meditactive</span></a></li>
             </ul>
           </section>
           <a class="mini-bento__about" href="https://francesca-cudemo.framer.website/about">

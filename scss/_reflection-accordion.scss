@@ -7,14 +7,8 @@
     margin-bottom: clamp(28px, 4vw, 38px);
   }
 
-  h3 {
+  .cs-h3 {
     margin: 0 0 clamp(11px, 2vw, 19px);
-    font-family: inherit;
-    color: var(--cs-heading);
-    letter-spacing: normal;
-    font-size: clamp(24px, 3.6vw, 28px);
-    font-weight: 500;
-    line-height: 1.2;
   }
 
   &__group {
