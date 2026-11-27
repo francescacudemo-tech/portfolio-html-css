@@ -2454,3 +2454,119 @@ body.case-study a:focus-visible {
   color: #888888;
   font-size: 16px;
 }
+
+.reflection-notes {
+  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--cherry);
+}
+.reflection-notes :is(h2, h3, h4, p, button) {
+  margin: 0;
+  color: inherit;
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+.reflection-notes h2 {
+  margin-bottom: clamp(24px, 4vw, 36px);
+  font-size: clamp(36px, 5vw, 52px);
+  line-height: 1.1;
+}
+.reflection-notes h3 {
+  margin-bottom: 14px;
+  font-size: clamp(22px, 3vw, 26px);
+  line-height: 1.15;
+}
+.reflection-notes h4 {
+  margin-bottom: 12px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.reflection-notes p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.reflection-notes__columns {
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 768px) {
+  .reflection-notes__columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.reflection-notes__deck {
+  --note-front: var(--porcelain);
+  --note-middle: var(--iris);
+  --note-back: var(--dusty-rose);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+}
+.reflection-notes__deck + .reflection-notes__deck {
+  --note-front: var(--matcha);
+  --note-middle: var(--dusty-rose);
+  --note-back: var(--iris);
+}
+.reflection-notes__track {
+  display: grid;
+  gap: 10px;
+}
+.reflection-notes__note {
+  position: relative;
+  padding: clamp(18px, 3vw, 24px);
+  border-radius: 16px;
+  background: var(--note-front);
+}
+[data-notes-stacked] .reflection-notes__track {
+  padding: 0 16px 16px 0;
+}
+[data-notes-stacked] .reflection-notes__note {
+  grid-area: 1/1;
+  z-index: 3;
+}
+[data-notes-stacked] .reflection-notes__note[data-depth="1"] {
+  z-index: 2;
+  background: var(--note-middle);
+  transform: translate(8px, 8px);
+}
+[data-notes-stacked] .reflection-notes__note[data-depth="2"] {
+  z-index: 1;
+  background: var(--note-back);
+  transform: translate(16px, 16px);
+}
+[data-notes-stacked] .reflection-notes__note[aria-hidden=true]:not([data-exiting]) .reflection-notes__content {
+  visibility: hidden;
+}
+.reflection-notes__controls:not([hidden]) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}
+.reflection-notes__count {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.reflection-notes button {
+  min-height: 44px;
+  padding: 4px 6px;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  cursor: pointer;
+}
+.reflection-notes button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.reflection-notes button:focus-visible {
+  outline: 2px solid var(--cherry);
+  outline-offset: 2px;
+}
+.reflection-notes button.reflection-notes__all {
+  margin: -12px 0 16px;
+  padding-inline: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

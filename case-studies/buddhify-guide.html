@@ -25,13 +25,14 @@
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Bootstrap 5 (solo CSS) + stili del sito compilati da Sass -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/main.css?v=44" rel="stylesheet">
+  <link href="../css/main.css?v=47" rel="stylesheet">
   <link href="../css/mini-bento.css?v=2" rel="stylesheet">
   <script type="module" src="../assets/js/mini-bento.js?v=2"></script>
+  <script type="module" src="../assets/js/reflection-notes.js"></script>
 </head>
 <body class="case-study">
   <a class="skip-link" href="#main">Vai al contenuto</a>
@@ -148,12 +149,77 @@
       <p>Mi sono accorta che il lavoro non finiva quando l'AI generava una proposta. Anzi, da lì iniziava la parte in cui dovevo scegliere cosa tenere, cosa cambiare e come far funzionare tutto insieme.</p>
       <p>È stata proprio questa la parte che mi è piaciuta di più: prendere quelle prime schermate e lavorarci sopra fino ad arrivare a qualcosa che sentissi davvero mio.</p>
       <p>L'AI mi ha aiutata a partire, ma sono state le scelte successive a dare forma a Buddhify Guide.</p>
+    </section>
 
+    <section class="cs-section reflection-notes" aria-labelledby="a-mente-fredda">
+      <h2 id="a-mente-fredda">A mente fredda</h2>
+      <button class="reflection-notes__all" type="button" data-notes-all hidden>Leggi tutti gli appunti</button>
+      <div class="reflection-notes__columns">
+        <section class="reflection-notes__deck" aria-labelledby="prossimi-passi" data-notes-deck>
+          <h3 id="prossimi-passi">Prossimi passi</h3>
+          <div class="reflection-notes__track" id="prossimi-passi-appunti">
+            <article class="reflection-notes__note">
+              <div class="reflection-notes__content">
+                <h4>Più ricerca sugli utenti</h4>
+                <p>Mi piacerebbe osservare qualcuno che non conosce Buddhify mentre usa l'assistente. Ho immaginato quali potessero essere i suoi dubbi, ma vorrei capire se sono davvero quelli che una persona ha quando apre l'app per la prima volta.</p>
+              </div>
+            </article>
+            <article class="reflection-notes__note">
+              <div class="reflection-notes__content">
+                <h4>L'effettiva utilità dell'assistente</h4>
+                <p>Vorrei confrontare due esperienze: cercare una meditazione nell'app e farlo attraverso l'assistente. Non è detto che parlare con un'AI sia sempre il modo più semplice per trovare ciò che si cerca.</p>
+              </div>
+            </article>
+            <article class="reflection-notes__note">
+              <div class="reflection-notes__content">
+                <h4>Gli imprevisti della conversazione</h4>
+                <p>Nel prototipo ho immaginato alcuni percorsi, ma difficilmente una conversazione segue sempre quelli previsti. Mi piacerebbe lavorare anche sui momenti in cui l'assistente non capisce una richiesta o suggerisce qualcosa di poco adatto.</p>
+              </div>
+            </article>
+          </div>
+          <div class="reflection-notes__controls" role="group" aria-label="Prossimi passi" hidden>
+            <button type="button" data-notes-prev>Indietro</button>
+            <span class="reflection-notes__count" role="status"></span>
+            <button type="button" data-notes-next>Avanti</button>
+          </div>
+        </section>
+        <section class="reflection-notes__deck" aria-labelledby="nuove-consapevolezze" data-notes-deck>
+          <h3 id="nuove-consapevolezze">Nuove consapevolezze</h3>
+          <div class="reflection-notes__track" id="nuove-consapevolezze-appunti">
+            <article class="reflection-notes__note">
+              <div class="reflection-notes__content">
+                <h4>Il peso delle parole</h4>
+                <p>Non pensavo che la domanda iniziale della chat avrebbe richiesto così tanta attenzione. Ripensarla mi ha fatto capire quanto anche poche parole possano cambiare il modo in cui una persona si avvicina a un servizio.</p>
+              </div>
+            </article>
+            <article class="reflection-notes__note">
+              <div class="reflection-notes__content">
+                <h4>Progettare oltre le schermate</h4>
+                <p>Partire dalla conversazione, anziché dall'interfaccia, mi ha aiutata a concentrarmi su quello che la persona avrebbe dovuto fare e capire durante il percorso. È un approccio che vorrei sperimentare anche in altri progetti.</p>
+              </div>
+            </article>
+            <article class="reflection-notes__note">
+              <div class="reflection-notes__content">
+                <h4>Non perdere di vista il bisogno iniziale</h4>
+                <p>Progettando la chat era facile concentrarsi sulla conversazione stessa. Completare il percorso fino al player mi ha ricordato perché avevo immaginato l'assistente: aiutare qualcuno a trovare una meditazione da cui iniziare.</p>
+              </div>
+            </article>
+          </div>
+          <div class="reflection-notes__controls" role="group" aria-label="Nuove consapevolezze" hidden>
+            <button type="button" data-notes-prev>Indietro</button>
+            <span class="reflection-notes__count" role="status"></span>
+            <button type="button" data-notes-next>Avanti</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <div class="cs-section cs-section--continue">
       <a class="cs-button" href="https://www.figma.com/design/EyLrSEaQWV7I0PVRbRxtgk/AGENTI-AI-PER-IL-DESIGN?node-id=392-1422&amp;t=GYf2DrH5nYh1RYRT-1" target="_blank" rel="noopener">
         Esplora il prototipo su Figma <span aria-hidden="true">↗</span>
         <span class="visually-hidden">(si apre in una nuova scheda)</span>
       </a>
-    </section>
+    </div>
 
   </main>
 
