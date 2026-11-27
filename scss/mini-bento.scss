@@ -4,6 +4,7 @@
   --menu-surface: var(--porcelain);
   --menu-neutral: #{$home-bg};
   --menu-glide: 300ms cubic-bezier(.22, .85, .25, 1);
+  --menu-stack: cubic-bezier(.2, .8, .3, 1.045);
   --menu-backdrop: color-mix(in srgb, #{$d-home-bg} 10%, transparent);
   color: var(--cherry);
   font-family: $font-display;
@@ -87,7 +88,7 @@
   &__shell {
     display: grid;
     justify-items: center;
-    gap: 12px;
+    gap: 10px;
     width: min(100%, 520px);
     margin: auto;
   }
@@ -95,21 +96,18 @@
   &__panel {
     --menu-band: 48px;
     position: relative;
+    isolation: isolate;
     display: grid;
-    grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(132px, .68fr);
     grid-template-areas: 'home home' 'projects about' 'projects contacts' 'cv cv';
     grid-template-rows: 36px auto var(--menu-band) var(--menu-band);
-    gap: 10px;
+    gap: 8px;
     width: 100%;
-    padding: 14px 20px 20px;
+    padding: 16px;
     border-radius: 28px;
-    background: var(--menu-surface);
 
     @media (max-width: 420px) {
       --menu-band: 44px;
-      grid-template-columns: minmax(0, 1.18fr) minmax(132px, 1fr);
-      gap: 8px;
-      padding: clamp(10px, 3vw, 13px);
       border-radius: 22px;
     }
 
@@ -118,6 +116,15 @@
       grid-template-areas: 'home' 'projects' 'about' 'contacts' 'cv';
       grid-template-rows: 36px auto auto var(--menu-band) var(--menu-band);
     }
+  }
+
+  &__surface {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--menu-surface);
+    pointer-events: none;
   }
 
   &__home {
@@ -141,15 +148,12 @@
 
   &__projects {
     grid-area: projects;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 14px clamp(12px, 3vw, 20px);
+    padding: 16px;
     border-radius: 12px;
     background: var(--menu-neutral);
 
     h2 {
-      margin: 0 0 8px;
+      margin: 0 0 12px;
       color: inherit;
       font: inherit;
       font-size: 12px;
@@ -169,7 +173,7 @@
     a {
       display: flex;
       align-items: center;
-      min-height: 48px;
+      min-height: 46px;
       font-size: 16px;
     }
 
@@ -178,8 +182,7 @@
     }
 
     @media (max-width: 420px) {
-      padding-inline: 10px;
-      a { min-height: 42px; font-size: 14px; }
+      a { min-height: 44px; font-size: 14px; }
     }
   }
 
@@ -188,7 +191,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 10px;
+    gap: 4px;
     overflow: hidden;
     padding: 12px 0 0;
     border-radius: 12px;
@@ -225,8 +228,8 @@
   &__contacts {
     grid-area: contacts;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    padding-inline: clamp(0px, calc(10vw - 35px), 20px);
+    grid-template-columns: repeat(3, 44px);
+    justify-content: center;
     background: var(--cherry);
     color: var(--matcha);
     border-radius: 12px;
@@ -259,7 +262,7 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    &__projects a:hover > span { translate: 3px 0; }
+    &__projects a:hover > span { translate: 4px 0; }
     &__cv:hover > span { translate: 0 -2px; }
 
     & :is(a, button):hover svg:not(.mini-bento__star) { translate: 0 -2px; }

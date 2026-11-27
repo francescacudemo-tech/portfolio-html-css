@@ -19,6 +19,7 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
     <dialog id="mini-bento-dialog" class="mini-bento__dialog" aria-label="Navigazione del portfolio">
       <div class="mini-bento__shell">
         <nav class="mini-bento__panel" aria-label="Portfolio">
+          <div class="mini-bento__surface" aria-hidden="true"></div>
           <a class="mini-bento__home" href="${home}" aria-label="Home" autofocus>${icon(house)}</a>
           <section class="mini-bento__projects" aria-labelledby="mini-bento-projects">
             <h2 id="mini-bento-projects">Progetti</h2>
@@ -29,7 +30,7 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
             </ul>
           </section>
           <a class="mini-bento__about" href="https://francesca-cudemo.framer.website/about">
-            <span>Sbircia nel<br>mio mondo</span>
+            <span>Sbircia nel mio mondo</span>
             <svg class="mini-bento__star" viewBox="0 -12 440 244" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
               <defs>
                 <clipPath id="mini-bento-eye-a"><ellipse cx="190" cy="168" rx="25" ry="31" transform="rotate(10 190 168)"/></clipPath>
@@ -76,31 +77,83 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
   const homeLink = menu.querySelector('.mini-bento__home');
   const closeButton = menu.querySelector('.mini-bento__close');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const panel = shell.querySelector('.mini-bento__panel');
+  const surface = panel.querySelector('.mini-bento__surface');
+  const star = panel.querySelector('.mini-bento__star');
+  const tiles = [
+    [panel.querySelector('.mini-bento__projects'), -9, -5, -3],
+    [panel.querySelector('.mini-bento__about'), 9, 5, -4],
+    [panel.querySelector('.mini-bento__contacts'), 6, 5, 5],
+    [panel.querySelector('.mini-bento__cv'), -7, -5, 5]
+  ];
+  const timing = { duration: 540, fill: 'both' };
   let animations = [];
   let closing = false;
   const currentProject = [...menu.querySelectorAll('[data-project]')]
     .find(link => link.dataset.project === menu.dataset.currentProject);
   currentProject?.setAttribute('aria-current', 'page');
 
-  function openMotion() {
-    const timing = { duration: 280, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'both' };
-    return [
+  function spreadStack() {
+    // Il contorno parte dalle dimensioni reali dell’hamburger.
+    const center = panel.clientWidth / 2;
+    const inlineInset = center - trigger.offsetWidth / 2;
+    const blockInset = panel.clientHeight - trigger.offsetHeight;
+    const easing = getComputedStyle(menu).getPropertyValue('--menu-stack').trim();
+    const origin = trigger.getBoundingClientRect();
+    const destination = panel.getBoundingClientRect();
+    const x = origin.left + origin.width / 2 - destination.left - destination.width / 2;
+    const y = origin.top - destination.top;
+    const radius = getComputedStyle(panel).borderRadius;
+    const animations = [
       shell.animate([
-        { opacity: 0, transform: 'translateY(-8px) scale(.98)' },
-        { opacity: 1, transform: 'none' }
+        { transform: `translate(${x}px, calc(${y}px + var(--menu-scroll-shift, 0px)))`, easing },
+        { transform: 'none', offset: .78 },
+        { transform: 'none' }
       ], timing),
-      dialog.animate([
-        { backgroundColor: 'transparent' },
-        { backgroundColor: 'var(--menu-backdrop)' }
+      surface.animate([
+        { clipPath: `inset(0 ${inlineInset}px ${blockInset}px round ${trigger.offsetHeight / 2}px)`, easing },
+        { clipPath: `inset(0 round ${radius})`, offset: .81 },
+        { clipPath: `inset(0 round ${radius})` }
       ], timing)
     ];
+
+    for (const [index, [tile, angle, offsetX, offsetY]] of tiles.entries()) {
+      const x = center - tile.offsetLeft - tile.offsetWidth / 2 + offsetX;
+      const y = 24 - tile.offsetTop - tile.offsetHeight / 2 + offsetY;
+      const stacked = `translate(${x}px, ${y}px) rotate(${angle}deg) scale(.23)`;
+      const start = (76 + index * 40) / timing.duration;
+      animations.push(tile.animate([
+        { transform: stacked, opacity: 0, offset: 0 },
+        { transform: stacked, opacity: 0, offset: .08 },
+        { transform: stacked, opacity: 1, offset: start, easing },
+        { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1, offset: start + .57 },
+        { transform: 'none', opacity: 1 }
+      ], timing));
+    }
+
+    animations.push(dialog.animate([
+      { backgroundColor: 'transparent', easing },
+      { backgroundColor: 'var(--menu-backdrop)' }
+    ], timing));
+    for (const [element, offset, from, to] of [
+      [homeLink, .52, 'translateY(0)', 'translateY(0)'],
+      [star, .65, 'translateY(12px) scaleX(-1)', 'translateY(0) scaleX(-1)'],
+      [closeButton, .69, 'translateY(-8px)', 'translateY(0)']
+    ]) {
+      animations.push(element.animate([
+        { opacity: 0, transform: from },
+        { opacity: 0, transform: from, offset, easing },
+        { opacity: 1, transform: to }
+      ], timing));
+    }
+    return animations;
   }
 
   trigger.addEventListener('click', () => {
     dialog.showModal();
     dialog.scrollTop = 0;
     trigger.setAttribute('aria-expanded', 'true');
-    if (!reduceMotion.matches) animations = openMotion();
+    if (!reduceMotion.matches && typeof shell.animate === 'function') animations = spreadStack();
     homeLink.focus({ preventScroll: true });
   });
 
@@ -109,12 +162,20 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
 
     closing = true;
     if (!reduceMotion.matches) {
-      animations.forEach(animation => animation.reverse());
+      // Se la X ha richiesto uno scroll, il ritorno punta ancora alla pillola fissa.
+      if (animations[0]?.playState === 'finished') {
+        shell.style.setProperty('--menu-scroll-shift', `${dialog.scrollTop}px`);
+      }
+      animations.forEach(animation => {
+        animation.reverse();
+        animation.updatePlaybackRate(-1.35);
+      });
       await Promise.allSettled(animations.map(animation => animation.finished));
     }
     dialog.close();
     animations.forEach(animation => animation.cancel());
     animations = [];
+    shell.style.removeProperty('--menu-scroll-shift');
     closing = false;
     trigger.setAttribute('aria-expanded', 'false');
     trigger.focus({ preventScroll: true });
@@ -127,10 +188,12 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
   });
 
   let pressedOutside = false;
+  const outsideMenu = target => !panel.contains(target) && !closeButton.contains(target);
   dialog.addEventListener('pointerdown', event => {
-    pressedOutside = event.target === dialog;
+    pressedOutside = outsideMenu(event.target);
   });
   dialog.addEventListener('click', event => {
-    if (pressedOutside && event.target === dialog) closeMenu();
+    if (pressedOutside && outsideMenu(event.target)) closeMenu();
+    pressedOutside = false;
   });
 }
