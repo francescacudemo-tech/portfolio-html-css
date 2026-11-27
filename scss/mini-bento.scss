@@ -4,7 +4,6 @@
   --menu-surface: var(--porcelain);
   --menu-neutral: #{$home-bg};
   --menu-glide: 300ms cubic-bezier(.22, .85, .25, 1);
-  --menu-stack: cubic-bezier(.2, .8, .3, 1.045);
   --menu-backdrop: color-mix(in srgb, #{$d-home-bg} 10%, transparent);
   color: var(--cherry);
   font-family: $font-display;
@@ -71,12 +70,14 @@
     height: 100%;
     max-height: none;
     margin: 0;
-    padding: 8px;
+    padding: clamp(10px, 3vw, 24px);
     border: 0;
     overflow: auto;
     background: var(--menu-backdrop);
     color: inherit;
     overscroll-behavior: contain;
+
+    &[open] { display: grid; }
 
     &::backdrop {
       background: transparent;
@@ -86,43 +87,37 @@
   &__shell {
     display: grid;
     justify-items: center;
-    gap: 8px;
-    width: min(100%, 440px);
-    margin-inline: auto;
+    gap: 12px;
+    width: min(100%, 520px);
+    margin: auto;
   }
 
   &__panel {
     --menu-band: 48px;
     position: relative;
-    isolation: isolate;
     display: grid;
-    grid-template-columns: minmax(0, 1.21fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
     grid-template-areas: 'home home' 'projects about' 'projects contacts' 'cv cv';
     grid-template-rows: 36px auto var(--menu-band) var(--menu-band);
-    gap: 8px;
+    gap: 10px;
     width: 100%;
-    padding: 16px;
-    border-radius: 24px;
+    padding: 14px 20px 20px;
+    border-radius: 28px;
+    background: var(--menu-surface);
 
     @media (max-width: 420px) {
       --menu-band: 44px;
+      grid-template-columns: minmax(0, 1.18fr) minmax(132px, 1fr);
+      gap: 8px;
       padding: clamp(10px, 3vw, 13px);
+      border-radius: 22px;
     }
 
-    @media (max-width: 299px) {
+    @media (max-width: 310px) {
       grid-template-columns: minmax(0, 1fr);
       grid-template-areas: 'home' 'projects' 'about' 'contacts' 'cv';
       grid-template-rows: 36px auto auto var(--menu-band) var(--menu-band);
     }
-  }
-
-  &__surface {
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    border-radius: inherit;
-    background: var(--menu-surface);
-    pointer-events: none;
   }
 
   &__home {
@@ -149,12 +144,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 10px 12px;
+    padding: 14px clamp(12px, 3vw, 20px);
     border-radius: 12px;
     background: var(--menu-neutral);
 
     h2 {
-      margin: 0 0 3px;
+      margin: 0 0 8px;
       color: inherit;
       font: inherit;
       font-size: 12px;
@@ -174,12 +169,12 @@
     a {
       display: flex;
       align-items: center;
-      min-height: 44px;
+      min-height: 48px;
       font-size: 16px;
     }
 
     [aria-current='page'] {
-      font-weight: 600;
+      font-weight: 500;
     }
 
     @media (max-width: 420px) {
@@ -193,15 +188,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 6px;
+    gap: 10px;
     overflow: hidden;
-    padding: 10px 0 0;
+    padding: 12px 0 0;
     border-radius: 12px;
     background: var(--iris);
     font-size: 16px;
 
     > span {
-      padding-inline: 10px;
+      padding-inline: 12px;
     }
 
     @media (max-width: 420px) {
@@ -231,6 +226,7 @@
     grid-area: contacts;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-inline: clamp(0px, calc(10vw - 35px), 20px);
     background: var(--cherry);
     color: var(--matcha);
     border-radius: 12px;
@@ -240,7 +236,6 @@
       place-items: center;
       min-height: 44px;
       border-radius: inherit;
-
     }
   }
 

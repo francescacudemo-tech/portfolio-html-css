@@ -124,7 +124,7 @@ body.case-study {
   color: var(--cs-heading);
   font-family: $font-display;
   font-size: clamp(36px, 5.4vw, 64px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.03em;
 }
@@ -155,14 +155,14 @@ body.case-study {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px 60px;
-  margin-block: 40px 0;
+  margin-block: clamp(24px, 4vw, 36px) 0;
 
   dt {
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     color: var(--cs-label);
     font-family: $font-display;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.4;
   }
 
@@ -176,11 +176,7 @@ body.case-study {
 
   @media (max-width: $bp-md - 1px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 24px;
-
-    dt {
-      margin-bottom: 8px;
-    }
+    gap: 24px;
   }
 }
 
@@ -191,7 +187,7 @@ body.case-study {
 
 .cs-section {
   @include cs-col;
-  margin-top: clamp(72px, 7vw, 104px);
+  margin-top: clamp(52px, 6vw, 80px);
 
   .cs-eyebrow {
     font-size: 14px;
@@ -219,7 +215,7 @@ body.case-study {
   color: var(--cs-heading);
   font-family: $font-display;
   font-size: clamp(30px, 4.5vw, 40px);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.035em;
 }
@@ -236,7 +232,7 @@ body.case-study {
 
 // ---------- Visual ----------
 .cs-media {
-  margin: 32px 0 0;
+  margin: 24px 0 0;
 
   > img {
     display: block;
@@ -249,7 +245,7 @@ body.case-study {
 .cs-media-grid {
   display: grid;
   gap: clamp(16px, 3vw, 24px);
-  margin-top: 32px;
+  margin-top: 24px;
 
   > figure {
     margin: 0;
@@ -258,21 +254,6 @@ body.case-study {
 
   @media (min-width: #{$bp-md}) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.cs-related-link {
-  display: grid;
-  align-content: start;
-  gap: 12px;
-  font-weight: 500;
-
-  img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: $cs-radius;
   }
 }
 
@@ -286,7 +267,7 @@ body.case-study {
 .cs-panel {
   display: flex;
   justify-content: center;
-  padding: clamp(12px, 2.4vw, 28px);
+  padding: clamp(10px, 1.8vw, 20px);
   border-radius: $cs-radius;
   background: var(--cs-surface);
 
@@ -318,7 +299,7 @@ body.case-study {
 
 // ---------- Pulsanti a piena colonna ----------
 .cs-section--closing {
-  margin-top: clamp(64px, 10vw, 104px);
+  margin-top: clamp(56px, 8vw, 88px);
 }
 
 .cs-button {
@@ -345,41 +326,25 @@ body.case-study {
     background: var(--porcelain) $hero-gradient;
   }
 
-  &__labels {
-    display: grid;
-    place-items: center;
-    overflow: hidden;
+  &__label {
+    transition: transform 260ms cubic-bezier(.22, 1, .36, 1);
+  }
 
-    > span {
-      grid-area: 1 / 1;
-      transition: transform 500ms cubic-bezier(.22, 1, .36, 1);
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    &:hover .cs-button__label {
+      transform: translateY(-2px);
     }
-  }
-
-  &__hover {
-    transform: translateY(110%);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &--reveal:hover {
-      .cs-button__default { transform: translateY(-110%); }
-      .cs-button__hover { transform: none; }
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    &__labels > span { transition: none; }
   }
 }
 
 // ---------- Footer ----------
 .cs-footer {
   @include cs-col;
-  padding-block: clamp(72px, 7vw, 104px) 48px;
+  padding-block: clamp(44px, 5vw, 68px) 40px;
   text-align: center;
 
   .cs-button {
-    margin: 0 0 clamp(64px, 7vw, 96px);
+    margin: 0 0 clamp(40px, 5vw, 64px);
   }
 
   p {

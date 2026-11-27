@@ -2302,7 +2302,7 @@ body.case-study .skip-link {
   color: var(--cs-heading);
   font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: clamp(36px, 5.4vw, 64px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.03em;
 }
@@ -2332,14 +2332,14 @@ body.case-study .skip-link {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px 60px;
-  margin-block: 40px 0;
+  margin-block: clamp(24px, 4vw, 36px) 0;
 }
 .cs-meta dt {
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   color: var(--cs-label);
   font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.4;
 }
 .cs-meta dd {
@@ -2352,10 +2352,7 @@ body.case-study .skip-link {
 @media (max-width: 767px) {
   .cs-meta {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 24px;
-  }
-  .cs-meta dt {
-    margin-bottom: 8px;
+    gap: 24px;
   }
 }
 
@@ -2366,7 +2363,7 @@ body.case-study .skip-link {
 .cs-section {
   width: min(760px, 100% - 2 * clamp(20px, 6vw, 64px));
   margin-inline: auto;
-  margin-top: clamp(72px, 7vw, 104px);
+  margin-top: clamp(52px, 6vw, 80px);
 }
 .cs-section .cs-eyebrow {
   font-size: 14px;
@@ -2389,7 +2386,7 @@ body.case-study .skip-link {
   color: var(--cs-heading);
   font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: clamp(30px, 4.5vw, 40px);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.035em;
 }
@@ -2405,7 +2402,7 @@ body.case-study .skip-link {
 }
 
 .cs-media {
-  margin: 32px 0 0;
+  margin: 24px 0 0;
 }
 .cs-media > img {
   display: block;
@@ -2417,7 +2414,7 @@ body.case-study .skip-link {
 .cs-media-grid {
   display: grid;
   gap: clamp(16px, 3vw, 24px);
-  margin-top: 32px;
+  margin-top: 24px;
 }
 .cs-media-grid > figure {
   margin: 0;
@@ -2429,20 +2426,6 @@ body.case-study .skip-link {
   }
 }
 
-.cs-related-link {
-  display: grid;
-  align-content: start;
-  gap: 12px;
-  font-weight: 500;
-}
-.cs-related-link img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  border-radius: 18px;
-}
-
 .cs-quote {
   margin: 24px 0 0;
   padding-inline-start: 16px;
@@ -2452,7 +2435,7 @@ body.case-study .skip-link {
 .cs-panel {
   display: flex;
   justify-content: center;
-  padding: clamp(12px, 2.4vw, 28px);
+  padding: clamp(10px, 1.8vw, 20px);
   border-radius: 18px;
   background: var(--cs-surface);
 }
@@ -2479,7 +2462,7 @@ body.case-study .skip-link {
 }
 
 .cs-section--closing {
-  margin-top: clamp(64px, 10vw, 104px);
+  margin-top: clamp(56px, 8vw, 88px);
 }
 
 .cs-button {
@@ -2504,40 +2487,23 @@ body.case-study .skip-link {
 .cs-button--home {
   background: var(--porcelain) radial-gradient(ellipse at bottom right, var(--dusty-rose), var(--porcelain) 85%);
 }
-.cs-button__labels {
-  display: grid;
-  place-items: center;
-  overflow: hidden;
+.cs-button__label {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.cs-button__labels > span {
-  grid-area: 1/1;
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.cs-button__hover {
-  transform: translateY(110%);
-}
-@media (hover: hover) and (pointer: fine) {
-  .cs-button--reveal:hover .cs-button__default {
-    transform: translateY(-110%);
-  }
-  .cs-button--reveal:hover .cs-button__hover {
-    transform: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .cs-button__labels > span {
-    transition: none;
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .cs-button:hover .cs-button__label {
+    transform: translateY(-2px);
   }
 }
 
 .cs-footer {
   width: min(760px, 100% - 2 * clamp(20px, 6vw, 64px));
   margin-inline: auto;
-  padding-block: clamp(72px, 7vw, 104px) 48px;
+  padding-block: clamp(44px, 5vw, 68px) 40px;
   text-align: center;
 }
 .cs-footer .cs-button {
-  margin: 0 0 clamp(64px, 7vw, 96px);
+  margin: 0 0 clamp(40px, 5vw, 64px);
 }
 .cs-footer p {
   margin: 0;
@@ -2551,17 +2517,17 @@ body.case-study .skip-link {
   --accordion-padding: clamp(14px, 2vw, 16px);
 }
 .reflection-accordion .cs-h2 {
-  margin-bottom: clamp(28px, 4vw, 38px);
+  margin-bottom: clamp(24px, 3vw, 32px);
 }
 .reflection-accordion .cs-h3 {
-  margin: 0 0 clamp(11px, 2vw, 19px);
+  margin: 0 0 clamp(8px, 1.5vw, 15px);
 }
 .reflection-accordion__group {
   display: grid;
   gap: 7px;
 }
 .reflection-accordion__group + .reflection-accordion__group {
-  margin-top: clamp(60px, 9vw, 92px);
+  margin-top: clamp(40px, 6vw, 64px);
 }
 .reflection-accordion__group--rose {
   --accordion-open: var(--dusty-rose);
@@ -2585,11 +2551,13 @@ body.case-study .skip-link {
   }
   .reflection-accordion__item::details-content {
     block-size: 0;
+    opacity: 0;
     overflow: clip;
-    transition: block-size var(--accordion-motion), content-visibility var(--accordion-motion) allow-discrete;
+    transition: block-size var(--accordion-motion), opacity var(--accordion-motion), content-visibility var(--accordion-motion) allow-discrete;
   }
   .reflection-accordion__item[open]::details-content {
     block-size: auto;
+    opacity: 1;
   }
 }
 .reflection-accordion summary {
@@ -2630,25 +2598,25 @@ body.case-study .skip-link {
   width: 16px;
   height: 16px;
   flex: 0 0 16px;
-  transition: transform var(--accordion-motion);
+  transition: translate var(--accordion-motion);
 }
-.reflection-accordion__icon::before, .reflection-accordion__icon::after {
+.reflection-accordion__icon::before {
   content: "";
   position: absolute;
-  inset: 7px 2px;
-  border-radius: 2px;
-  background: currentColor;
-}
-.reflection-accordion__icon::after {
-  transform: rotate(90deg);
+  inset: 3px 4px auto;
+  width: 8px;
+  height: 8px;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
   transition: transform var(--accordion-motion);
 }
-.reflection-accordion__item[open] .reflection-accordion__icon::after {
-  transform: rotate(0);
+.reflection-accordion__item[open] .reflection-accordion__icon::before {
+  transform: translateY(3px) rotate(225deg);
 }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .reflection-accordion summary:hover .reflection-accordion__icon {
-    transform: translateX(2px);
+    translate: 0 -1px;
   }
 }
 .reflection-accordion__item p {
@@ -2660,7 +2628,7 @@ body.case-study .skip-link {
   line-height: 1.6;
 }
 @media (prefers-reduced-motion: reduce) {
-  .reflection-accordion summary, .reflection-accordion__item, .reflection-accordion__icon, .reflection-accordion__icon::after {
+  .reflection-accordion summary, .reflection-accordion__item, .reflection-accordion__icon::before {
     transition: none;
   }
   @supports selector(::details-content) {

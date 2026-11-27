@@ -19,7 +19,6 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
     <dialog id="mini-bento-dialog" class="mini-bento__dialog" aria-label="Navigazione del portfolio">
       <div class="mini-bento__shell">
         <nav class="mini-bento__panel" aria-label="Portfolio">
-          <div class="mini-bento__surface" aria-hidden="true"></div>
           <a class="mini-bento__home" href="${home}" aria-label="Home" autofocus>${icon(house)}</a>
           <section class="mini-bento__projects" aria-labelledby="mini-bento-projects">
             <h2 id="mini-bento-projects">Progetti</h2>
@@ -73,74 +72,35 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
 
   const trigger = menu.querySelector('.mini-bento__trigger');
   const dialog = menu.querySelector('dialog');
-  const panel = menu.querySelector('.mini-bento__panel');
-  const surface = panel.querySelector('.mini-bento__surface');
-  const star = panel.querySelector('.mini-bento__star');
-  const homeLink = panel.querySelector('.mini-bento__home');
+  const shell = menu.querySelector('.mini-bento__shell');
+  const homeLink = menu.querySelector('.mini-bento__home');
   const closeButton = menu.querySelector('.mini-bento__close');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const tiles = [
-    [panel.querySelector('.mini-bento__projects'), -9, -5, -3],
-    [panel.querySelector('.mini-bento__about'), 9, 5, -4],
-    [panel.querySelector('.mini-bento__contacts'), 6, 5, 5],
-    [panel.querySelector('.mini-bento__cv'), -7, -5, 5]
-  ];
-  const timing = { duration: 540, fill: 'both' };
-  let stackAnimations = [];
+  let animations = [];
   let closing = false;
   const currentProject = [...menu.querySelectorAll('[data-project]')]
     .find(link => link.dataset.project === menu.dataset.currentProject);
   currentProject?.setAttribute('aria-current', 'page');
 
-  function spreadStack() {
-    // Il contorno parte dalle dimensioni reali dell’hamburger.
-    const center = panel.clientWidth / 2;
-    const inlineInset = center - trigger.offsetWidth / 2;
-    const blockInset = panel.clientHeight - trigger.offsetHeight;
-    const easing = getComputedStyle(menu).getPropertyValue('--menu-stack').trim();
-    const animations = [surface.animate([
-      { clipPath: `inset(0 ${inlineInset}px ${blockInset}px round ${trigger.offsetHeight / 2}px)`, easing },
-      { clipPath: 'inset(0 round 24px)', offset: .81 },
-      { clipPath: 'inset(0 round 24px)' }
-    ], timing)];
-
-    for (const [index, [tile, angle, offsetX, offsetY]] of tiles.entries()) {
-      const x = center - tile.offsetLeft - tile.offsetWidth / 2 + offsetX;
-      const y = 24 - tile.offsetTop - tile.offsetHeight / 2 + offsetY;
-      const stacked = `translate(${x}px, ${y}px) rotate(${angle}deg) scale(.23)`;
-      const start = (76 + index * 40) / timing.duration;
-      animations.push(tile.animate([
-        { transform: stacked, opacity: 0, offset: 0 },
-        { transform: stacked, opacity: 0, offset: .08 },
-        { transform: stacked, opacity: 1, offset: start, easing },
-        { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1, offset: start + .57 },
-        { transform: 'none', opacity: 1 }
-      ], timing));
-    }
-
-    animations.push(dialog.animate([
-      { backgroundColor: 'transparent', easing },
-      { backgroundColor: 'var(--menu-backdrop)' }
-    ], timing));
-    for (const [element, offset, from, to] of [
-      [homeLink, .52, 'translateY(0)', 'translateY(0)'],
-      [star, .65, 'translateY(12px) scaleX(-1)', 'translateY(0) scaleX(-1)'],
-      [closeButton, .69, 'translateY(-8px)', 'translateY(0)']
-    ]) {
-      animations.push(element.animate([
-        { opacity: 0, transform: from },
-        { opacity: 0, transform: from, offset, easing },
-        { opacity: 1, transform: to }
-      ], timing));
-    }
-    return animations;
+  function openMotion() {
+    const timing = { duration: 280, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'both' };
+    return [
+      shell.animate([
+        { opacity: 0, transform: 'translateY(-8px) scale(.98)' },
+        { opacity: 1, transform: 'none' }
+      ], timing),
+      dialog.animate([
+        { backgroundColor: 'transparent' },
+        { backgroundColor: 'var(--menu-backdrop)' }
+      ], timing)
+    ];
   }
 
   trigger.addEventListener('click', () => {
     dialog.showModal();
     dialog.scrollTop = 0;
     trigger.setAttribute('aria-expanded', 'true');
-    if (!reduceMotion.matches) stackAnimations = spreadStack();
+    if (!reduceMotion.matches) animations = openMotion();
     homeLink.focus({ preventScroll: true });
   });
 
@@ -149,16 +109,12 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
 
     closing = true;
     if (!reduceMotion.matches) {
-      // Inverte la sequenza dal punto raggiunto, anche durante l’apertura.
-      stackAnimations.forEach(animation => {
-        animation.reverse();
-        animation.updatePlaybackRate(-1.35);
-      });
-      await Promise.allSettled(stackAnimations.map(animation => animation.finished));
+      animations.forEach(animation => animation.reverse());
+      await Promise.allSettled(animations.map(animation => animation.finished));
     }
     dialog.close();
-    stackAnimations.forEach(animation => animation.cancel());
-    stackAnimations = [];
+    animations.forEach(animation => animation.cancel());
+    animations = [];
     closing = false;
     trigger.setAttribute('aria-expanded', 'false');
     trigger.focus({ preventScroll: true });
