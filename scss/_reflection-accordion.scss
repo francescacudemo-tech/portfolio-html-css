@@ -1,37 +1,19 @@
 @use 'variables' as *;
 
 .reflection-accordion {
-  --accordion-ink: #282929;
   --accordion-motion: 320ms cubic-bezier(.22, 1, .36, 1);
   --accordion-padding: clamp(14px, 2vw, 16px);
-  --accordion-surface: var(--porcelain);
-  --accordion-label: var(--accordion-ink);
-  font-family: $font-display;
-  color: var(--cherry);
-
-  @media (prefers-color-scheme: dark) {
-    --accordion-surface: #{$d-home-card};
-    --accordion-label: var(--porcelain);
-  }
-
-  :is(h2, h3, summary, p) {
-    margin: 0;
-    font-family: inherit;
-    color: inherit;
-    letter-spacing: normal;
-  }
-
-  h2 {
+  .cs-h2 {
     margin-bottom: clamp(28px, 4vw, 38px);
-    font-size: clamp(32px, 5vw, 40px);
-    font-weight: 500;
-    line-height: 1.15;
   }
 
   h3 {
-    margin-bottom: clamp(11px, 2vw, 19px);
+    margin: 0 0 clamp(11px, 2vw, 19px);
+    font-family: inherit;
+    color: var(--cs-heading);
+    letter-spacing: normal;
     font-size: clamp(24px, 3.6vw, 28px);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.2;
   }
 
@@ -49,8 +31,8 @@
 
   &__item {
     border-radius: 13px;
-    background-color: var(--accordion-surface);
-    color: var(--accordion-label);
+    background-color: var(--cs-surface);
+    color: var(--cs-text);
     transition: background-color var(--accordion-motion);
 
     &[open] {
@@ -146,7 +128,7 @@
   &__item p {
     margin: 0;
     padding: 0 var(--accordion-padding) var(--accordion-padding);
-    color: var(--accordion-ink);
+    color: var(--cs-ink);
     font-size: 16px;
     font-weight: 400;
     line-height: 1.6;

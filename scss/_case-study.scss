@@ -7,28 +7,19 @@
 // margine sinistro. Niente card: una pagina che scorre.
 //
 //   body.case-study
-//     nav.cs-pill             pillola fissa in alto al centro: Home
+//     .mini-bento             navigazione condivisa dei case study
 //     header.cs-hero          occhiello, titolo, sottotitolo, cover
 //     main.cs-main
 //       dl.cs-meta            riga di informazioni di progetto
 //       section.cs-section    (occhiello) + h2 + paragrafi
 //       figure.cs-media       visual a piena colonna, angoli 18px
-//       .cs-panel             superficie Lavender (video verticale)
-//       .cs-note              didascalia in riquadro, centrata
+//       .cs-panel             superficie neutra per il video verticale
+//       .cs-note              didascalia editoriale
 //       a.cs-button           pulsante a piena colonna
 //     footer.cs-footer        firma centrata
 //
-// La pagina resta chiara anche con il tema scuro del sistema.
 // ============================================================
 @use 'variables' as *;
-
-// ---------- Token del case study ----------
-$cs-cherry: #7b263b;         // titoli ed elementi identitari
-$cs-lavender: #ccc3ec;       // superfici di supporto
-$cs-matcha: #e7edaa;         // accento, con moderazione
-$cs-ink: #1d1b1c;            // testo forte
-$cs-muted: #666668;          // testo corrente (come la reference)
-$cs-soft: #888888;           // firma
 
 $cs-col: 760px;              // colonna unica (più aria ai lati)
 $cs-side: clamp(20px, 6vw, 64px);  // margine minimo ai lati
@@ -41,20 +32,45 @@ $cs-radius: 18px;
 
 // ---------- Pagina ----------
 body.case-study {
-  color-scheme: light;
-  background: #ffffff;
-  color: $cs-muted;
-  font-family: $font-sans;
+  --cs-bg: #{$home-bg};
+  --cs-heading: var(--cherry);
+  --cs-ink: #282929;
+  --cs-text: var(--cs-ink);
+  --cs-muted: #666668;
+  --cs-surface: var(--porcelain);
+  background: var(--cs-bg);
+  color: var(--cs-text);
+  font-family: $font-display;
+  font-weight: 400;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 
+  @media (prefers-color-scheme: dark) {
+    --cs-bg: #101017;
+    --cs-heading: var(--dusty-rose);
+    --cs-text: var(--porcelain);
+    --cs-muted: #b8b8bf;
+    --cs-surface: #{$d-home-card};
+  }
+
   ::selection {
-    background: $cs-matcha;
-    color: $cs-cherry;
+    background: var(--matcha);
+    color: var(--cherry);
+  }
+
+  // Il Mini Bento applica i propri colori ai link e al focus.
+  :where(.cs-main, .cs-footer) a:where(:not(.cs-button)) {
+    color: var(--cs-heading);
   }
 
   a:focus-visible {
-    outline: 2px solid $cs-cherry;
+    outline: 2px solid var(--cs-heading);
     outline-offset: 4px;
+  }
+
+  .skip-link {
+    background: var(--cs-surface);
+    color: var(--cs-heading);
   }
 }
 
@@ -72,7 +88,7 @@ body.case-study {
     gap: 8px;
     padding: 8px 22px 10px;
     border-radius: 0 0 16px 16px;
-    background: $cs-cherry;
+    background: var(--cherry);
     color: #ffffff;
     font-size: 14px;
     font-weight: 500;
@@ -94,18 +110,18 @@ body.case-study {
 
 .cs-eyebrow {
   margin: 0 0 8px;
-  color: $cs-cherry;
-  font-size: clamp(16px, 1.1rem + 0.4vw, 24px);
-  font-weight: 600;
+  color: var(--cs-heading);
+  font-size: clamp(15px, 1.7vw, 18px);
+  font-weight: 500;
   line-height: 1.5;
   letter-spacing: -0.02em;
 }
 
 .cs-title {
   margin: 0 0 12px;
-  color: $cs-cherry;
+  color: var(--cs-heading);
   font-family: $font-display;
-  font-size: clamp(40px, 1.6rem + 3.4vw, 72px);
+  font-size: clamp(36px, 5.4vw, 64px);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -113,9 +129,10 @@ body.case-study {
 
 .cs-lead {
   margin: 0;
-  color: $cs-muted;
-  font-size: clamp(18px, 1rem + 0.45vw, 24px);
-  line-height: 1.5;
+  color: var(--cs-text);
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 400;
+  line-height: 1.6;
   letter-spacing: -0.01em;
 }
 
@@ -140,18 +157,19 @@ body.case-study {
 
   dt {
     margin-bottom: 20px;
-    color: $cs-cherry;
+    color: var(--cs-heading);
     font-family: $font-display;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 1.4;
   }
 
   dd {
     margin: 0;
-    color: $cs-muted;
+    color: var(--cs-text);
     font-size: 16px;
-    line-height: 1.5;
+    font-weight: 400;
+    line-height: 1.6;
   }
 
   @media (max-width: $bp-md - 1px) {
@@ -174,14 +192,14 @@ body.case-study {
   margin-top: clamp(72px, 7vw, 104px);
 
   .cs-eyebrow {
-    font-size: 16px;
+    font-size: 14px;
   }
 
-  p {
+  > p:not(.cs-eyebrow) {
     margin: 0 0 1em;
-    color: $cs-muted;
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: clamp(16px, 1.5vw, 18px);
+    font-weight: 400;
+    line-height: 1.6;
   }
 
   > :last-child {
@@ -196,9 +214,9 @@ body.case-study {
 
 .cs-h2 {
   margin: 0 0 16px;
-  color: $cs-cherry;
+  color: var(--cs-heading);
   font-family: $font-display;
-  font-size: clamp(32px, 1.4rem + 1.8vw, 48px);
+  font-size: clamp(30px, 4.5vw, 40px);
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.035em;
@@ -216,13 +234,13 @@ body.case-study {
   }
 }
 
-// Superficie Lavender per il video verticale
+// Superficie neutra per il video verticale
 .cs-panel {
   display: flex;
   justify-content: center;
-  padding: clamp(32px, 5vw, 64px) 16px;
+  padding: clamp(12px, 2.4vw, 28px);
   border-radius: $cs-radius;
-  background: $cs-lavender;
+  background: var(--cs-surface);
 
   video {
     display: block;
@@ -233,17 +251,13 @@ body.case-study {
   }
 }
 
-// Didascalia in riquadro (come le note della reference)
+// Didascalia editoriale
 .cs-note {
-  margin: 20px 0 0;
-  padding: 20px;
-  border-radius: $cs-radius;
-  background: $cs-lavender;
-  color: $cs-cherry;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  text-align: center;
+  margin: 12px 0 0;
+  color: var(--cs-muted);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
 
   span {
     display: block;
@@ -318,7 +332,8 @@ body.case-study {
 
   p {
     margin: 0;
-    color: $cs-soft;
-    font-size: 16px;
+    color: var(--cs-muted);
+    font-size: 14px;
+    font-weight: 400;
   }
 }

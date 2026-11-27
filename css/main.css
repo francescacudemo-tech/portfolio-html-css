@@ -2217,19 +2217,42 @@ textarea.form-control {
 }
 
 body.case-study {
-  color-scheme: light;
-  background: #ffffff;
-  color: #666668;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --cs-bg: #ffffff;
+  --cs-heading: var(--cherry);
+  --cs-ink: #282929;
+  --cs-text: var(--cs-ink);
+  --cs-muted: #666668;
+  --cs-surface: var(--porcelain);
+  background: var(--cs-bg);
+  color: var(--cs-text);
+  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+@media (prefers-color-scheme: dark) {
+  body.case-study {
+    --cs-bg: #101017;
+    --cs-heading: var(--dusty-rose);
+    --cs-text: var(--porcelain);
+    --cs-muted: #b8b8bf;
+    --cs-surface: #24222c;
+  }
+}
 body.case-study ::selection {
-  background: #e7edaa;
-  color: #7b263b;
+  background: var(--matcha);
+  color: var(--cherry);
+}
+body.case-study :where(.cs-main, .cs-footer) a:where(:not(.cs-button)) {
+  color: var(--cs-heading);
 }
 body.case-study a:focus-visible {
-  outline: 2px solid #7b263b;
+  outline: 2px solid var(--cs-heading);
   outline-offset: 4px;
+}
+body.case-study .skip-link {
+  background: var(--cs-surface);
+  color: var(--cs-heading);
 }
 
 .cs-pill {
@@ -2245,7 +2268,7 @@ body.case-study a:focus-visible {
   gap: 8px;
   padding: 8px 22px 10px;
   border-radius: 0 0 16px 16px;
-  background: #7b263b;
+  background: var(--cherry);
   color: #ffffff;
   font-size: 14px;
   font-weight: 500;
@@ -2265,18 +2288,18 @@ body.case-study a:focus-visible {
 
 .cs-eyebrow {
   margin: 0 0 8px;
-  color: #7b263b;
-  font-size: clamp(16px, 1.1rem + 0.4vw, 24px);
-  font-weight: 600;
+  color: var(--cs-heading);
+  font-size: clamp(15px, 1.7vw, 18px);
+  font-weight: 500;
   line-height: 1.5;
   letter-spacing: -0.02em;
 }
 
 .cs-title {
   margin: 0 0 12px;
-  color: #7b263b;
+  color: var(--cs-heading);
   font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-size: clamp(40px, 1.6rem + 3.4vw, 72px);
+  font-size: clamp(36px, 5.4vw, 64px);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -2284,9 +2307,10 @@ body.case-study a:focus-visible {
 
 .cs-lead {
   margin: 0;
-  color: #666668;
-  font-size: clamp(18px, 1rem + 0.45vw, 24px);
-  line-height: 1.5;
+  color: var(--cs-text);
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 400;
+  line-height: 1.6;
   letter-spacing: -0.01em;
 }
 
@@ -2310,17 +2334,18 @@ body.case-study a:focus-visible {
 }
 .cs-meta dt {
   margin-bottom: 20px;
-  color: #7b263b;
+  color: var(--cs-heading);
   font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.4;
 }
 .cs-meta dd {
   margin: 0;
-  color: #666668;
+  color: var(--cs-text);
   font-size: 16px;
-  line-height: 1.5;
+  font-weight: 400;
+  line-height: 1.6;
 }
 @media (max-width: 767px) {
   .cs-meta {
@@ -2342,13 +2367,13 @@ body.case-study a:focus-visible {
   margin-top: clamp(72px, 7vw, 104px);
 }
 .cs-section .cs-eyebrow {
-  font-size: 16px;
+  font-size: 14px;
 }
-.cs-section p {
+.cs-section > p:not(.cs-eyebrow) {
   margin: 0 0 1em;
-  color: #666668;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: clamp(16px, 1.5vw, 18px);
+  font-weight: 400;
+  line-height: 1.6;
 }
 .cs-section > :last-child {
   margin-bottom: 0;
@@ -2359,9 +2384,9 @@ body.case-study a:focus-visible {
 
 .cs-h2 {
   margin: 0 0 16px;
-  color: #7b263b;
+  color: var(--cs-heading);
   font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-size: clamp(32px, 1.4rem + 1.8vw, 48px);
+  font-size: clamp(30px, 4.5vw, 40px);
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.035em;
@@ -2380,9 +2405,9 @@ body.case-study a:focus-visible {
 .cs-panel {
   display: flex;
   justify-content: center;
-  padding: clamp(32px, 5vw, 64px) 16px;
+  padding: clamp(12px, 2.4vw, 28px);
   border-radius: 18px;
-  background: #ccc3ec;
+  background: var(--cs-surface);
 }
 .cs-panel video {
   display: block;
@@ -2393,15 +2418,11 @@ body.case-study a:focus-visible {
 }
 
 .cs-note {
-  margin: 20px 0 0;
-  padding: 20px;
-  border-radius: 18px;
-  background: #ccc3ec;
-  color: #7b263b;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  text-align: center;
+  margin: 12px 0 0;
+  color: var(--cs-muted);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
 }
 .cs-note span {
   display: block;
@@ -2470,41 +2491,25 @@ body.case-study a:focus-visible {
 }
 .cs-footer p {
   margin: 0;
-  color: #888888;
-  font-size: 16px;
+  color: var(--cs-muted);
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .reflection-accordion {
-  --accordion-ink: #282929;
   --accordion-motion: 320ms cubic-bezier(.22, 1, .36, 1);
   --accordion-padding: clamp(14px, 2vw, 16px);
-  --accordion-surface: var(--porcelain);
-  --accordion-label: var(--accordion-ink);
-  font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  color: var(--cherry);
 }
-@media (prefers-color-scheme: dark) {
-  .reflection-accordion {
-    --accordion-surface: #24222c;
-    --accordion-label: var(--porcelain);
-  }
-}
-.reflection-accordion :is(h2, h3, summary, p) {
-  margin: 0;
-  font-family: inherit;
-  color: inherit;
-  letter-spacing: normal;
-}
-.reflection-accordion h2 {
+.reflection-accordion .cs-h2 {
   margin-bottom: clamp(28px, 4vw, 38px);
-  font-size: clamp(32px, 5vw, 40px);
-  font-weight: 500;
-  line-height: 1.15;
 }
 .reflection-accordion h3 {
-  margin-bottom: clamp(11px, 2vw, 19px);
+  margin: 0 0 clamp(11px, 2vw, 19px);
+  font-family: inherit;
+  color: var(--cs-heading);
+  letter-spacing: normal;
   font-size: clamp(24px, 3.6vw, 28px);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.2;
 }
 .reflection-accordion__group {
@@ -2522,8 +2527,8 @@ body.case-study a:focus-visible {
 }
 .reflection-accordion__item {
   border-radius: 13px;
-  background-color: var(--accordion-surface);
-  color: var(--accordion-label);
+  background-color: var(--cs-surface);
+  color: var(--cs-text);
   transition: background-color var(--accordion-motion);
 }
 .reflection-accordion__item[open] {
@@ -2605,7 +2610,7 @@ body.case-study a:focus-visible {
 .reflection-accordion__item p {
   margin: 0;
   padding: 0 var(--accordion-padding) var(--accordion-padding);
-  color: var(--accordion-ink);
+  color: var(--cs-ink);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
