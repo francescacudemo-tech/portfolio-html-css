@@ -1,86 +1,49 @@
-// ============================================================
-// Barra contatti sotto la hero: animazione "Unfold"
-//
-// A riposo: "Ehi, ciao!" al centro.
-// All'apertura (hover, focus da tastiera, primo tap su touch):
-//  1. "Ehi," scivola a sinistra e "ciao!" a destra, sfumando
-//  2. Email esce dal centro verso sinistra, Telefono verso destra (+90ms)
-//  3. LinkedIn sale leggermente dal basso al centro (+160ms)
-// Le icone finiscono a 1/6, 1/2 e 5/6 della barra (spaziatura uguale),
-// grazie alle unità del container (cqw): nessun JavaScript.
-//
-// Stesso linguaggio delle card dei case study: stessa curva e durata
-// simile, ma qui il movimento è orizzontale e "si apre" dal centro.
-// ============================================================
+// Il saluto e la risposta scorrono in verticale nello stesso spazio.
 @use 'variables' as *;
 
-// Token della barra
 $hello-duration: 500ms;
 $hello-ease: cubic-bezier(0.22, 1, 0.36, 1);
-$hello-fade: 280ms;              // le parole e le icone sfumano più in fretta di quanto scivolano
-$hello-side-delay: 90ms;         // Email e Telefono
-$hello-center-delay: 160ms;      // LinkedIn
-$hello-text-return: 120ms;       // in chiusura il testo rientra dopo che le icone sono partite
-$hello-word-shift: 1.25em;       // quanto scivolano "Ehi," e "ciao!"
-$hello-icon-shift: 33.333cqw;    // da centro a 1/6 e 5/6 della barra
-$hello-hit: 48px;                // area cliccabile (≥ 44 × 44)
+$hello-fade: 280ms;
+$hello-hit: 44px;
 
-// Stato "aperto": parole fuori, icone in posizione
 @mixin hello-open {
-  .hello-bar__word {
+  .hello-bar__text {
     opacity: 0;
-    transition-delay: 0s;
+    transform: translateY(-18px);
   }
 
-  .hello-bar__word--left {
-    transform: translateX(-$hello-word-shift);
-  }
-
-  .hello-bar__word--right {
-    transform: translateX($hello-word-shift);
-  }
-
-  .hello-bar__item {
+  .hello-bar__reveal {
     opacity: 1;
+    transform: none;
     pointer-events: auto;
-  }
-
-  .hello-bar__item--email {
-    transform: translateX(-$hello-icon-shift) scale(1);
-    transition-delay: $hello-side-delay;
-  }
-
-  .hello-bar__item--phone {
-    transform: translateX($hello-icon-shift) scale(1);
-    transition-delay: $hello-side-delay;
-  }
-
-  .hello-bar__item--linkedin {
-    transform: translateY(0) scale(1);
-    transition-delay: $hello-center-delay;
   }
 }
 
 .hello-bar {
   position: relative;
   overflow: hidden;
-  container-type: inline-size;     // abilita le unità cqw per la posizione delle icone
-  background-color: var(--matcha);   // sostituisce il grigio della card vuota
+  container-type: inline-size;
+  background-color: var(--matcha);
   color: var(--cherry);
 
-  // La barra riceve il focus solo dal tap (tabindex="-1"): niente anello
+  // Il focus sul contenitore apre la barra al primo tap.
   &:focus {
     outline: none;
   }
 
-  // ---------- Testo iniziale ----------
-  &__text {
+  &__text,
+  &__reveal {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.3em;
+    transition:
+      transform $hello-duration $hello-ease,
+      opacity $hello-fade $hello-ease;
+  }
+
+  &__text {
     margin: 0;
     font-family: $font-display;
     font-size: clamp(1.5rem, 2.2vw, 1.875rem);
@@ -90,41 +53,36 @@ $hello-hit: 48px;                // area cliccabile (≥ 44 × 44)
     pointer-events: none;
   }
 
-  &__word {
-    display: inline-block;
-    transition:
-      transform $hello-duration $hello-ease,
-      opacity $hello-fade $hello-ease;
-    transition-delay: $hello-text-return;
+  &__reveal {
+    gap: 24px;
+    padding-inline: 12px;
+    opacity: 0;
+    transform: translateY(18px);
+    pointer-events: none;
+
+    @container (max-width: 410px) {
+      flex-direction: column;
+      gap: 2px;
+      text-align: center;
+    }
   }
 
-  // ---------- Icone ----------
+  &__reply {
+    margin: 0;
+    font-family: $font-display;
+    font-size: clamp(0.9375rem, 3.1cqw, 1.25rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
   &__links {
-    position: absolute;
-    inset: 0;
+    display: flex;
+    flex: none;
+    gap: 6px;
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-
-  // Ogni icona parte dal centro della barra, piccola e invisibile
-  &__item {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: $hello-hit;
-    height: $hello-hit;
-    margin: (-$hello-hit * 0.5) 0 0 (-$hello-hit * 0.5);
-    opacity: 0;
-    pointer-events: none;          // a riposo il tap arriva alla barra e la apre
-    transform: translateX(0) scale(0.8);
-    transition:
-      transform $hello-duration $hello-ease,
-      opacity $hello-fade $hello-ease;
-
-    &--linkedin {
-      transform: translateY(10px) scale(0.8);
-    }
   }
 
   &__link {
@@ -132,8 +90,8 @@ $hello-hit: 48px;                // area cliccabile (≥ 44 × 44)
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    width: $hello-hit;
+    height: $hello-hit;
     border-radius: 14px;
     color: inherit;
     text-decoration: none;
@@ -165,25 +123,25 @@ $hello-hit: 48px;                // area cliccabile (≥ 44 × 44)
     }
   }
 
-  // ---------- Apertura ----------
-  // Mouse: al passaggio sulla barra
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       @include hello-open;
     }
   }
 
-  // Tastiera e touch: resta aperta finché il focus è dentro
   &:focus-within {
     @include hello-open;
   }
 
-  // Movimento ridotto: cambio di stato immediato
   @media (prefers-reduced-motion: reduce) {
-    .hello-bar__word,
-    .hello-bar__item,
+    .hello-bar__text,
+    .hello-bar__reveal {
+      transition: none;
+    }
+
     .hello-bar__link svg {
       transition: none;
+      transform: none;
     }
   }
 }

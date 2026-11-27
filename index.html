@@ -29,7 +29,7 @@
 
   <!-- Bootstrap 5 (solo CSS) + stili del sito compilati da Sass -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/main.css?v=44" rel="stylesheet">
+  <link href="css/main.css?v=45" rel="stylesheet">
 </head>
 <body class="home">
 
@@ -50,39 +50,37 @@
         </div>
         <p class="hero-card__hint">Sembrano solo card, eh? Prova a cliccarle.</p>
       </section>
-      <!-- BARRA CONTATTI: "Ehi, ciao!" si apre e rivela email, LinkedIn e telefono
-           (animazione "unfold" in scss/_hello-bar.scss, solo CSS).
-           tabindex="-1": su touch il primo tap mette a fuoco la barra e la apre. -->
+      <!-- Il primo tap sulla barra porta il focus e mostra i contatti. -->
       <nav class="card-box card-1-2 hello-bar" aria-label="Contatti" tabindex="-1">
-        <p class="hello-bar__text">
-          <span class="hello-bar__word hello-bar__word--left">Ehi,</span>
-          <span class="hello-bar__word hello-bar__word--right">ciao!</span>
-        </p>
-        <ul class="hello-bar__links">
-          <li class="hello-bar__item hello-bar__item--email">
-            <a class="hello-bar__link" href="mailto:francesca.cudemo@icloud.com" aria-label="Scrivimi un'email">
-              <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
-                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-                <path d="m3 7 7.9 5.4a2 2 0 0 0 2.2 0L21 7"/>
-              </svg>
-            </a>
-          </li>
-          <li class="hello-bar__item hello-bar__item--linkedin">
-            <a class="hello-bar__link" href="https://www.linkedin.com/in/francesca-cudemo-a488b8225/" target="_blank" rel="noopener" aria-label="Profilo LinkedIn (si apre in una nuova scheda)">
-              <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
-                <rect x="2.5" y="2.5" width="19" height="19" rx="4"/>
-                <path d="M8 10.5v6M8 7.5v.01M12 16.5v-6M12 13.25a2.75 2.75 0 0 1 5.5 0v3.25"/>
-              </svg>
-            </a>
-          </li>
-          <li class="hello-bar__item hello-bar__item--phone">
-            <a class="hello-bar__link" href="tel:+393477106813" aria-label="Chiamami al numero +39 347 710 6813">
-              <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
-                <path d="M21 16.4v2.8a1.9 1.9 0 0 1-2.07 1.9 18.8 18.8 0 0 1-8.2-2.92 18.5 18.5 0 0 1-5.7-5.7A18.8 18.8 0 0 1 2.1 4.24 1.9 1.9 0 0 1 4 2.17h2.8a1.9 1.9 0 0 1 1.9 1.63c.12.9.34 1.79.66 2.65a1.9 1.9 0 0 1-.43 2L7.73 9.65a15.2 15.2 0 0 0 5.7 5.7l1.2-1.2a1.9 1.9 0 0 1 2-.43c.86.32 1.75.54 2.65.66A1.9 1.9 0 0 1 21 16.4z"/>
-              </svg>
-            </a>
-          </li>
-        </ul>
+        <p class="hello-bar__text">Ehi, ciao!</p>
+        <div class="hello-bar__reveal">
+          <p class="hello-bar__reply">Psst… il ciao era una scusa.</p>
+          <ul class="hello-bar__links">
+            <li>
+              <a class="hello-bar__link" href="mailto:francesca.cudemo@icloud.com" aria-label="Scrivimi un'email">
+                <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+                  <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+                  <path d="m3 7 7.9 5.4a2 2 0 0 0 2.2 0L21 7"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="hello-bar__link" href="https://www.linkedin.com/in/francesca-cudemo-a488b8225/" target="_blank" rel="noopener" aria-label="Profilo LinkedIn (si apre in una nuova scheda)">
+                <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+                  <rect x="2.5" y="2.5" width="19" height="19" rx="4"/>
+                  <path d="M8 10.5v6M8 7.5v.01M12 16.5v-6M12 13.25a2.75 2.75 0 0 1 5.5 0v3.25"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="hello-bar__link" href="tel:+393477106813" aria-label="Chiamami al numero +39 347 710 6813">
+                <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+                  <path d="M21 16.4v2.8a1.9 1.9 0 0 1-2.07 1.9 18.8 18.8 0 0 1-8.2-2.92 18.5 18.5 0 0 1-5.7-5.7A18.8 18.8 0 0 1 2.1 4.24 1.9 1.9 0 0 1 4 2.17h2.8a1.9 1.9 0 0 1 1.9 1.63c.12.9.34 1.79.66 2.65a1.9 1.9 0 0 1-.43 2L7.73 9.65a15.2 15.2 0 0 0 5.7 5.7l1.2-1.2a1.9 1.9 0 0 1 2-.43c.86.32 1.75.54 2.65.66A1.9 1.9 0 0 1 21 16.4z"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
       </nav>
     </div>
 
