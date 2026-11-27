@@ -29,15 +29,18 @@
 
   <!-- Bootstrap 5 (solo CSS) + stili del sito compilati da Sass -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/main.css?v=40" rel="stylesheet">
+  <link href="../css/main.css?v=44" rel="stylesheet">
+  <link href="../css/mini-bento.css" rel="stylesheet">
+  <script type="module" src="../assets/js/mini-bento.js"></script>
 </head>
 <body class="case-study">
   <a class="skip-link" href="#main">Vai al contenuto</a>
 
-  <!-- Struttura comune a tutti i case study (stili in scss/_case-study.scss) -->
-  <nav class="cs-pill" aria-label="Navigazione del case study">
-    <a href="../index.html"><span aria-hidden="true">←</span> Home</a>
-  </nav>
+  <div class="mini-bento" data-current-project="buddhify-guide">
+    <nav class="cs-pill" aria-label="Navigazione del case study">
+      <a href="../index.html">Home</a>
+    </nav>
+  </div>
 
   <header class="cs-hero">
     <p class="cs-eyebrow">Assistente AI · UX/UI</p>

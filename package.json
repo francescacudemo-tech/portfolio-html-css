@@ -2,8 +2,8 @@
   "name": "portfolio",
   "private": true,
   "scripts": {
-    "sass": "sass scss/main.scss css/main.css",
-    "watch": "sass --watch scss/main.scss:css/main.css"
+    "sass": "sass --no-source-map scss/main.scss:css/main.css scss/mini-bento.scss:css/mini-bento.css",
+    "watch": "sass --watch --no-source-map scss/main.scss:css/main.css scss/mini-bento.scss:css/mini-bento.css"
   },
   "devDependencies": { "sass": "^1.80.0" }
 }
