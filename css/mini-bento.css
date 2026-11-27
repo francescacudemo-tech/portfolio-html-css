@@ -2,9 +2,11 @@
   --menu-surface: var(--porcelain);
   --menu-neutral: #ffffff;
   --menu-glide: 300ms cubic-bezier(.22, .85, .25, 1);
-  --menu-stack: cubic-bezier(.16, .9, .22, 1.08);
+  --menu-stack: cubic-bezier(.2, .8, .3, 1.045);
+  --menu-backdrop: color-mix(in srgb, #0e0d14 10%, transparent);
   color: var(--cherry);
   font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
   line-height: 1.2;
 }
 @media (prefers-color-scheme: dark) {
@@ -34,8 +36,8 @@
   outline-offset: -3px;
 }
 .mini-bento svg:not(.mini-bento__star) {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.75;
@@ -63,7 +65,8 @@
   margin: 0;
   padding: 8px;
   border: 0;
-  background: color-mix(in srgb, #0e0d14 12%, transparent);
+  overflow: auto;
+  background: var(--menu-backdrop);
   color: inherit;
   overscroll-behavior: contain;
 }
@@ -74,34 +77,42 @@
   display: grid;
   justify-items: center;
   gap: 8px;
-  width: min(100%, clamp(348px, 55vw, 380px));
+  width: min(100%, 440px);
   margin-inline: auto;
 }
 .mini-bento__panel {
+  --menu-band: 48px;
   position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1.21fr) minmax(0, 1fr);
   grid-template-areas: "home home" "projects about" "projects contacts" "cv cv";
-  grid-template-rows: 36px 136px 44px 44px;
+  grid-template-rows: 36px auto var(--menu-band) var(--menu-band);
   gap: 8px;
   width: 100%;
-  padding: 12px;
-  border-radius: 22px;
-  background: var(--menu-surface);
+  padding: 16px;
+  border-radius: 24px;
 }
-@media (max-width: 350px) {
+@media (max-width: 420px) {
   .mini-bento__panel {
-    padding: 10px;
-    grid-template-columns: minmax(0, 1fr) min(46%, 132px);
-    grid-template-rows: 36px 120px 44px 44px;
+    --menu-band: 44px;
+    padding: clamp(10px, 3vw, 13px);
   }
 }
 @media (max-width: 299px) {
   .mini-bento__panel {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "home" "projects" "about" "contacts" "cv";
-    grid-template-rows: 36px auto auto 44px 44px;
+    grid-template-rows: 36px auto auto var(--menu-band) var(--menu-band);
   }
+}
+.mini-bento__surface {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--menu-surface);
+  pointer-events: none;
 }
 .mini-bento__home {
   grid-area: home;
@@ -116,7 +127,7 @@
 }
 .mini-bento .mini-bento__panel .mini-bento__home:focus-visible svg {
   outline: 1px solid currentColor;
-  outline-offset: 4px;
+  outline-offset: 2px;
   border-radius: 3px;
 }
 .mini-bento__projects {
@@ -146,18 +157,19 @@
 .mini-bento__projects a {
   display: flex;
   align-items: center;
-  min-height: 38px;
-  font-size: 14px;
+  min-height: 44px;
+  font-size: 16px;
 }
 .mini-bento__projects [aria-current=page] {
-  font-weight: 700;
+  font-weight: 600;
 }
-@media (max-width: 350px) {
+@media (max-width: 420px) {
   .mini-bento__projects {
     padding-inline: 10px;
   }
   .mini-bento__projects a {
-    font-size: 13px;
+    min-height: 42px;
+    font-size: 14px;
   }
 }
 .mini-bento__about {
@@ -165,14 +177,20 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 6px;
   overflow: hidden;
   padding: 10px 0 0;
   border-radius: 12px;
   background: var(--iris);
-  font-size: 14px;
+  font-size: 16px;
 }
 .mini-bento__about > span {
   padding-inline: 10px;
+}
+@media (max-width: 420px) {
+  .mini-bento__about {
+    font-size: 14px;
+  }
 }
 .mini-bento__star {
   display: block;
@@ -217,15 +235,18 @@
   place-items: center;
   border-radius: 12px;
   background: var(--menu-neutral);
-  font-size: 14px;
+  font-size: 16px;
 }
 .mini-bento__projects a > span, .mini-bento__cv > span,
 .mini-bento svg:not(.mini-bento__star) {
   transition: translate var(--menu-glide);
 }
 @media (hover: hover) and (pointer: fine) {
-  .mini-bento__projects a:hover > span, .mini-bento__cv:hover > span {
+  .mini-bento__projects a:hover > span {
     translate: 3px 0;
+  }
+  .mini-bento__cv:hover > span {
+    translate: 0 -2px;
   }
   .mini-bento :is(a, button):hover svg:not(.mini-bento__star) {
     translate: 0 -2px;

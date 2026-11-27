@@ -19,6 +19,7 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
     <dialog id="mini-bento-dialog" class="mini-bento__dialog" aria-label="Navigazione del portfolio">
       <div class="mini-bento__shell">
         <nav class="mini-bento__panel" aria-label="Portfolio">
+          <div class="mini-bento__surface" aria-hidden="true"></div>
           <a class="mini-bento__home" href="${home}" aria-label="Home" autofocus>${icon(house)}</a>
           <section class="mini-bento__projects" aria-labelledby="mini-bento-projects">
             <h2 id="mini-bento-projects">Progetti</h2>
@@ -73,13 +74,16 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
   const trigger = menu.querySelector('.mini-bento__trigger');
   const dialog = menu.querySelector('dialog');
   const panel = menu.querySelector('.mini-bento__panel');
+  const surface = panel.querySelector('.mini-bento__surface');
+  const star = panel.querySelector('.mini-bento__star');
+  const homeLink = panel.querySelector('.mini-bento__home');
   const closeButton = menu.querySelector('.mini-bento__close');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const tiles = [
-    [panel.querySelector('.mini-bento__projects'), -12, -5, -3],
-    [panel.querySelector('.mini-bento__about'), 13, 5, -4],
-    [panel.querySelector('.mini-bento__contacts'), 8, 5, 5],
-    [panel.querySelector('.mini-bento__cv'), -9, -5, 5]
+    [panel.querySelector('.mini-bento__projects'), -9, -5, -3],
+    [panel.querySelector('.mini-bento__about'), 9, 5, -4],
+    [panel.querySelector('.mini-bento__contacts'), 6, 5, 5],
+    [panel.querySelector('.mini-bento__cv'), -7, -5, 5]
   ];
   const timing = { duration: 540, fill: 'both' };
   let stackAnimations = [];
@@ -89,37 +93,44 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
   currentProject?.setAttribute('aria-current', 'page');
 
   function spreadStack() {
-    // Tutte le tessere partono dallo stesso punto, con piccoli sfalsamenti.
+    // Il contorno parte dalle dimensioni reali dell’hamburger.
     const center = panel.clientWidth / 2;
+    const inlineInset = center - trigger.offsetWidth / 2;
+    const blockInset = panel.clientHeight - trigger.offsetHeight;
     const easing = getComputedStyle(menu).getPropertyValue('--menu-stack').trim();
-    const animations = tiles.map(([tile, angle, offsetX, offsetY], index) => {
+    const animations = [surface.animate([
+      { clipPath: `inset(0 ${inlineInset}px ${blockInset}px round ${trigger.offsetHeight / 2}px)`, easing },
+      { clipPath: 'inset(0 round 24px)', offset: .81 },
+      { clipPath: 'inset(0 round 24px)' }
+    ], timing)];
+
+    for (const [index, [tile, angle, offsetX, offsetY]] of tiles.entries()) {
       const x = center - tile.offsetLeft - tile.offsetWidth / 2 + offsetX;
       const y = 24 - tile.offsetTop - tile.offsetHeight / 2 + offsetY;
-      const stacked = `translate(${x}px, ${y}px) rotate(${angle}deg) scale(.32)`;
-      return tile.animate([
-        { transform: stacked, offset: 0 },
-        { transform: stacked, offset: .05 + index * .065, easing },
-        { transform: 'none', offset: 1 }
-      ], timing);
-    });
+      const stacked = `translate(${x}px, ${y}px) rotate(${angle}deg) scale(.23)`;
+      const start = (76 + index * 40) / timing.duration;
+      animations.push(tile.animate([
+        { transform: stacked, opacity: 0, offset: 0 },
+        { transform: stacked, opacity: 0, offset: .08 },
+        { transform: stacked, opacity: 1, offset: start, easing },
+        { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1, offset: start + .57 },
+        { transform: 'none', opacity: 1 }
+      ], timing));
+    }
 
-    const surface = 'var(--menu-surface)';
-    animations.push(panel.animate([
-      { backgroundColor: 'transparent', offset: 0 },
-      { backgroundColor: 'transparent', offset: .15 },
-      { backgroundColor: surface, offset: .75 },
-      { backgroundColor: surface, offset: 1 }
-    ], timing));
     animations.push(dialog.animate([
-      { backgroundColor: 'transparent' },
-      { backgroundColor: getComputedStyle(dialog).backgroundColor }
+      { backgroundColor: 'transparent', easing },
+      { backgroundColor: 'var(--menu-backdrop)' }
     ], timing));
-
-    for (const element of [panel.querySelector('.mini-bento__home'), closeButton]) {
+    for (const [element, offset, from, to] of [
+      [homeLink, .52, 'translateY(0)', 'translateY(0)'],
+      [star, .65, 'translateY(12px) scaleX(-1)', 'translateY(0) scaleX(-1)'],
+      [closeButton, .69, 'translateY(-8px)', 'translateY(0)']
+    ]) {
       animations.push(element.animate([
-        { opacity: 0, offset: 0 },
-        { opacity: 0, offset: .35 },
-        { opacity: 1, offset: 1 }
+        { opacity: 0, transform: from },
+        { opacity: 0, transform: from, offset, easing },
+        { opacity: 1, transform: to }
       ], timing));
     }
     return animations;
@@ -130,7 +141,7 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
     dialog.scrollTop = 0;
     trigger.setAttribute('aria-expanded', 'true');
     if (!reduceMotion.matches) stackAnimations = spreadStack();
-    menu.querySelector('.mini-bento__home').focus({ preventScroll: true });
+    homeLink.focus({ preventScroll: true });
   });
 
   async function closeMenu() {

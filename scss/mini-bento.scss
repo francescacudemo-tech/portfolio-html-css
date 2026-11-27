@@ -4,9 +4,11 @@
   --menu-surface: var(--porcelain);
   --menu-neutral: #{$home-bg};
   --menu-glide: 300ms cubic-bezier(.22, .85, .25, 1);
-  --menu-stack: cubic-bezier(.16, .9, .22, 1.08);
+  --menu-stack: cubic-bezier(.2, .8, .3, 1.045);
+  --menu-backdrop: color-mix(in srgb, #{$d-home-bg} 10%, transparent);
   color: var(--cherry);
   font-family: $font-display;
+  font-weight: 400;
   line-height: 1.2;
 
   @media (prefers-color-scheme: dark) {
@@ -39,8 +41,8 @@
   }
 
   svg:not(.mini-bento__star) {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.75;
@@ -71,7 +73,8 @@
     margin: 0;
     padding: 8px;
     border: 0;
-    background: color-mix(in srgb, #{$d-home-bg} 12%, transparent);
+    overflow: auto;
+    background: var(--menu-backdrop);
     color: inherit;
     overscroll-behavior: contain;
 
@@ -84,33 +87,42 @@
     display: grid;
     justify-items: center;
     gap: 8px;
-    width: min(100%, clamp(348px, 55vw, 380px));
+    width: min(100%, 440px);
     margin-inline: auto;
   }
 
   &__panel {
+    --menu-band: 48px;
     position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 1.21fr) minmax(0, 1fr);
     grid-template-areas: 'home home' 'projects about' 'projects contacts' 'cv cv';
-    grid-template-rows: 36px 136px 44px 44px;
+    grid-template-rows: 36px auto var(--menu-band) var(--menu-band);
     gap: 8px;
     width: 100%;
-    padding: 12px;
-    border-radius: 22px;
-    background: var(--menu-surface);
+    padding: 16px;
+    border-radius: 24px;
 
-    @media (max-width: 350px) {
-      padding: 10px;
-      grid-template-columns: minmax(0, 1fr) min(46%, 132px);
-      grid-template-rows: 36px 120px 44px 44px;
+    @media (max-width: 420px) {
+      --menu-band: 44px;
+      padding: clamp(10px, 3vw, 13px);
     }
 
     @media (max-width: 299px) {
       grid-template-columns: minmax(0, 1fr);
       grid-template-areas: 'home' 'projects' 'about' 'contacts' 'cv';
-      grid-template-rows: 36px auto auto 44px 44px;
+      grid-template-rows: 36px auto auto var(--menu-band) var(--menu-band);
     }
+  }
+
+  &__surface {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--menu-surface);
+    pointer-events: none;
   }
 
   &__home {
@@ -127,7 +139,7 @@
 
     svg {
       outline: 1px solid currentColor;
-      outline-offset: 4px;
+      outline-offset: 2px;
       border-radius: 3px;
     }
   }
@@ -162,17 +174,17 @@
     a {
       display: flex;
       align-items: center;
-      min-height: 38px;
-      font-size: 14px;
+      min-height: 44px;
+      font-size: 16px;
     }
 
     [aria-current='page'] {
-      font-weight: 700;
+      font-weight: 600;
     }
 
-    @media (max-width: 350px) {
+    @media (max-width: 420px) {
       padding-inline: 10px;
-      a { font-size: 13px; }
+      a { min-height: 42px; font-size: 14px; }
     }
   }
 
@@ -181,14 +193,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 6px;
     overflow: hidden;
     padding: 10px 0 0;
     border-radius: 12px;
     background: var(--iris);
-    font-size: 14px;
+    font-size: 16px;
 
     > span {
       padding-inline: 10px;
+    }
+
+    @media (max-width: 420px) {
+      font-size: 14px;
     }
   }
 
@@ -237,7 +254,7 @@
     place-items: center;
     border-radius: 12px;
     background: var(--menu-neutral);
-    font-size: 14px;
+    font-size: 16px;
   }
 
   &__projects a > span,
@@ -247,8 +264,8 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    &__projects a:hover > span,
-    &__cv:hover > span { translate: 3px 0; }
+    &__projects a:hover > span { translate: 3px 0; }
+    &__cv:hover > span { translate: 0 -2px; }
 
     & :is(a, button):hover svg:not(.mini-bento__star) { translate: 0 -2px; }
     &__about:hover .mini-bento__star { translate: -2px 0; }
