@@ -18,7 +18,6 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
       aria-haspopup="dialog" aria-expanded="false" aria-controls="mini-bento-dialog">${icon(hamburger)}</button>
     <dialog id="mini-bento-dialog" class="mini-bento__dialog" aria-label="Navigazione del portfolio">
       <div class="mini-bento__shell">
-        <button class="mini-bento__toggle" type="button" aria-label="Chiudi la navigazione">${icon(hamburger)}</button>
         <nav class="mini-bento__panel" aria-label="Portfolio">
           <a class="mini-bento__home" href="${home}" aria-label="Home" autofocus>${icon(house)}</a>
           <section class="mini-bento__projects" aria-labelledby="mini-bento-projects">
@@ -31,7 +30,7 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
           </section>
           <a class="mini-bento__about" href="https://francesca-cudemo.framer.website/about">
             <span>Sbircia nel<br>mio mondo</span>
-            <svg class="mini-bento__star" viewBox="-50 -12 540 270" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <svg class="mini-bento__star" viewBox="0 -12 440 244" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
               <defs>
                 <clipPath id="mini-bento-eye-a"><ellipse cx="190" cy="168" rx="25" ry="31" transform="rotate(10 190 168)"/></clipPath>
                 <clipPath id="mini-bento-eye-b"><ellipse cx="255" cy="158" rx="25" ry="31" transform="rotate(10 255 158)"/></clipPath>
@@ -74,30 +73,87 @@ if (menu && typeof window.HTMLDialogElement?.prototype.showModal === 'function')
   const trigger = menu.querySelector('.mini-bento__trigger');
   const dialog = menu.querySelector('dialog');
   const panel = menu.querySelector('.mini-bento__panel');
+  const closeButton = menu.querySelector('.mini-bento__close');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const tiles = [
+    [panel.querySelector('.mini-bento__projects'), -12, -5, -3],
+    [panel.querySelector('.mini-bento__about'), 13, 5, -4],
+    [panel.querySelector('.mini-bento__contacts'), 8, 5, 5],
+    [panel.querySelector('.mini-bento__cv'), -9, -5, 5]
+  ];
+  const timing = { duration: 540, fill: 'both' };
+  let stackAnimations = [];
+  let closing = false;
   const currentProject = [...menu.querySelectorAll('[data-project]')]
     .find(link => link.dataset.project === menu.dataset.currentProject);
   currentProject?.setAttribute('aria-current', 'page');
+
+  function spreadStack() {
+    // Tutte le tessere partono dallo stesso punto, con piccoli sfalsamenti.
+    const center = panel.clientWidth / 2;
+    const easing = getComputedStyle(menu).getPropertyValue('--menu-stack').trim();
+    const animations = tiles.map(([tile, angle, offsetX, offsetY], index) => {
+      const x = center - tile.offsetLeft - tile.offsetWidth / 2 + offsetX;
+      const y = 24 - tile.offsetTop - tile.offsetHeight / 2 + offsetY;
+      const stacked = `translate(${x}px, ${y}px) rotate(${angle}deg) scale(.32)`;
+      return tile.animate([
+        { transform: stacked, offset: 0 },
+        { transform: stacked, offset: .05 + index * .065, easing },
+        { transform: 'none', offset: 1 }
+      ], timing);
+    });
+
+    const surface = 'var(--menu-surface)';
+    animations.push(panel.animate([
+      { backgroundColor: 'transparent', offset: 0 },
+      { backgroundColor: 'transparent', offset: .15 },
+      { backgroundColor: surface, offset: .75 },
+      { backgroundColor: surface, offset: 1 }
+    ], timing));
+    animations.push(dialog.animate([
+      { backgroundColor: 'transparent' },
+      { backgroundColor: getComputedStyle(dialog).backgroundColor }
+    ], timing));
+
+    for (const element of [panel.querySelector('.mini-bento__home'), closeButton]) {
+      animations.push(element.animate([
+        { opacity: 0, offset: 0 },
+        { opacity: 0, offset: .35 },
+        { opacity: 1, offset: 1 }
+      ], timing));
+    }
+    return animations;
+  }
 
   trigger.addEventListener('click', () => {
     dialog.showModal();
     dialog.scrollTop = 0;
     trigger.setAttribute('aria-expanded', 'true');
+    if (!reduceMotion.matches) stackAnimations = spreadStack();
     menu.querySelector('.mini-bento__home').focus({ preventScroll: true });
   });
 
   async function closeMenu() {
-    if (!dialog.open || dialog.classList.contains('is-closing')) return;
+    if (!dialog.open || closing) return;
 
-    dialog.classList.add('is-closing');
-    await Promise.allSettled(panel.getAnimations().map(animation => animation.finished));
+    closing = true;
+    if (!reduceMotion.matches) {
+      // Inverte la sequenza dal punto raggiunto, anche durante l’apertura.
+      stackAnimations.forEach(animation => {
+        animation.reverse();
+        animation.updatePlaybackRate(-1.35);
+      });
+      await Promise.allSettled(stackAnimations.map(animation => animation.finished));
+    }
     dialog.close();
-    dialog.classList.remove('is-closing');
+    stackAnimations.forEach(animation => animation.cancel());
+    stackAnimations = [];
+    closing = false;
     trigger.setAttribute('aria-expanded', 'false');
     trigger.focus({ preventScroll: true });
   }
 
-  menu.querySelector('.mini-bento__toggle').addEventListener('click', closeMenu);
-  menu.querySelector('.mini-bento__close').addEventListener('click', closeMenu);
+  closeButton.addEventListener('click', closeMenu);
   dialog.addEventListener('cancel', event => {
     event.preventDefault();
     closeMenu();

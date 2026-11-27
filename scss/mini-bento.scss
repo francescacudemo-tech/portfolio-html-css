@@ -55,6 +55,10 @@
     left: 50%;
     width: 72px;
     transform: translateX(-50%);
+
+    &[aria-expanded='true'] {
+      visibility: hidden;
+    }
   }
 
   &__dialog {
@@ -67,7 +71,7 @@
     margin: 0;
     padding: 8px;
     border: 0;
-    background: transparent;
+    background: color-mix(in srgb, #{$d-home-bg} 12%, transparent);
     color: inherit;
     overscroll-behavior: contain;
 
@@ -80,36 +84,32 @@
     display: grid;
     justify-items: center;
     gap: 8px;
-    width: min(100%, 348px);
+    width: min(100%, clamp(348px, 55vw, 380px));
     margin-inline: auto;
   }
 
-  &__toggle {
-    width: 72px;
-  }
-
   &__panel {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.21fr) minmax(0, 1fr);
     grid-template-areas: 'home home' 'projects about' 'projects contacts' 'cv cv';
-    grid-template-rows: 40px 120px 44px 44px;
+    grid-template-rows: 36px 136px 44px 44px;
     gap: 8px;
     width: 100%;
     padding: 12px;
     border-radius: 22px;
     background: var(--menu-surface);
-    transform-origin: top center;
 
     @media (max-width: 350px) {
       padding: 10px;
       grid-template-columns: minmax(0, 1fr) min(46%, 132px);
-      grid-template-rows: 40px 122px 44px 44px;
+      grid-template-rows: 36px 120px 44px 44px;
     }
 
     @media (max-width: 299px) {
       grid-template-columns: minmax(0, 1fr);
       grid-template-areas: 'home' 'projects' 'about' 'contacts' 'cv';
-      grid-template-rows: 40px auto 122px 44px 44px;
+      grid-template-rows: 36px auto auto 44px 44px;
     }
   }
 
@@ -122,14 +122,27 @@
     border-radius: 12px;
   }
 
+  & .mini-bento__panel .mini-bento__home:focus-visible {
+    outline: none;
+
+    svg {
+      outline: 1px solid currentColor;
+      outline-offset: 4px;
+      border-radius: 3px;
+    }
+  }
+
   &__projects {
     grid-area: projects;
-    padding: 11px 10px 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 12px;
     border-radius: 12px;
     background: var(--menu-neutral);
 
     h2 {
-      margin: 0;
+      margin: 0 0 3px;
       color: inherit;
       font: inherit;
       font-size: 12px;
@@ -149,7 +162,7 @@
     a {
       display: flex;
       align-items: center;
-      min-height: 43px;
+      min-height: 38px;
       font-size: 14px;
     }
 
@@ -158,6 +171,7 @@
     }
 
     @media (max-width: 350px) {
+      padding-inline: 10px;
       a { font-size: 13px; }
     }
   }
@@ -181,8 +195,8 @@
   &__star {
     display: block;
     align-self: center;
-    width: min(100%, 150px);
-    height: 77px;
+    width: 100%;
+    height: auto;
     flex: none;
     transform: scaleX(-1);
     fill: var(--matcha);
@@ -240,44 +254,8 @@
     &__about:hover .mini-bento__star { translate: -2px 0; }
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    &__dialog[open] .mini-bento__panel {
-      animation: mini-bento-panel-in 440ms var(--menu-stack) both;
-
-      > :not(.mini-bento__home) {
-        animation: mini-bento-card-in 360ms var(--menu-stack) 55ms both;
-      }
-    }
-
-    &__dialog[open].is-closing .mini-bento__panel {
-      animation: mini-bento-panel-out 300ms ease-in both;
-
-      > :not(.mini-bento__home) {
-        animation: mini-bento-card-out 210ms ease-in both;
-      }
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     & * { transition: none; }
     & :is(span, svg) { translate: none !important; }
   }
-}
-
-@keyframes mini-bento-panel-in {
-  from { opacity: 0; scale: .25 .12; }
-  to { opacity: 1; scale: 1; }
-}
-
-@keyframes mini-bento-panel-out {
-  to { opacity: 0; scale: .25 .12; }
-}
-
-@keyframes mini-bento-card-in {
-  from { opacity: 0; transform: translateY(-16px) scale(.9); }
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes mini-bento-card-out {
-  to { opacity: 0; transform: translateY(-16px) scale(.9); }
 }
