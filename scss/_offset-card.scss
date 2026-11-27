@@ -6,12 +6,12 @@
 // cover, nessuna cornice né padding); nessun titolo visibile.
 // All'hover / focus da tastiera (650ms):
 //  - la cover scivola in diagonale in basso a destra
-//    (translate(4%, 19%) scale(0.98)), resta ritagliata nella card
+//    (translate(4%, 19%)), resta ritagliata nella card
 //    e arrotonda l'angolo in alto a sinistra
-//  - sopra si scopre il fondo Petrol Ink; il titolo è Matcha
+//  - sopra si scopre il fondo Cherry; il titolo è Matcha
 //  - il nome del progetto compare in alto a sinistra (+90ms)
 // Al mouse out tutto torna fluido nella posizione iniziale.
-// Touch: stato aperto fisso, così il titolo resta leggibile.
+// Touch: cover a filo a riposo, un solo tap apre il progetto.
 // Movimento ridotto: stessi stati, senza transizioni.
 // ============================================================
 @use 'variables' as *;
@@ -24,13 +24,13 @@ $offset-corner: 14px;            // angolo in alto a sinistra della cover all'ho
 
 @mixin offset-open {
   .offset__link {
-    background-color: var(--petrol-ink);
+    background-color: var(--cherry);
     transition-delay: 0s;            // il fondo compare subito
   }
 
   .offset__art {
     border-top-left-radius: $offset-corner;
-    transform: translate(4%, 19%) scale(0.98);
+    transform: translate(4%, 19%);
   }
 
   .offset__title {
@@ -43,6 +43,7 @@ $offset-corner: 14px;            // angolo in alto a sinistra della cover all'ho
 .offset {
   position: relative;
   border-radius: $offset-radius;
+  background-color: transparent;
 
   // Sotto 810px le card si impilano: proporzione compatta (335 × 200)
   @media (max-width: $bp-home - 1px) {
@@ -60,7 +61,7 @@ $offset-corner: 14px;            // angolo in alto a sinistra della cover all'ho
     container-type: size;            // cqw e cqh riferiti alla card
     border-radius: inherit;
     // A riposo niente fondo: lungo la curva degli angoli non affiora
-    // un filo di Petrol Ink sotto la cover. In chiusura sparisce solo
+    // un filo di Cherry sotto la cover. In chiusura sparisce solo
     // dopo che la cover è tornata al suo posto.
     background-color: transparent;
     transition: background-color 0s $offset-duration;
@@ -73,7 +74,7 @@ $offset-corner: 14px;            // angolo in alto a sinistra della cover all'ho
     }
 
     &:focus-visible {
-      outline: 2px solid var(--petrol-ink);
+      outline: 2px solid var(--cherry);
       outline-offset: 4px;
 
       @media (prefers-color-scheme: dark) {
@@ -144,9 +145,11 @@ $offset-corner: 14px;            // angolo in alto a sinistra della cover all'ho
     @include offset-open;
   }
 
-  // Touch: niente hover, stato aperto fisso
+  // Touch: l'effetto si attiva solo durante la pressione.
   @media (hover: none), (pointer: coarse) {
-    @include offset-open;
+    &:has(.offset__link:active) {
+      @include offset-open;
+    }
   }
 
   // Movimento ridotto: stessi stati, senza animazione

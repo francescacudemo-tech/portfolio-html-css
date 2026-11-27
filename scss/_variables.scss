@@ -79,20 +79,10 @@ $d-home-bg: #0e0d14;      // tema scuro: sfondo pagina
 $d-home-card: #24222c;    // tema scuro: grigio delle card
 
 // Palette ufficiale della homepage (esposta come variabili CSS in _base.scss)
-$petrol-ink: #123f48;      // primario
-$electric-lilac: #b9a7f5;  // secondario
-$porcelain: #f4f5f0;       // terziario
-$matcha: #e7edaa;          // accento
+$cherry: #800f2f;
+$iris: #b9a7f5;
+$matcha: #e7edaa;
+$dusty-rose: #e2c6cb;
+$porcelain: #f4f5f0;
 
-// Identità visiva delle cinque card (hero, case study, Sentiamoci)
-$font-display: 'Syne', $font-sans;  // titoli delle cinque card
-$id-cherry: #b93642;      // Ciliegia: unico accento
-$id-coral: #d76d78;       // Rosa corallo
-$id-powder: #dfa6aa;      // Rosa cipria
-$id-periwinkle: #bcbedd;  // Pervinca: hover dei case study
-$id-ivory: #f5f1e9;       // Avorio: superfici neutre
-$id-ink: $c-text;         // testo su avorio
-$id-muted: $c-muted;      // testo secondario su avorio
-$d-id-surface: #1f1b1e;   // tema scuro: avorio "spento"
-$d-id-muted: #c8bfc2;     // tema scuro: testo secondario
-$d-id-hover: #2e2d40;     // tema scuro: pervinca scurita
+$font-display: 'Syne', $font-sans;

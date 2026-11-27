@@ -2,7 +2,7 @@
 // Card "Curriculum" (colonna 3, in basso): tre fogli impilati
 //
 // A riposo: titolo "Curriculum" e tre fogli che escono dal basso,
-// sfalsati in diagonale (posteriore Petrol Ink, intermedio Electric Lilac,
+// sfalsati in diagonale (posteriore Cherry, intermedio Iris,
 // documento chiaro in primo piano).
 // All'hover / focus da tastiera:
 //  - "Curriculum" sale e sfuma, "Ti lascio curiosare" entra dal basso (450ms)
@@ -15,7 +15,6 @@
 // ============================================================
 @use 'variables' as *;
 
-$cv-paper: #fff8f0;       // documento in primo piano
 $cv-ease: cubic-bezier(0.22, 1, 0.36, 1);
 $cv-text-duration: 450ms;
 $cv-text-fade: 260ms;
@@ -51,7 +50,7 @@ $cv-front-delay: 35ms;
   overflow: hidden;
   container-type: inline-size;     // le misure interne seguono la larghezza della card
   background-color: var(--porcelain);        // sostituisce il grigio della card vuota
-  color: var(--petrol-ink);
+  color: var(--cherry);
   text-align: center;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
@@ -62,15 +61,15 @@ $cv-front-delay: 35ms;
   }
 
   &:hover {
-    color: var(--petrol-ink);
+    color: var(--cherry);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--petrol-ink);     // contrasto ≥ 3:1 sul fondo bianco
+    outline: 2px solid var(--cherry);     // contrasto ≥ 3:1 sul fondo bianco
     outline-offset: 4px;
 
     @media (prefers-color-scheme: dark) {
-      outline-color: var(--electric-lilac);    // su fondo scuro serve un colore chiaro
+      outline-color: var(--iris);    // su fondo scuro serve un colore chiaro
     }
   }
 
@@ -105,6 +104,10 @@ $cv-front-delay: 35ms;
   }
 
   &__next {
+    padding-inline: 0.6em;
+    border-radius: 999px;
+    background-color: var(--cherry);
+    color: var(--matcha);
     transform: translateY(110%);
     opacity: 0;
   }
@@ -123,20 +126,20 @@ $cv-front-delay: 35ms;
     &--back {
       left: 7.57%;
       top: 22.17%;
-      background-color: var(--petrol-ink);
+      background-color: var(--cherry);
     }
 
     &--middle {
       left: 21.54%;
       top: 29.72%;
-      background-color: var(--electric-lilac);
+      background-color: var(--iris);
     }
 
     &--front {
       left: 35.52%;
       top: 37.26%;
       padding: 12.45cqw 8.73cqw 6cqw;
-      background-color: $cv-paper;
+      background-color: var(--porcelain);
     }
   }
 
@@ -190,7 +193,7 @@ $cv-front-delay: 35ms;
     height: 0.5cqw;
     margin-top: 0.85cqw;
     border-radius: 0.2cqw;
-    background-color: var(--petrol-ink);
+    background-color: var(--cherry);
     opacity: 0.21;
 
     &--bold {

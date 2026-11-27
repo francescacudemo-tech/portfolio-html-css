@@ -7,7 +7,7 @@
 // spazio libero, così sono lunghe uguali e arrivano ai bordi.
 // Pallino e testo al 100%: 8px tra pallino e testo, 12px tra il
 // gruppo e le linee. Altezza minima 30px, adattabile al testo.
-// Tema chiaro: Petrol Ink. Tema scuro: Matcha (prefers-color-scheme,
+// Tema chiaro: Cherry. Tema scuro: Matcha (prefers-color-scheme,
 // come il resto della homepage). Statica: non è un pulsante.
 // ============================================================
 @use 'variables' as *;
@@ -21,7 +21,7 @@
   padding: 0;
   border-radius: 0;
   background-color: transparent;   // niente grigio della card vuota
-  color: var(--petrol-ink);
+  color: var(--cherry);
   font-family: $font-sans;
   font-size: 13px;
   font-weight: 500;

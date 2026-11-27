@@ -14,7 +14,8 @@
   overflow: hidden;
   container-type: inline-size;     // i testi seguono la larghezza della card
   background-color: var(--porcelain);  // sostituisce il grigio della card vuota
-  color: var(--petrol-ink);
+  background-image: radial-gradient(ellipse at bottom right, var(--dusty-rose), var(--porcelain) 85%);
+  color: var(--cherry);
 
   // Ruolo
   &__meta {

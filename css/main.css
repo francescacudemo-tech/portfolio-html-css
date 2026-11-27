@@ -1,8 +1,9 @@
 :root {
-  --petrol-ink: #123f48;
-  --electric-lilac: #b9a7f5;
+  --cherry: #800f2f;
+  --iris: #b9a7f5;
   --porcelain: #f4f5f0;
   --matcha: #e7edaa;
+  --dusty-rose: #e2c6cb;
   --canvas: #f3f1ee;
   --bg-glass: rgba(243, 241, 238, 0.85);
   --surface: #ffffff;
@@ -1505,7 +1506,7 @@ textarea.form-control {
   overflow: hidden;
   container-type: inline-size;
   background-color: var(--matcha);
-  color: var(--petrol-ink);
+  color: var(--cherry);
 }
 .hello-bar:focus {
   outline: none;
@@ -1567,7 +1568,7 @@ textarea.form-control {
   color: inherit;
 }
 .hello-bar__link:focus-visible {
-  outline: 2px solid var(--petrol-ink);
+  outline: 2px solid var(--cherry);
   outline-offset: 0;
 }
 .hello-bar__link svg {
@@ -1652,7 +1653,7 @@ textarea.form-control {
   overflow: hidden;
   container-type: inline-size;
   background-color: var(--porcelain);
-  color: var(--petrol-ink);
+  color: var(--cherry);
   text-align: center;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
@@ -1662,15 +1663,15 @@ textarea.form-control {
   box-sizing: border-box;
 }
 .cv-cover:hover {
-  color: var(--petrol-ink);
+  color: var(--cherry);
 }
 .cv-cover:focus-visible {
-  outline: 2px solid var(--petrol-ink);
+  outline: 2px solid var(--cherry);
   outline-offset: 4px;
 }
 @media (prefers-color-scheme: dark) {
   .cv-cover:focus-visible {
-    outline-color: var(--electric-lilac);
+    outline-color: var(--iris);
   }
 }
 .cv-cover__heading {
@@ -1698,6 +1699,10 @@ textarea.form-control {
   transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .cv-cover__next {
+  padding-inline: 0.6em;
+  border-radius: 999px;
+  background-color: var(--cherry);
+  color: var(--matcha);
   transform: translateY(110%);
   opacity: 0;
 }
@@ -1714,18 +1719,18 @@ textarea.form-control {
 .cv-cover__sheet--back {
   left: 7.57%;
   top: 22.17%;
-  background-color: var(--petrol-ink);
+  background-color: var(--cherry);
 }
 .cv-cover__sheet--middle {
   left: 21.54%;
   top: 29.72%;
-  background-color: var(--electric-lilac);
+  background-color: var(--iris);
 }
 .cv-cover__sheet--front {
   left: 35.52%;
   top: 37.26%;
   padding: 12.45cqw 8.73cqw 6cqw;
-  background-color: #fff8f0;
+  background-color: var(--porcelain);
 }
 .cv-cover__name {
   display: block;
@@ -1770,7 +1775,7 @@ textarea.form-control {
   height: 0.5cqw;
   margin-top: 0.85cqw;
   border-radius: 0.2cqw;
-  background-color: var(--petrol-ink);
+  background-color: var(--cherry);
   opacity: 0.21;
 }
 .cv-cover__line--bold {
@@ -1828,6 +1833,7 @@ textarea.form-control {
 .offset {
   position: relative;
   border-radius: 20px;
+  background-color: transparent;
 }
 @media (max-width: 809px) {
   .offset {
@@ -1853,7 +1859,7 @@ textarea.form-control {
   color: var(--matcha);
 }
 .offset__link:focus-visible {
-  outline: 2px solid var(--petrol-ink);
+  outline: 2px solid var(--cherry);
   outline-offset: 4px;
 }
 @media (prefers-color-scheme: dark) {
@@ -1904,12 +1910,12 @@ textarea.form-control {
 }
 @media (hover: hover) and (pointer: fine) {
   .offset:hover .offset__link {
-    background-color: var(--petrol-ink);
+    background-color: var(--cherry);
     transition-delay: 0s;
   }
   .offset:hover .offset__art {
     border-top-left-radius: 14px;
-    transform: translate(4%, 19%) scale(0.98);
+    transform: translate(4%, 19%);
   }
   .offset:hover .offset__title {
     opacity: 1;
@@ -1918,12 +1924,12 @@ textarea.form-control {
   }
 }
 .offset:has(.offset__link:focus-visible) .offset__link {
-  background-color: var(--petrol-ink);
+  background-color: var(--cherry);
   transition-delay: 0s;
 }
 .offset:has(.offset__link:focus-visible) .offset__art {
   border-top-left-radius: 14px;
-  transform: translate(4%, 19%) scale(0.98);
+  transform: translate(4%, 19%);
 }
 .offset:has(.offset__link:focus-visible) .offset__title {
   opacity: 1;
@@ -1931,15 +1937,15 @@ textarea.form-control {
   transition-delay: 90ms;
 }
 @media (hover: none), (pointer: coarse) {
-  .offset .offset__link {
-    background-color: var(--petrol-ink);
+  .offset:has(.offset__link:active) .offset__link {
+    background-color: var(--cherry);
     transition-delay: 0s;
   }
-  .offset .offset__art {
+  .offset:has(.offset__link:active) .offset__art {
     border-top-left-radius: 14px;
-    transform: translate(4%, 19%) scale(0.98);
+    transform: translate(4%, 19%);
   }
-  .offset .offset__title {
+  .offset:has(.offset__link:active) .offset__title {
     opacity: 1;
     transform: none;
     transition-delay: 90ms;
@@ -1960,21 +1966,21 @@ textarea.form-control {
   overflow: hidden;
   isolation: isolate;
   container-type: size;
-  background-color: var(--electric-lilac);
-  color: var(--petrol-ink);
+  background-color: var(--iris);
+  color: var(--cherry);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 .about-star:hover {
-  color: var(--petrol-ink);
+  color: var(--cherry);
 }
 .about-star:focus-visible {
-  outline: 2px solid var(--petrol-ink);
+  outline: 2px solid var(--cherry);
   outline-offset: 5px;
 }
 @media (prefers-color-scheme: dark) {
   .about-star:focus-visible {
-    outline-color: var(--electric-lilac);
+    outline-color: var(--iris);
   }
 }
 .about-star__heading {
@@ -2019,11 +2025,11 @@ textarea.form-control {
   fill: var(--porcelain);
 }
 .about-star__pupil {
-  fill: var(--petrol-ink);
+  fill: var(--cherry);
 }
 .about-star__smile {
   fill: none;
-  stroke: var(--petrol-ink);
+  stroke: var(--cherry);
 }
 .about-star__cta {
   position: absolute;
@@ -2036,7 +2042,7 @@ textarea.form-control {
   min-height: calc(49 * var(--u));
   padding: calc(7 * var(--u));
   border-radius: 999px;
-  background: var(--petrol-ink);
+  background: var(--cherry);
   color: var(--matcha);
   font-family: "Syne", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: calc(19 * var(--u));
@@ -2092,7 +2098,7 @@ textarea.form-control {
   padding: 0;
   border-radius: 0;
   background-color: transparent;
-  color: var(--petrol-ink);
+  color: var(--cherry);
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -2137,7 +2143,8 @@ textarea.form-control {
   overflow: hidden;
   container-type: inline-size;
   background-color: var(--porcelain);
-  color: var(--petrol-ink);
+  background-image: radial-gradient(ellipse at bottom right, var(--dusty-rose), var(--porcelain) 85%);
+  color: var(--cherry);
 }
 .hero-card__meta {
   position: absolute;

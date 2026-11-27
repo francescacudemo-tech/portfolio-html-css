@@ -51,21 +51,21 @@ $star-duration: 650ms;
   overflow: hidden;
   isolation: isolate;
   container-type: size;            // cqw e cqh riferiti alla card
-  background-color: var(--electric-lilac);      // sostituisce il grigio della card vuota
-  color: var(--petrol-ink);
+  background-color: var(--iris);      // sostituisce il grigio della card vuota
+  color: var(--cherry);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 
   &:hover {
-    color: var(--petrol-ink);
+    color: var(--cherry);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--petrol-ink);
+    outline: 2px solid var(--cherry);
     outline-offset: 5px;
 
     @media (prefers-color-scheme: dark) {
-      outline-color: var(--electric-lilac);       // su fondo scuro serve un colore chiaro
+      outline-color: var(--iris);       // su fondo scuro serve un colore chiaro
     }
   }
 
@@ -121,12 +121,12 @@ $star-duration: 650ms;
   }
 
   &__pupil {
-    fill: var(--petrol-ink);
+    fill: var(--cherry);
   }
 
   &__smile {
     fill: none;
-    stroke: var(--petrol-ink);
+    stroke: var(--cherry);
   }
 
   // ---------- Pulsante ----------
@@ -141,7 +141,7 @@ $star-duration: 650ms;
     min-height: calc(49 * var(--u));
     padding: calc(7 * var(--u));
     border-radius: 999px;
-    background: var(--petrol-ink);
+    background: var(--cherry);
     color: var(--matcha);
     font-family: $font-display;
     font-size: calc(19 * var(--u));
